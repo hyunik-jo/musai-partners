@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>뮤사이파트너스 — 음악 IP 투자</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LINER NOTES — record-label heritage, editorial
+   paper ivory · ink black · deep green · brass foil
+   ============================================================ */
+:root{
+  --paper:#f5f2e9;
+  --paper-hi:#fbf9f2;
+  --ink:#1a170f;
+  --ink-soft:#5a564b;
+  --green:#1d4a37;
+  --brass:#a9852c;        /* foil — graphics only */
+  --brass-ink:#7a5c14;    /* brass darkened for text (AA) */
+  --hairline:#d9d3c1;
+  --rule:#1a170f;
+  --on-green:#f3f0e4;
+  --on-green-dim:rgba(243,240,228,.32);
+  --u-tint:rgba(169,133,44,.30);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#161510; --paper-hi:#1d1b14; --ink:#eae4d3; --ink-soft:#9c968a;
+    --green:#7fb695; --brass:#c9a84e; --brass-ink:#d3b45e;
+    --hairline:#2e2b21; --rule:#eae4d3;
+    --on-green:#0f2019; --on-green-dim:rgba(15,32,25,.30);
+    --u-tint:rgba(201,168,78,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161510; --paper-hi:#1d1b14; --ink:#eae4d3; --ink-soft:#9c968a;
+  --green:#7fb695; --brass:#c9a84e; --brass-ink:#d3b45e;
+  --hairline:#2e2b21; --rule:#eae4d3;
+  --on-green:#0f2019; --on-green-dim:rgba(15,32,25,.30);
+  --u-tint:rgba(201,168,78,.28);
+}
+:root[data-theme="light"]{
+  --paper:#f5f2e9; --paper-hi:#fbf9f2; --ink:#1a170f; --ink-soft:#5a564b;
+  --green:#1d4a37; --brass:#a9852c; --brass-ink:#7a5c14;
+  --hairline:#d9d3c1; --rule:#1a170f;
+  --on-green:#f3f0e4; --on-green-dim:rgba(243,240,228,.32);
+  --u-tint:rgba(169,133,44,.30);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  background:var(--paper); color:var(--ink);
+  font-size:16px; line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.serif{ font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif; }
+a{ color:inherit; }
+::selection{ background:var(--u-tint); }
+:focus-visible{ outline:2px solid var(--brass-ink); outline-offset:3px; border-radius:1px; }
+
+.wrap{ max-width:740px; margin:0 auto; padding:0 22px; }
+
+/* skip link */
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:100;
+  background:var(--ink); color:var(--paper); padding:10px 16px;
+  font-size:.85rem; font-weight:700; text-decoration:none;
+}
+.skip:focus-visible{ left:8px; top:8px; }
+
+/* ---------- masthead ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  border-bottom:2.5px solid var(--rule);
+  box-shadow:0 3px 0 var(--paper), 0 4px 0 var(--hairline);
+}
+.nav-in{
+  max-width:740px; margin:0 auto; padding:10px 22px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.logo{
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:900; font-size:1.08rem; letter-spacing:.01em; line-height:1.25;
+  text-decoration:none; white-space:nowrap;
+}
+.logo small{
+  display:block; font-family:'Noto Sans KR',system-ui,sans-serif;
+  font-size:.55rem; letter-spacing:.34em; font-weight:700;
+  color:var(--brass-ink); margin-top:1px;
+}
+.menu{ display:flex; align-items:center; gap:2px; font-size:.85rem; }
+.menu a{
+  text-decoration:none; color:var(--ink-soft); padding:8px 10px;
+  white-space:nowrap; font-weight:500;
+}
+.menu a:hover{ color:var(--ink); text-decoration:underline; text-underline-offset:5px;
+  text-decoration-thickness:1.5px; text-decoration-color:var(--brass); }
+.menu a.tax-link{
+  background:var(--green); color:var(--on-green); font-weight:700;
+  padding:9px 15px; margin-left:8px; border-radius:2px;
+}
+.menu a.tax-link:hover{ filter:brightness(1.1); color:var(--on-green); text-decoration:none; }
+@media (max-width:560px){ .menu a.hide-m{ display:none; } }
+
+/* ---------- page switching ---------- */
+.page{ display:none; }
+.page.active{ display:block; }
+
+/* ---------- hero (home) ---------- */
+.hero{ position:relative; overflow:hidden; padding:72px 0 60px; }
+.hero .eyebrow{
+  font-size:.7rem; letter-spacing:.3em; font-weight:700; color:var(--brass-ink);
+  display:flex; align-items:center; gap:12px; margin-bottom:22px;
+}
+.hero .eyebrow::before{ content:''; width:28px; height:2px; background:var(--brass); flex:none; }
+.hero h1{
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:900; font-size:clamp(2.15rem, 8vw, 3.4rem);
+  line-height:1.26; letter-spacing:-.01em; text-wrap:balance;
+  position:relative; z-index:1;
+}
+.hero h1 .u{ box-shadow:inset 0 -0.16em 0 var(--u-tint); }
+.hero p{
+  margin-top:26px; color:var(--ink-soft); max-width:32em;
+  font-size:.98rem; position:relative; z-index:1;
+}
+
+/* record-label disc — the one circular motif */
+.disc{
+  position:absolute; top:12px; right:-128px; width:270px; height:270px;
+  color:var(--ink); pointer-events:none;
+}
+@media (min-width:700px){
+  .disc{ width:340px; height:340px; right:-96px; top:24px; }
+}
+
+/* headline entrance — once, restrained */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+  .hero h1, .tax-hero h1{ animation:rise .8s cubic-bezier(.16,.84,.28,1) both; }
+}
+
+/* ---------- stats — big serif numbers over a bold rule ---------- */
+.stats{
+  margin-top:52px; border-top:2.5px solid var(--rule);
+  display:grid; grid-template-columns:repeat(3,1fr);
+  position:relative; z-index:1; background:var(--paper);
+}
+.stat{ padding:16px 14px 4px 0; }
+.stat + .stat{ border-left:1px solid var(--hairline); padding-left:16px; }
+.stat b{
+  display:block;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:900; font-size:clamp(1.4rem, 5.4vw, 2.3rem); line-height:1.2;
+  font-variant-numeric:tabular-nums;
+}
+.stat span{
+  display:block; margin-top:2px;
+  font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft);
+}
+
+/* ---------- sections: bold rule + eyebrow, hairline internals ---------- */
+section{ padding:58px 0 6px; }
+.sec-head{
+  border-top:2.5px solid var(--rule); padding-top:10px;
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  margin-bottom:12px;
+}
+.sec-label{
+  font-size:.68rem; letter-spacing:.28em; font-weight:700; color:var(--brass-ink);
+}
+.sec-no{
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-size:.8rem; font-weight:700; color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;
+}
+h2{
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:700; font-size:clamp(1.4rem, 4.6vw, 1.75rem);
+  line-height:1.4; text-wrap:balance; margin-bottom:24px;
+}
+
+/* ---------- business entries: numbered, ruled, no boxes ---------- */
+.entries{ border-bottom:1px solid var(--hairline); }
+.entry{
+  border-top:1px solid var(--hairline);
+  padding:24px 0; display:grid; grid-template-columns:1fr; gap:6px;
+}
+@media (min-width:600px){
+  .entry{ grid-template-columns:64px 1fr; gap:0 18px; }
+  .entry h3{ grid-column:2; }
+  .entry p{ grid-column:2; }
+  .entry .entry-no{ grid-row:1 / span 2; }
+}
+.entry-no{
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-weight:700; font-size:1.05rem; color:var(--brass-ink);
+  font-variant-numeric:tabular-nums; line-height:1.6;
+}
+.entry h3{ font-size:1.02rem; font-weight:700; margin-bottom:4px;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif; }
+.entry p{ font-size:.9rem; color:var(--ink-soft); }
+.accent{ color:var(--green); font-weight:700; }
+
+/* ---------- history: catalogue listing ---------- */
+.cat{ border-bottom:1px solid var(--hairline); }
+.cat-row{
+  border-top:1px solid var(--hairline);
+  display:grid; grid-template-columns:96px 1fr; gap:14px;
+  padding:14px 0; align-items:baseline;
+}
+.cat-row time{
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-weight:700; font-size:.86rem; letter-spacing:.06em;
+  color:var(--brass-ink); font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.cat-row p{ font-size:.92rem; }
+
+/* ---------- company info ---------- */
+.info{ width:100%; border-collapse:collapse; font-size:.89rem;
+  border-top:1px solid var(--hairline); }
+.info th, .info td{
+  border-bottom:1px solid var(--hairline);
+  padding:13px 6px 13px 0; text-align:left; vertical-align:top;
+}
+.info th{
+  width:118px; color:var(--ink-soft); font-weight:700;
+  font-size:.76rem; letter-spacing:.06em;
+}
+
+/* ---------- tax hero ---------- */
+.tax-hero{ padding:68px 0 52px; }
+.badge{
+  display:inline-block; font-size:.68rem; letter-spacing:.2em; font-weight:700;
+  color:var(--brass-ink); border:1.5px solid var(--brass-ink);
+  border-radius:2px; padding:6px 14px; margin-bottom:22px;
+}
+.tax-hero h1{
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:900; font-size:clamp(1.9rem, 7vw, 2.9rem);
+  line-height:1.32; letter-spacing:-.01em; text-wrap:balance;
+}
+.tax-hero p{ margin-top:22px; color:var(--ink-soft); max-width:34em; font-size:.96rem; }
+
+/* ---------- framed notice (misconception) ---------- */
+.notice{
+  border:1.5px solid var(--ink); background:var(--paper-hi);
+  padding:22px 24px;
+}
+.notice .lead{ font-size:.95rem; font-weight:700;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif; }
+
+/* keyfacts */
+.keyfacts{ display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+.keyfacts li{
+  list-style:none; font-size:.89rem; color:var(--ink-soft);
+  padding-left:26px; position:relative;
+}
+.keyfacts li::before{
+  content:''; position:absolute; left:0; top:.78em;
+  width:14px; height:2px; background:var(--brass);
+}
+.keyfacts b{ color:var(--ink); }
+
+/* ---------- rate table ---------- */
+table.rate{ width:100%; border-collapse:collapse; font-size:.9rem; }
+table.rate th{
+  border-top:2.5px solid var(--rule); border-bottom:1px solid var(--rule);
+  padding:10px 6px; text-align:left;
+  font-size:.7rem; letter-spacing:.16em; font-weight:700; color:var(--ink-soft);
+}
+table.rate td{
+  border-bottom:1px solid var(--hairline); padding:13px 6px;
+  font-variant-numeric:tabular-nums;
+}
+table.rate th:last-child, table.rate td:last-child{ text-align:right; }
+table.rate td:last-child{
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif; font-weight:700; font-size:1.02rem;
+}
+table.rate td.hl{ color:var(--green); font-weight:900; font-size:1.35rem; }
+
+/* ---------- calculator: order-slip ---------- */
+.calc{
+  border:1.5px solid var(--ink); background:var(--paper-hi);
+  padding:24px 24px 22px;
+}
+.calc label{
+  display:block; font-size:.78rem; font-weight:700; letter-spacing:.04em;
+  margin:20px 0 4px; color:var(--ink);
+}
+.calc label:first-of-type{ margin-top:0; }
+.calc label small{ display:block; font-weight:400; color:var(--ink-soft);
+  letter-spacing:0; margin-top:1px; }
+.calc input{
+  width:100%; padding:8px 2px; border:none;
+  border-bottom:2px solid var(--ink);
+  background:transparent; color:var(--ink); outline:none;
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-size:1.45rem; font-weight:700; font-variant-numeric:tabular-nums;
+  border-radius:0;
+}
+.calc input:focus{ border-bottom-color:var(--brass-ink); }
+.calc input:focus-visible{ outline:2px solid var(--brass-ink); outline-offset:4px; }
+
+.result{ margin-top:26px; background:var(--green); color:var(--on-green); padding:20px 20px 16px; }
+.result .row{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  font-size:.87rem; padding:7px 0;
+  border-bottom:1px dashed var(--on-green-dim);
+}
+.result .row:last-of-type{ border-bottom:none; }
+.result .row b{ font-variant-numeric:tabular-nums; white-space:nowrap; }
+.result .total{ font-size:1rem; padding-top:14px; }
+.result .total b{
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-size:1.55rem; font-weight:900; line-height:1.2;
+}
+.result .sub-row{ font-size:.79rem; opacity:.92; }
+.roi{ text-align:right; font-size:.76rem; opacity:.85; margin-top:8px;
+  font-variant-numeric:tabular-nums; }
+
+.tax-note{
+  margin-top:22px; border-top:2px solid var(--brass);
+  padding-top:14px; font-size:.8rem; color:var(--ink-soft);
+}
+.tax-note b{ color:var(--ink); }
+
+/* ---------- steps ---------- */
+.steps{ counter-reset:s; border-bottom:1px solid var(--hairline); }
+.step{
+  counter-increment:s;
+  border-top:1px solid var(--hairline);
+  display:grid; grid-template-columns:48px 1fr; gap:0 14px;
+  padding:20px 0;
+}
+.step::before{
+  content:counter(s, decimal-leading-zero);
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  font-weight:900; font-size:1.3rem; line-height:1.45;
+  color:var(--brass-ink); font-variant-numeric:tabular-nums;
+  grid-row:1 / span 2;
+}
+.step b{ display:block; font-size:.96rem; margin-bottom:2px;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif; }
+.step p{ font-size:.86rem; color:var(--ink-soft); grid-column:2; }
+
+/* ---------- faq ---------- */
+.faq{ border-bottom:1px solid var(--hairline); }
+details{ border-top:1px solid var(--hairline); padding:16px 2px; }
+summary{
+  font-weight:700; font-size:.93rem; cursor:pointer;
+  list-style:none; display:flex; justify-content:space-between; gap:14px; align-items:baseline;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+}
+summary::-webkit-details-marker{ display:none; }
+summary::after{
+  content:'+'; flex:none;
+  font-family:'Noto Serif KR',ui-serif,Georgia,serif;
+  color:var(--brass-ink); font-size:1.15rem; font-weight:600; line-height:1;
+}
+details[open] summary::after{ content:'−'; }
+summary:focus-visible{ outline:2px solid var(--brass-ink); outline-offset:4px; }
+details p{ margin-top:12px; font-size:.87rem; color:var(--ink-soft); max-width:36em; }
+
+/* ---------- cta ---------- */
+.cta{
+  display:block; text-align:center;
+  background:var(--ink); color:var(--paper);
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+  font-weight:700; font-size:1rem; letter-spacing:.02em;
+  text-decoration:none; padding:18px; margin:40px 0 10px; border-radius:2px;
+}
+.cta:hover{ background:var(--green); color:var(--on-green); }
+.private{ text-align:center; font-size:.75rem; color:var(--ink-soft); }
+
+/* ---------- footer ---------- */
+footer{
+  margin-top:72px; border-top:2.5px solid var(--rule);
+}
+footer .f-in{
+  max-width:740px; margin:0 auto; padding:26px 22px 64px;
+  border-top:1px solid var(--hairline); margin-top:3px;
+  font-size:.75rem; color:var(--ink-soft); line-height:1.9;
+}
+footer b{
+  color:var(--ink); font-size:.86rem;
+  font-family:'Noto Serif KR','Apple SD Gothic Neo',ui-serif,Georgia,serif;
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">본문 바로가기</a>
+
+<nav aria-label="주 메뉴">
+  <div class="nav-in">
+    <a class="logo" href="#home" data-nav="home">뮤사이파트너스<small>MUSAI&nbsp;PARTNERS</small></a>
+    <div class="menu">
+      <a href="#home" data-nav="home" class="hide-m">회사소개</a>
+      <a href="#history" data-nav="home">연혁</a>
+      <a href="#contact" data-nav="home" class="hide-m">문의</a>
+      <a href="#tax" data-nav="tax" class="tax-link">소득공제 안내</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<div class="page" id="page-home">
+<div class="wrap">
+
+  <div class="hero">
+    <!-- record-label motif: one disc, one place -->
+    <svg class="disc" viewBox="0 0 340 340" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="foil" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#c9a84e"/>
+          <stop offset=".48" stop-color="#a9852c"/>
+          <stop offset=".62" stop-color="#8a691c"/>
+          <stop offset="1" stop-color="#bd9a3f"/>
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="currentColor" transform="translate(170 170)">
+        <circle r="166" stroke-width="1.5" opacity=".3"/>
+        <circle r="158" opacity=".09"/>
+        <circle r="151" opacity=".09"/>
+        <circle r="144" opacity=".09"/>
+        <circle r="137" opacity=".09"/>
+        <circle r="130" opacity=".09"/>
+        <circle r="123" opacity=".09"/>
+        <circle r="116" opacity=".09"/>
+        <circle r="109" opacity=".09"/>
+        <circle r="102" opacity=".09"/>
+        <circle r="95" opacity=".09"/>
+        <circle r="88" opacity=".09"/>
+        <circle r="81" opacity=".09"/>
+        <circle r="74" opacity=".09"/>
+      </g>
+      <g transform="translate(170 170)">
+        <circle r="62" fill="url(#foil)"/>
+        <circle r="62" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/>
+        <circle r="48" fill="none" stroke="var(--paper)" stroke-width="1" opacity=".55"/>
+        <circle r="20" fill="none" stroke="var(--paper)" stroke-width="1" opacity=".4"/>
+        <circle r="6.5" fill="var(--paper)"/>
+      </g>
+    </svg>
+
+    <div class="eyebrow">MUSIC IP INVESTMENT</div>
+    <h1>잊혀진 음악의 가치를<br><span class="u">다시 조명</span>합니다.</h1>
+    <p>뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다.
+    시간이 지나도 사랑받는 곡을 발굴하고, 리메이크·OST·콘텐츠 활용을 통해
+    음악 자산의 새로운 수명을 만들어 갑니다.</p>
+    <div class="stats">
+      <div class="stat"><b>1,782곡</b><span>보유 음원 저작권</span></div>
+      <div class="stat"><b>2021</b><span>회사 설립</span></div>
+      <div class="stat"><b>2개</b><span>결성 투자조합</span></div>
+    </div>
+  </div>
+
+  <section id="business">
+    <header class="sec-head"><span class="sec-label">WHAT WE DO</span><span class="sec-no" aria-hidden="true">01</span></header>
+    <h2>사업 영역</h2>
+    <div class="entries">
+      <div class="entry">
+        <span class="entry-no" aria-hidden="true">01</span>
+        <h3>음원 IP 투자</h3>
+        <p>저평가된 음악저작권·저작인접권을 발굴해 매입합니다. 음원 IP는
+        원저작자 사후 70년까지 사용료가 발생하는 <span class="accent">초장기 현금흐름 자산</span>이며,
+        경기 변동의 영향을 적게 받습니다. 보유 저작권은 한국음악저작권협회(KOMCA)
+        신탁으로 관리됩니다.</p>
+      </div>
+      <div class="entry">
+        <span class="entry-no" aria-hidden="true">02</span>
+        <h3>가치 제고 (Value-Up)</h3>
+        <p>리메이크, 드라마 OST, 숏폼 콘텐츠 삽입 등 원곡을 다시 세상에 꺼내는
+        방식으로 저작권료 수익을 키웁니다. '분홍립스틱(강애리자)',
+        '우연히봄(로꼬·유주)' 등이 대표 보유·활용 사례입니다.</p>
+      </div>
+      <div class="entry">
+        <span class="entry-no" aria-hidden="true">03</span>
+        <h3>개인투자조합 운영</h3>
+        <p>대표가 업무집행조합원(GP)으로서 중소벤처기업부 등록 개인투자조합을
+        결성·운영합니다. 2024년 1호, 2025년 2호 조합을 결성하였으며, 조합원은
+        벤처기업 투자에 따른 <span class="accent">소득공제 혜택</span>을 받을 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="history">
+    <header class="sec-head"><span class="sec-label">HISTORY</span><span class="sec-no" aria-hidden="true">02</span></header>
+    <h2>연혁</h2>
+    <div class="cat">
+      <div class="cat-row"><time>2021.03</time><p>주식회사 뮤사이파트너스 설립 (서울 여의도)</p></div>
+      <div class="cat-row"><time>2021.04</time><p>한국음악저작권협회 신탁회원 가입 · 음원저작권 1,782곡 양수</p></div>
+      <div class="cat-row"><time>2022.11</time><p>기술보증기금 IP가치평가 보증 취득</p></div>
+      <div class="cat-row"><time>2023.02</time><p>중소벤처기업진흥공단 청년전용창업자금 선정</p></div>
+      <div class="cat-row"><time>2024.03</time><p>중소벤처기업부 청년창업사관학교 14기 선정</p></div>
+      <div class="cat-row"><time>2024.10</time><p>뮤사이인베스트먼트조합 1호 결성 · 투자 완료</p></div>
+      <div class="cat-row"><time>2025.12</time><p>뮤사이인베스트먼트조합 2호 결성 · 투자 완료</p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <header class="sec-head"><span class="sec-label">COMPANY</span><span class="sec-no" aria-hidden="true">03</span></header>
+    <h2>회사 정보</h2>
+    <table class="info">
+      <tr><th>상호</th><td>주식회사 뮤사이파트너스 (MUSAI Partners Co., Ltd.)</td></tr>
+      <tr><th>대표이사</th><td>조현익</td></tr>
+      <tr><th>설립일</th><td>2021년 3월 9일</td></tr>
+      <tr><th>사업자등록번호</th><td>164-86-01893</td></tr>
+      <tr><th>주소</th><td>서울특별시 영등포구 국제금융로8길 11, 1152호 (여의도동, 대영빌딩)</td></tr>
+      <tr><th>문의</th><td><a href="mailto:[연락처를 기재하세요]">[연락처를 기재하세요]</a></td></tr>
+    </table>
+  </section>
+
+</div>
+</div>
+
+<!-- ================= TAX ================= -->
+<div class="page" id="page-tax">
+<div class="wrap">
+
+  <div class="tax-hero">
+    <span class="badge">개인투자조합 소득공제 안내</span>
+    <h1>소득이 크게 늘어난 해,<br>세금 계획도 필요합니다.</h1>
+    <p>성과급·주식보상으로 소득이 급증하면 연말정산에서 예상 못 한 추가 납부가
+    생기곤 합니다. 개인투자조합 출자는 「조세특례제한법 제16조」에 따라
+    과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다.</p>
+  </div>
+
+  <section>
+    <header class="sec-head"><span class="sec-label">MISCONCEPTION</span><span class="sec-no" aria-hidden="true">01</span></header>
+    <h2>"회사가 원천징수 해주는 거 아닌가요?"</h2>
+    <div class="notice">
+      <p class="lead">원천징수는 '선납'일 뿐, 세금 계산이 끝난 것이 아닙니다.</p>
+      <ul class="keyfacts">
+        <li>성과급·상여가 커지면 연말정산에서 <b>추가 납부</b>가 발생하는 경우가 많습니다.</li>
+        <li>근로소득 한계세율은 지방소득세 포함 <b>최대 49.5%</b>까지 올라갑니다.</li>
+        <li>주식보상(RSU 등)도 귀속 시점에 근로소득으로 과세되어 종합소득을 키웁니다.</li>
+        <li>카드·연금저축 등 일반 공제는 한도가 작아 소득 급증기에 효과가 제한적입니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <header class="sec-head"><span class="sec-label">THE RULE</span><span class="sec-no" aria-hidden="true">02</span></header>
+    <h2>제도 요약 — 조세특례제한법 제16조</h2>
+    <table class="rate">
+      <thead><tr><th>출자 구간</th><th>소득공제율</th></tr></thead>
+      <tbody>
+        <tr><td>3,000만원 이하분</td><td class="hl">100%</td></tr>
+        <tr><td>3,000만원 초과 ~ 5,000만원 이하분</td><td>70%</td></tr>
+        <tr><td>5,000만원 초과분</td><td>30%</td></tr>
+      </tbody>
+    </table>
+    <ul class="keyfacts">
+      <li>공제 한도: 해당 과세연도 <b>종합소득금액의 50%</b></li>
+      <li>공제 시기: 투자한 해부터 <b>3개 과세연도 중 택1</b> — 소득이 가장 큰 해에 신청 가능</li>
+      <li>적용 기한: <b>2028년 12월 31일까지</b>의 출자·투자분</li>
+      <li>보유 요건: 투자일부터 <b>3년 이상 보유</b> (3년 내 회수 시 공제세액 추징)</li>
+    </ul>
+  </section>
+
+  <section>
+    <header class="sec-head"><span class="sec-label">CALCULATOR</span><span class="sec-no" aria-hidden="true">03</span></header>
+    <h2>예상 절세액 계산</h2>
+    <div class="calc">
+      <label for="income">종합소득 과세표준 (원)
+        <small>— 연말정산 원천징수영수증의 '종합소득 과세표준' 란을 참고하세요</small></label>
+      <input id="income" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote">
+      <label for="invest">출자 예정 금액 (원)</label>
+      <input id="invest" type="text" inputmode="numeric" value="10,000,000" aria-describedby="calcnote">
+      <div class="result" aria-live="polite">
+        <div class="row"><span>소득공제액 (한도 적용 후)</span><b id="rDeduct">–</b></div>
+        <div class="row"><span>공제 전 산출세액</span><b id="rBefore">–</b></div>
+        <div class="row"><span>공제 후 산출세액</span><b id="rAfter">–</b></div>
+        <div class="row total"><span>예상 절세액</span><b id="rSave">–</b></div>
+        <div class="row sub-row"><span>지방소득세(10%)까지 포함하면</span><b id="rSaveL">–</b></div>
+        <div class="roi" id="rRoi"></div>
+      </div>
+      <div class="tax-note" id="calcnote">
+        <b>※ 세무 검토 안내</b> — 본 계산기는 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을
+        반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등
+        개인별 세무 상황에 따라 달라지므로 <b>이 금액은 확정치가 아닙니다.</b>
+        출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <header class="sec-head"><span class="sec-label">PROCESS</span><span class="sec-no" aria-hidden="true">04</span></header>
+    <h2>참여 절차</h2>
+    <div class="steps">
+      <div class="step"><b>개인투자조합 출자</b><p>중소벤처기업부에 등록되는 개인투자조합에 조합원(LP)으로 출자합니다.</p></div>
+      <div class="step"><b>벤처기업 투자 집행</b><p>조합이 벤처기업 신주에 투자하고, 중기부 발급 투자확인서로 소득공제를 신청합니다.</p></div>
+      <div class="step"><b>3년 보유</b><p>소득공제 유지를 위해 투자일부터 3년 이상 보유합니다. 공제 연도는 3개 연도 중 선택합니다.</p></div>
+      <div class="step"><b>회수·정산</b><p>보유기간 경과 후 조합 규약과 투자계약에 따라 회수·분배 절차가 진행됩니다.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <header class="sec-head"><span class="sec-label">FAQ</span><span class="sec-no" aria-hidden="true">05</span></header>
+    <h2>자주 묻는 질문</h2>
+    <div class="faq">
+      <details><summary>공제는 꼭 투자한 해에 받아야 하나요?</summary>
+        <p>아닙니다. 투자일이 속한 과세연도부터 2년 후 과세연도까지 총 3개 연도 중
+        1개를 선택할 수 있습니다. 성과급이 몰린 해를 골라 신청하는 것이 유리합니다.</p></details>
+      <details><summary>3년 안에 돈을 빼면 어떻게 되나요?</summary>
+        <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은
+        세액이 추징됩니다. 본 조합은 3년 이상 보유를 전제로 설계됩니다.</p></details>
+      <details><summary>원금이 보장되나요?</summary>
+        <p>아닙니다. 벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 세제혜택은
+        법령에 따른 것이지만 투자 성과는 보장되지 않습니다. 투자 판단 전 조합
+        규약·투자계약서를 반드시 확인하세요.</p></details>
+      <details><summary>아무나 참여할 수 있나요?</summary>
+        <p>본 조합은 사모(私募) 방식으로만 결성됩니다. 공개 모집이 아니며, 기존
+        조합원과 지인의 소개를 통해서만 안내드립니다.</p></details>
+    </div>
+  </section>
+
+  <a class="cta" href="mailto:[연락처를 기재하세요]?subject=뮤사이인베스트먼트조합 문의">개별 상담 문의하기</a>
+  <p class="private">본 페이지는 소개받으신 분들을 위한 정보 제공 페이지입니다.</p>
+
+</div>
+</div>
+
+</main>
+
+<footer>
+  <div class="f-in">
+    <b>주식회사 뮤사이파트너스</b><br>
+    대표이사 조현익 · 사업자등록번호 164-86-01893<br>
+    서울특별시 영등포구 국제금융로8길 11, 1152호 (여의도동, 대영빌딩)<br><br>
+    본 웹사이트는 일반적 정보 제공을 목적으로 하며 특정 증권의 매수·청약을 권유하지 않습니다.
+    개인투자조합 출자는 사모 방식으로만 진행되며 원금 손실이 발생할 수 있습니다.
+    세제 관련 내용은 작성일 현재 법령 기준이며 개정될 수 있습니다.
+    © 2026 MUSAI Partners Co., Ltd.
+  </div>
+</footer>
+
+<script>
+/* ---------- page routing ---------- */
+function route(){
+  const h = location.hash;
+  const tax = (h === '#tax');
+  document.getElementById('page-home').classList.toggle('active', !tax);
+  document.getElementById('page-tax').classList.toggle('active', tax);
+  if (tax) window.scrollTo(0,0);
+  else if (h && h !== '#home'){
+    const el = document.querySelector(h);
+    if (el) el.scrollIntoView();
+  } else window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', route);
+route();
+
+/* ---------- calculator (구글시트 로직과 동일: 누진구간 재계산) ---------- */
+const BR = [ /* [과세표준 상한(원), 세율, 누진공제(원)] — 2026 종합소득세율 */
+  [14000000, 0.06, 0],
+  [50000000, 0.15, 1260000],
+  [88000000, 0.24, 5760000],
+  [150000000, 0.35, 15440000],
+  [300000000, 0.38, 19940000],
+  [500000000, 0.40, 25940000],
+  [1000000000, 0.42, 35940000],
+  [Infinity, 0.45, 65940000],
+];
+function taxOf(base){
+  if (base <= 0) return 0;
+  for (const [cap, r, d] of BR) if (base <= cap) return Math.max(0, base * r - d);
+  return 0;
+}
+function fmt(n){ return Math.round(n).toLocaleString('ko-KR'); }
+function parseNum(s){ return parseInt(String(s).replace(/[^0-9]/g,''),10) || 0; }
+function calc(){
+  const inc = parseNum(document.getElementById('income').value);
+  const inv = parseNum(document.getElementById('invest').value);
+  let d = Math.min(inv, 30000000);
+  if (inv > 30000000) d += (Math.min(inv, 50000000) - 30000000) * 0.7;
+  if (inv > 50000000) d += (inv - 50000000) * 0.3;
+  const capped = Math.min(d, inc * 0.5);
+  const before = taxOf(inc);
+  const after = taxOf(inc - capped);
+  const save = before - after;
+  document.getElementById('rDeduct').textContent = fmt(capped) + '원';
+  document.getElementById('rBefore').textContent = fmt(before) + '원';
+  document.getElementById('rAfter').textContent = fmt(after) + '원';
+  document.getElementById('rSave').textContent = fmt(save) + '원';
+  document.getElementById('rSaveL').textContent = '약 ' + fmt(save * 1.1) + '원';
+  document.getElementById('rRoi').textContent = inv > 0 ? '출자금 대비 절세율 ' + (save / inv * 100).toFixed(1) + '%' : '';
+}
+function attach(id){
+  const el = document.getElementById(id);
+  el.addEventListener('input', function(){
+    const v = parseNum(el.value);
+    el.value = v ? fmt(v) : '';
+    calc();
+  });
+}
+attach('income'); attach('invest');
+calc();
+</script>
+</body>
+</html>

@@ -128,7 +128,7 @@ a{ color:inherit; text-decoration:none; }
 h1:focus-visible,h1:focus{ outline:none; } /* programmatic focus target — no visual ring */
 .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
 .narrow{ max-width:720px; margin-left:auto; margin-right:auto; }
-section[id]{ scroll-margin-top:56px; }
+section[id]{ scroll-margin-top:66px; }
 
 .skip{ position:absolute; left:-9999px; top:0; z-index:100; background:var(--ink); color:var(--bg);
   padding:10px 16px; font-weight:600; border-radius:0 0 8px 0; }
@@ -194,15 +194,15 @@ nav::after{
 }
 nav.scrolled::after{ opacity:1; }
 :root[data-theme="dark"] nav::after{ height:1px; background:var(--nav-line); }
-.nav-in{ max-width:960px; margin:0 auto; padding:0 24px; height:56px;
+.nav-in{ max-width:960px; margin:0 auto; padding:0 24px; height:66px;
   display:flex; align-items:center; justify-content:space-between; gap:10px;
   transition:height .32s var(--ease-out); }
-nav.scrolled .nav-in{ height:48px; } /* apple-style compact nav on scroll */
+nav.scrolled .nav-in{ height:54px; } /* apple-style compact nav on scroll */
 .logo{ line-height:1.05; }
-.logo .mark{ font-family:var(--serif); font-size:1.22rem; letter-spacing:.14em; color:var(--navy); display:block; }
-.logo small{ display:block; font-size:.55rem; letter-spacing:.3em; font-weight:600;
-  color:var(--ink-3); margin-top:2px; }
-.menu{ display:flex; align-items:center; gap:2px; font-size:.95rem; }
+.logo .mark{ font-family:var(--serif); font-size:1.48rem; letter-spacing:.15em; color:var(--navy); display:block; }
+.logo small{ display:block; font-size:.63rem; letter-spacing:.3em; font-weight:600;
+  color:var(--ink-3); margin-top:3px; }
+.menu{ display:flex; align-items:center; gap:2px; font-size:1.02rem; }
 .menu a{ color:var(--ink-2); padding:8px 12px; border-radius:8px; font-weight:400;
   transition:color .2s var(--ease-out); white-space:nowrap; }
 @media (hover:hover){ .menu a:hover{ color:var(--ink); } }
@@ -214,7 +214,7 @@ nav.scrolled .nav-in{ height:48px; } /* apple-style compact nav on scroll */
 @media (hover:hover){ .menu a.tax-link:hover{ filter:brightness(1.08); color:var(--on-navy); } }
 .menu a.tax-link:active{ transform:scale(0.97); }
 .theme-toggle{
-  width:34px; height:34px; flex:none; border:1px solid var(--glass-border); border-radius:50%;
+  width:38px; height:38px; flex:none; border:1px solid var(--glass-border); border-radius:50%;
   display:grid; place-items:center; cursor:pointer; color:var(--ink-2);
   background:var(--glass-bg);
   -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
@@ -320,9 +320,11 @@ section{ padding:clamp(60px, 9vw, 96px) 0; }
 .sec-head::before{ content:""; order:0; width:34px; height:1px; margin-bottom:20px;
   background:var(--navy); opacity:.5; }
 .sec-head--tight{ margin-bottom:32px; }
-/* eyebrow now sits BELOW the title as a small caption (order:2) */
-.sec-eyebrow{ order:2; font-size:.82rem; font-weight:700; letter-spacing:.16em; color:var(--navy);
-  margin-top:14px; text-transform:uppercase; }
+/* label IS the heading — big eyebrow on top, descriptive line small below */
+.sec-eyebrow{ order:1; font-size:clamp(1.7rem, 3.6vw, 2.5rem); font-weight:700;
+  letter-spacing:-0.028em; color:var(--ink); text-wrap:balance; }
+.sec-head h2{ order:2; font-size:1.08rem; font-weight:600; line-height:1.45;
+  letter-spacing:-0.015em; color:var(--ink-2); margin-top:12px; text-wrap:balance; }
 h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
   letter-spacing:-0.028em; text-wrap:balance; }
 .sec-head p:not(.sec-eyebrow){ order:3; margin:16px auto 0; max-width:42ch; color:var(--ink-2); font-size:1.05rem; }
@@ -352,12 +354,6 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .b-card .accent{ color:var(--navy); font-weight:600; }
 @media (max-width:720px){ .b-card{ grid-template-columns:1fr; gap:10px; padding:26px 24px; } }
 
-.chip{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.04em; color:var(--navy);
-  background:transparent;
-  border:1px solid color-mix(in srgb, var(--navy) 42%, transparent);
-  border-radius:980px; padding:2px 10px; vertical-align:middle; }
-.b-card--feature .chip{ color:var(--on-navy);
-  background:transparent; border-color:rgba(245,243,238,.4); }
 
 /* ---------- left-aligned section heads (rhythm break) ---------- */
 .sec-head--left{ align-items:flex-start; text-align:left; }
@@ -376,18 +372,6 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
   border:1px solid rgba(245,243,238,.1); border-radius:calc(var(--r) - 4px); }
 .band-navy .stat b{ color:var(--on-navy); font-family:var(--num); font-weight:700; letter-spacing:-0.02em; }
 .band-navy .stat span{ color:rgba(246,242,233,.62); }
-
-/* ---------- navy feature card ---------- */
-.b-card--feature{ position:relative; background:linear-gradient(180deg, #2c445f, var(--navy-deep));
-  border:1px solid rgba(245,243,238,.16);
-  box-shadow:0 10px 26px rgba(36,55,72,.16); }
-:root[data-theme="dark"] .b-card--feature{ background:linear-gradient(180deg, #1f3145, #182636); }
-/* inner keyline frame */
-.b-card--feature::after{ content:""; position:absolute; inset:8px; pointer-events:none;
-  border:1px solid rgba(245,243,238,.14); border-radius:calc(var(--r-lg) - 7px); }
-.b-card--feature h3{ color:var(--on-navy); }
-.b-card--feature p{ color:rgba(245,243,238,.78); }
-.b-card--feature .accent{ color:#ccdcee; }
 
 /* ---------- worked example box (FAQ) ---------- */
 .ex{ margin:0 0 12px; padding:12px 15px; border-radius:10px;
@@ -435,7 +419,7 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 @media (max-width:520px){ .info-row{ grid-template-columns:1fr; gap:2px; } }
 
 /* ---------- tax local subnav (apple product-page pattern) ---------- */
-.subnav{ position:sticky; top:48px; z-index:40;
+.subnav{ position:sticky; top:54px; z-index:40;
   background:var(--nav-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
   border-bottom:1px solid var(--hairline-soft); }
 .subnav-in{ max-width:960px; margin:0 auto; padding:0 24px; height:46px;
@@ -446,7 +430,7 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .subnav-in a.on{ color:var(--ink); font-weight:600; }
 @media (hover:hover){ .subnav-in a:hover{ color:var(--ink); } }
 .subnav-in .subnav-cta{ margin-left:auto; color:var(--navy); font-weight:600; }
-#page-tax section[id]{ scroll-margin-top:112px; }
+#page-tax section[id]{ scroll-margin-top:118px; }
 
 /* ---------- tax hero ---------- */
 .tax-hero{ text-align:center; padding:clamp(72px, 10vw, 88px) 0 20px; }
@@ -468,11 +452,15 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
   border-radius:2px; background:var(--navy); transform:rotate(45deg); }
 
 /* rate table */
-table.rate{ width:100%; border-collapse:collapse; font-size:.98rem; margin-bottom:18px;
-  border-radius:12px; overflow:hidden; }
+table.rate{ width:100%; border-collapse:separate; border-spacing:0; font-size:.98rem; margin-bottom:18px;
+  border:1px solid var(--hairline); border-radius:var(--r); }
 table.rate th, table.rate td{ padding:13px 16px; text-align:center; border-bottom:1px solid var(--line-soft);
   font-variant-numeric:tabular-nums; }
 table.rate thead th{ background:var(--navy-deep); color:var(--on-navy); font-weight:600; border-bottom:none; }
+table.rate thead th:first-child{ border-top-left-radius:calc(var(--r) - 1px); }
+table.rate thead th:last-child{ border-top-right-radius:calc(var(--r) - 1px); }
+table.rate tr:last-child td:first-child{ border-bottom-left-radius:calc(var(--r) - 1px); }
+table.rate tr:last-child td:last-child{ border-bottom-right-radius:calc(var(--r) - 1px); }
 table.rate td:first-child{ text-align:left; color:var(--ink-2); }
 table.rate td.hl{ color:var(--navy); font-weight:700; font-size:1.08rem; }
 table.rate tr:last-child td{ border-bottom:none; }
@@ -739,7 +727,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <h2>음악 IP, 발굴에서 창출까지</h2>
       </div>
       <div class="bento">
-        <div class="b-card b-card--feature reveal">
+        <div class="b-card glass reveal">
           <h3>음원 IP 투자</h3>
           <p>저평가된 음악저작권·저작인접권을 발굴해 매입합니다. 음원 IP는 원저작자 사후 70년까지 사용료가 발생하는 <span class="accent">초장기 현금흐름 자산</span>이며, 경기 변동의 영향을 적게 받습니다. 보유 저작권은 한국음악저작권협회(KOMCA) 신탁으로 관리됩니다.</p>
         </div>
@@ -748,8 +736,8 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <p>리메이크, 드라마 OST, 숏폼 콘텐츠 삽입 등 원곡을 다시 세상에 꺼내는 방식으로 저작권료 수익을 키웁니다. ‘분홍립스틱(강애리자)’, ‘우연히봄(로꼬·유주)’ 등이 대표 보유·활용 사례입니다.</p>
         </div>
         <div class="b-card glass reveal">
-          <h3>AI 음원 IP 창출·유통 <span class="chip">파일럿</span></h3>
-          <p>생성형 AI 기술을 활용해 신규 음원을 <span class="accent">직접 창출</span>하고, 글로벌 디지털 배급망과 숏폼(릴스·쇼츠) 채널로 유통합니다. ‘발굴·매입’을 넘어 IP를 직접 만들어내는 방향으로 파이프라인을 확장하고 있으며, 현재 첫 음원으로 모델을 검증하는 단계입니다.</p>
+          <h3>AI 음원 IP 창출·유통</h3>
+          <p>생성형 AI 기술을 활용해 신규 음원을 <span class="accent">직접 창출</span>하고, 글로벌 디지털 배급망과 숏폼(릴스·쇼츠) 채널로 유통합니다. ‘발굴·매입’을 넘어 IP를 직접 만들어내는 회사의 향후 성장동력으로, 현재 첫 음원으로 모델을 검증하는 단계입니다.</p>
         </div>
       </div>
     </div>
@@ -901,7 +889,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
               <label for="investRange">개인투자조합에 출자할 금액</label>
               <div class="ci-amount"><b id="investBig">3,000만</b><span>원</span></div>
             </div>
-            <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="1000000" value="30000000" aria-label="출자금 조정 슬라이더">
+            <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
             <div class="ci-ticks" aria-hidden="true">
               <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
               <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
@@ -923,7 +911,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <p class="sk-foot">※ 점선 상자는 출자하지 않았을 경우의 세액(공제 전) · 절세액 + 세후 소득이 실제로 남는 금액 · 지방소득세(10%) 별도</p>
         </div>
         <div class="tax-note" id="calcnote">
-          <b>※ 세무 검토 안내</b> — 본 계산기는 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을 반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등 개인별 세무 상황에 따라 달라지므로 <b>이 금액은 확정치가 아닙니다.</b> 소득공제 대상은 출자금 중 조합이 벤처기업에 실제 투자한 금액을 기준으로 하며, 본 계산기는 출자금 전액이 벤처기업 투자로 집행되는 경우를 가정합니다. 출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.
+          ※ 세무 검토 안내 — 본 계산기는 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을 반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등 개인별 세무 상황에 따라 달라지므로 이 금액은 확정치가 아닙니다. 소득공제 대상은 출자금 중 조합이 벤처기업에 실제 투자한 금액을 기준으로 하며, 본 계산기는 출자금 전액이 벤처기업 투자로 집행되는 경우를 가정합니다. 출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.
         </div>
       </div>
     </div>
@@ -1121,7 +1109,14 @@ var skUpdate = (function(){
   var mqV = window.matchMedia('(max-width:719px)');
   var cur = null, rafId = null;
 
-  function fmtM(v){ return Math.round(v/10000).toLocaleString('ko-KR') + '만'; }
+  function fmtM(v){
+    var man = Math.round(v / 10000);
+    if (man >= 10000){
+      var eok = Math.floor(man / 10000), rest = man % 10000;
+      return rest > 0 ? eok + '억 ' + rest.toLocaleString('ko-KR') + '만' : eok + '억';
+    }
+    return man.toLocaleString('ko-KR') + '만';
+  }
   function mk(tag, cls){ var e = document.createElementNS(NS, tag); if (cls) e.setAttribute('class', cls); return e; }
   function txt(x, y, s, cls, anchor){
     var t = mk('text', cls);
@@ -1165,6 +1160,7 @@ var skUpdate = (function(){
   function build(v){
     var vert = mqV.matches;
     var inc = v.inc, capped = v.capped, save = v.save, after = v.after;
+    var inv = v.inv != null ? v.inv : capped;
     var remain = inc - capped, rest = capped - save, keep = remain - after;
     var back = rest + keep; /* 세후 소득(절세 제외) */
     var W = vert ? 360 : 820, H = vert ? 580 : 400;
@@ -1231,8 +1227,8 @@ var skUpdate = (function(){
     if (vert){
       gT.appendChild(txt(W/2, cA - 30, '과세표준', 'sk-name', 'middle'));
       gT.appendChild(txt(W/2, cA - 12, fmtM(inc), 'sk-val', 'middle'));
-      if (pB){ gT.appendChild(txt(B, cM + 24, '출자 → 소득공제', 'sk-name', 'start'));
-               gT.appendChild(txt(B, cM + 40, fmtM(capped), 'sk-val', 'start')); }
+      if (pB){ gT.appendChild(txt(B, cM + 24, '출자금: ' + fmtM(inv), 'sk-name', 'start'));
+               gT.appendChild(txt(B, cM + 40, '소득공제: ' + fmtM(capped), 'sk-val', 'start')); }
       if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
                gT.appendChild(txt(C + lenC, cM + 40, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
@@ -1249,9 +1245,9 @@ var skUpdate = (function(){
       gT.appendChild(txt(cA - 12, A + lenA/2 - 5, '과세표준', 'sk-name', 'end'));
       gT.appendChild(txt(cA - 12, A + lenA/2 + 13, fmtM(inc), 'sk-val', 'end'));
       var mys = [], mdefs = [];
-      if (pB){ mys.push(B + lenB/2); mdefs.push(['출자 → 소득공제', fmtM(capped)]); }
+      if (pB){ mys.push(B + lenB/2); mdefs.push(['출자금: ' + fmtM(inv), '소득공제: ' + fmtM(capped)]); }
       if (pC){ mys.push(C + lenC/2); mdefs.push(['공제 후 과세표준', fmtM(remain)]); }
-      mys = relax(mys, 36, pad + 10, H - pad - 10);
+      mys = relax(mys, 44, pad + 10, H - pad - 10);
       mdefs.forEach(function(dd, i){
         gT.appendChild(txt(cM + t + 10, mys[i] - 4, dd[0], 'sk-name', 'start'));
         gT.appendChild(txt(cM + t + 10, mys[i] + 13, dd[1], 'sk-val', 'start'));
@@ -1281,7 +1277,8 @@ var skUpdate = (function(){
       if (!t0) t0 = ts;
       var p = Math.min(1, (ts - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
       build({ inc: lerp(from.inc, to.inc, e), capped: lerp(from.capped, to.capped, e),
-              save: lerp(from.save, to.save, e), after: lerp(from.after, to.after, e) });
+              save: lerp(from.save, to.save, e), after: lerp(from.after, to.after, e),
+              inv: lerp(from.inv != null ? from.inv : from.capped, to.inv != null ? to.inv : to.capped, e) });
       if (p < 1) rafId = requestAnimationFrame(step);
       else { cur = to; rafId = null; }
     }
@@ -1309,7 +1306,15 @@ function taxOf(base){
   return 0;
 }
 function fmt(n){ return Math.round(n).toLocaleString('ko-KR'); }
-function fmtMan(v){ return v > 0 ? Math.round(v/10000).toLocaleString('ko-KR') + '만' : '0'; }
+function fmtMan(v){
+  if (v <= 0) return '0';
+  var man = Math.round(v / 10000);
+  if (man >= 10000){
+    var eok = Math.floor(man / 10000), rest = man % 10000;
+    return rest > 0 ? eok + '억 ' + rest.toLocaleString('ko-KR') + '만' : eok + '억';
+  }
+  return man.toLocaleString('ko-KR') + '만';
+}
 function parseNum(s){ return parseInt(String(s).replace(/[^0-9]/g,''),10) || 0; }
 function setVal(id, text){
   var el = document.getElementById(id);
@@ -1333,8 +1338,10 @@ function calc(){
   setVal('investBig', fmtMan(inv));
   var ir = document.getElementById('investRange');
   if (ir){ var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
-    ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + pct + '%, var(--line) ' + pct + '%)'; }
-  skUpdate({ inc: inc, capped: capped, save: save, after: after });
+    /* thumb(26px) center alignment: fill ends exactly under the thumb center */
+    var stop = 'calc(' + pct + '% + ' + (13 - 0.26 * pct).toFixed(1) + 'px)';
+    ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')'; }
+  skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
 function attach(id){
   var el = document.getElementById(id);
@@ -1365,6 +1372,13 @@ attach('income');
   });
   invRange.addEventListener('input', function(){
     invText.value = fmt(parseInt(invRange.value, 10));
+    calc();
+  });
+  /* 확정(blur/Enter) 시 500만원 단위로 스냅 — 슬라이더·표시 숫자와 항상 일치 */
+  invText.addEventListener('change', function(){
+    var v = Math.round(parseNum(invText.value) / 5000000) * 5000000;
+    invText.value = fmt(v);
+    invRange.value = Math.min(v, rmax);
     calc();
   });
 })();

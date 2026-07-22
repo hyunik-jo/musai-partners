@@ -163,17 +163,7 @@ body::after{
   opacity:.05; mix-blend-mode:multiply;
 }
 :root[data-theme="dark"] body::after{ mix-blend-mode:screen; opacity:.05; }
-/* navy band — same fine grain + faint top light */
-.band-navy{ position:relative; overflow:hidden; }
-.band-navy::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20seed='11'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23n%29'/%3E%3C/svg%3E"),
-    radial-gradient(120% 70% at 50% -10%, rgba(245,243,238,.08), transparent 60%);
-  background-size:240px 240px, cover;
-  opacity:.35; mix-blend-mode:screen;
-}
-.band-navy > *{ position:relative; z-index:1; }
-@media (prefers-reduced-motion: reduce){ body::after,.band-navy::before{ opacity:.3; } }
+@media (prefers-reduced-motion: reduce){ body::after{ opacity:.3; } }
 
 /* ---------- liquid glass nav ---------- */
 nav{
@@ -330,20 +320,6 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .sec-head p:not(.sec-eyebrow){ order:3; margin:16px auto 0; max-width:42ch; color:var(--ink-2); font-size:1.05rem; }
 .hero .sub,.sec-head p,.b-card p,.step p,.faq details p{ text-wrap:pretty; }
 
-/* ---------- stats ---------- */
-.stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.stat{ border-radius:var(--r); padding:32px 20px; text-align:center; }
-.stat b{ display:block; font-size:clamp(1.6rem,5vw,2.8rem); font-weight:700; letter-spacing:-0.03em;
-  font-variant-numeric:tabular-nums; line-height:1; white-space:nowrap; color:var(--navy); }
-:root[data-theme="dark"] .stat b{ color:var(--ink); }
-.stat span{ display:block; margin-top:10px; font-size:.86rem; color:var(--ink-2); white-space:nowrap; }
-@media (max-width:560px){
-  .stats{ gap:10px; }
-  .stat{ padding:24px 8px; }
-  .stat b{ font-size:clamp(1.15rem,5.5vw,2.8rem); }
-  .stat span{ font-size:.76rem; }
-}
-
 /* ---------- bento business cards ---------- */
 .bento{ display:flex; flex-direction:column; gap:16px; }
 .b-card{ border-radius:var(--r-lg); padding:30px 34px;
@@ -359,19 +335,6 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .sec-head--left{ align-items:flex-start; text-align:left; }
 .sec-head--left h2{ max-width:16em; }
 .sec-head--left p:not(.sec-eyebrow){ margin-left:0; margin-right:0; }
-
-/* ---------- navy band (deck cover moment) ---------- */
-.band-navy{ background:linear-gradient(180deg, #2b415a, var(--navy-deep)); }
-:root[data-theme="dark"] .band-navy{ background:linear-gradient(180deg, #17222f, #121b26); }
-.band-navy .stat{ position:relative; background:rgba(245,243,238,.04);
-  border:1px solid rgba(245,243,238,.22);
-  box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none; }
-.band-navy .stat::before{ display:none; }
-/* double-rule frame inside each stat — engraved certificate language */
-.band-navy .stat::after{ content:""; position:absolute; inset:5px; pointer-events:none;
-  border:1px solid rgba(245,243,238,.1); border-radius:calc(var(--r) - 4px); }
-.band-navy .stat b{ color:var(--on-navy); font-family:var(--num); font-weight:700; letter-spacing:-0.02em; }
-.band-navy .stat span{ color:rgba(246,242,233,.62); }
 
 /* ---------- worked example box (FAQ) ---------- */
 .ex{ margin:0 0 12px; padding:12px 15px; border-radius:10px;
@@ -722,16 +685,6 @@ html.js .reveal.in{ opacity:1; transform:none; }
     </div>
   </div>
 
-  <section class="band-navy">
-    <div class="wrap">
-      <div class="stats">
-        <div class="stat reveal"><b data-count="1782" data-suffix="곡">1,782곡</b><span>보유 음원 저작권</span></div>
-        <div class="stat reveal"><b data-count="2021" data-plain="1">2021</b><span>회사 설립</span></div>
-        <div class="stat reveal"><b data-count="2" data-suffix="개">2개</b><span>결성 투자조합</span></div>
-      </div>
-    </div>
-  </section>
-
   <section id="business">
     <div class="wrap">
       <div class="sec-head sec-head--left reveal">
@@ -1057,24 +1010,8 @@ document.querySelectorAll('[data-nav]').forEach(function(a){
   });
 });
 
-/* ---------- scroll reveal + stat count-up ---------- */
+/* ---------- scroll reveal ---------- */
 var io, reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function countUp(el){
-  var target = parseInt(el.getAttribute('data-count'), 10);
-  var suffix = el.getAttribute('data-suffix') || '';
-  var plain = el.getAttribute('data-plain') === '1';
-  if (reduced){ el.textContent = (plain ? String(target) : target.toLocaleString('ko-KR')) + suffix; return; }
-  var t0 = null, DUR = 900;
-  function frame(ts){
-    if (!t0) t0 = ts;
-    var p = Math.min(1, (ts - t0) / DUR);
-    var e = 1 - Math.pow(1 - p, 3); /* ease-out cubic */
-    var v = Math.round(target * e);
-    el.textContent = (plain ? String(v) : v.toLocaleString('ko-KR')) + suffix;
-    if (p < 1) requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
 function observeReveals(){
   var page = document.querySelector('.page.active');
   if (!page) return;
@@ -1084,8 +1021,6 @@ function observeReveals(){
         if (e.isIntersecting){
           e.target.classList.add('in');
           io.unobserve(e.target);
-          var cnt = e.target.querySelector('[data-count]');
-          if (cnt && !cnt.dataset.done){ cnt.dataset.done = '1'; countUp(cnt); }
           e.target.addEventListener('transitionend', function(ev){ ev.target.style.transitionDelay=''; }, { once:true });
         }
       });

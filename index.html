@@ -264,6 +264,14 @@ table.rate tr:last-child td{ border-bottom:none; }
 .step b{ display:block; font-size:1.02rem; font-weight:600; margin-bottom:3px; }
 .step p{ color:var(--ink-2); font-size:.92rem; line-height:1.5; }
 
+/* vision */
+.sec-head p strong{ color:var(--ink); font-weight:600; }
+.chip{ display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:0; color:var(--accent);
+  background:color-mix(in srgb, var(--accent) 12%, transparent); border-radius:980px;
+  padding:3px 11px; margin-right:9px; vertical-align:middle; }
+.vision-note{ text-align:center; max-width:54ch; margin:30px auto 0; color:var(--ink-2);
+  font-size:.95rem; line-height:1.6; }
+
 /* faq */
 .faq details{ background:var(--card); border:1px solid var(--line-soft); border-radius:14px;
   padding:4px 22px; margin-top:12px; overflow:hidden; }
@@ -310,6 +318,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
     <a class="logo" href="#home" data-nav>뮤사이파트너스<small>MUSAI&nbsp;PARTNERS</small></a>
     <div class="menu">
       <a href="#home" data-nav class="hide-m">회사소개</a>
+      <a href="#vision" data-nav class="hide-m">성장 방향</a>
       <a href="#history" data-nav>연혁</a>
       <a href="#contact" data-nav class="hide-m">문의</a>
       <a href="#tax" data-nav class="tax-link">소득공제 안내</a>
@@ -378,7 +387,23 @@ html.js .reveal.in{ opacity:1; transform:none; }
     </div>
   </section>
 
-  <section id="history" class="band">
+  <section id="vision" class="band">
+    <div class="wrap narrow">
+      <div class="sec-head reveal">
+        <p class="sec-eyebrow">성장 방향</p>
+        <h2>발굴을 넘어, 창출로</h2>
+        <p>지금까지 뮤사이파트너스는 이미 존재하는 음원 IP를 발굴·매입해 그 가치를 되살려 왔습니다. 다음 단계는 생성형 AI를 활용해 음원 IP를 <strong>직접 창출</strong>하고 글로벌 시장에 유통하는 것입니다.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><b>창작</b><p>생성형 AI(Suno 등)를 활용해 신규 음원을 제작합니다.</p></div>
+        <div class="step reveal"><b>배급</b><p>DistroKid 등 글로벌 디지털 배급망을 통해 주요 스트리밍 플랫폼에 음원을 등록합니다.</p></div>
+        <div class="step reveal"><b>유통·수익화</b><p>인스타그램 릴스·쇼츠 등 숏폼 콘텐츠에 활용하여 재생·저작권료 수익으로 연결합니다.</p></div>
+      </div>
+      <p class="vision-note reveal"><span class="chip">파일럿 단계</span>현재 첫 음원을 제작·배급하며 모델을 검증하고 있습니다. 적은 인력으로도 지속 가능한 저비용 IP 창출 파이프라인으로 발전시켜 나가는 것이 목표입니다.</p>
+    </div>
+  </section>
+
+  <section id="history">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="sec-eyebrow">연혁</p>

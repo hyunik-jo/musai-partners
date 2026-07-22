@@ -440,7 +440,9 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
   border-radius:980px; padding:6px 15px; margin-bottom:22px; }
 .tax-hero h1{ font-size:clamp(2rem,5.2vw,3.3rem); font-weight:700; line-height:1.12;
   letter-spacing:-0.03em; text-wrap:balance; }
-.tax-hero p{ margin:22px auto 0; max-width:44ch; color:var(--ink-2); font-size:1.1rem; line-height:1.55; }
+.tax-hero p{ margin:22px auto 0; max-width:none; color:var(--ink-2); font-size:1.1rem; line-height:1.6; }
+.tax-hero p .l{ display:block; } /* 지정된 3줄 개행 (데스크톱) */
+@media (max-width:719px){ .tax-hero p .l{ display:inline; } }
 
 /* panels */
 .panel{ border-radius:var(--r-lg); padding:32px; }
@@ -522,16 +524,18 @@ table.rate tr:last-child td{ border-bottom:none; }
 @media (max-width:560px){ .calc input.ci-big{ width:165px; font-size:1.35rem; } }
 @media (max-width:560px){ .ci-ticks .tick-m-hide{ display:none; } }
 .ci-range{ -webkit-appearance:none; appearance:none; width:100%; height:6px; margin:20px 0 0;
-  border-radius:980px; background:var(--line); cursor:pointer; }
-.ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; box-sizing:border-box;
-  width:26px; height:26px;
-  border-radius:50%; background:var(--navy-deep); border:3px solid var(--card);
-  box-shadow:0 2px 8px rgba(36,55,72,.3); cursor:grab; transition:transform .12s var(--ease-out); }
+  padding:0; border:none; border-radius:980px; background:var(--line); cursor:pointer; }
+/* thumb: borderless 22px — 흰 링은 box-shadow(레이아웃 무관)로. 채움 계산이 어떤 브라우저에서도 정확 */
+.ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
+  width:22px; height:22px; border-radius:50%; background:var(--navy-deep); border:none;
+  box-shadow:0 0 0 3px var(--card), 0 2px 8px rgba(36,55,72,.3);
+  cursor:grab; transition:transform .12s var(--ease-out); }
 .ci-range::-webkit-slider-thumb:active{ transform:scale(1.12); cursor:grabbing; }
-.ci-range::-moz-range-thumb{ box-sizing:border-box; width:26px; height:26px; border-radius:50%; background:var(--navy-deep);
-  border:3px solid var(--card); box-shadow:0 2px 8px rgba(36,55,72,.3); cursor:grab; }
+.ci-range::-moz-range-thumb{ width:22px; height:22px; border-radius:50%; background:var(--navy-deep);
+  border:none; box-shadow:0 0 0 3px var(--card), 0 2px 8px rgba(36,55,72,.3); cursor:grab; }
 .ci-range:focus-visible{ outline:none; }
-.ci-range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 4px color-mix(in srgb, var(--navy) 22%, transparent), 0 2px 8px rgba(36,55,72,.3); }
+.ci-range:focus-visible::-webkit-slider-thumb{
+  box-shadow:0 0 0 3px var(--card), 0 0 0 6px color-mix(in srgb, var(--navy) 30%, transparent); }
 .ci-ticks{ position:relative; height:38px; margin-top:9px; }
 .ci-tick{ position:absolute; transform:translateX(-50%); text-align:center;
   font-size:.72rem; color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums; }
@@ -557,14 +561,14 @@ label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px
 .sk-cap{ font-size:.88rem; font-weight:600; }
 .sk-cap span{ font-weight:400; color:var(--ink-3); font-size:.76rem; margin-left:8px; letter-spacing:-0.01em; }
 .sk-foot{ margin-top:2px; font-size:.72rem; color:var(--ink-3); text-align:right; }
-#sankey{ display:block; width:100%; height:auto; margin-top:8px; }
+#sankey{ display:block; width:100%; height:auto; }
 #sankey text{ font-family:var(--num); }
-.sk-name{ font-size:13px; fill:var(--ink-2); font-weight:600; letter-spacing:-0.01em; }
-.sk-val{ font-size:15px; fill:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
-.sk-val--save{ fill:var(--sk-gain); font-size:17px; }
-#sankey[data-o="v"] .sk-name{ font-size:12px; }
-#sankey[data-o="v"] .sk-val{ font-size:13.5px; }
-#sankey[data-o="v"] .sk-val--save{ font-size:15px; }
+.sk-name{ font-size:14.5px; fill:var(--ink-2); font-weight:600; letter-spacing:-0.01em; }
+.sk-val{ font-size:17px; fill:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
+.sk-val--save{ fill:var(--sk-gain); font-size:19px; }
+#sankey[data-o="v"] .sk-name{ font-size:12.5px; }
+#sankey[data-o="v"] .sk-val{ font-size:14px; }
+#sankey[data-o="v"] .sk-val--save{ font-size:16px; }
 /* colour semantics — 무채:통제불가(세금) · 파랑:내게 남음 · 초록:절세 · 붉은:냈을 세금 */
 .sk-node{ fill:color-mix(in srgb, var(--ink) 44%, transparent); } /* 무채 — 과세표준/납부세액 */
 .nd-pos{ fill:var(--sk-pos); }      /* 파랑 — 내게 남는 소득 */
@@ -803,6 +807,9 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <div class="info-row"><dt>주소</dt><dd>서울특별시 영등포구 국제금융로8길 11, 1152호 (여의도동, 대영빌딩)</dd></div>
         <div class="info-row"><dt>문의</dt><dd><a href="mailto:he.uniq@gmail.com">he.uniq@gmail.com</a></dd></div>
       </dl>
+      <div class="cta-block reveal" style="margin-top:30px">
+        <a class="btn btn-primary" href="mailto:he.uniq@gmail.com?subject=뮤사이파트너스 문의">이메일로 상담 문의하기</a>
+      </div>
     </div>
   </section>
 
@@ -825,7 +832,11 @@ html.js .reveal.in{ opacity:1; transform:none; }
   <div class="wrap tax-hero">
     <span class="badge">개인투자조합 소득공제 안내</span>
     <h1>소득이 크게 늘어난 해,<br>세금 계획도 필요합니다.</h1>
-    <p>성과급·주식보상으로 소득이 급증하면 연말정산에서 예상 못 한 추가 납부가 생기곤 합니다. 개인투자조합 출자는 「조세특례제한법 제16조」에 따라 과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다.</p>
+    <p>
+      <span class="l">성과급·주식보상으로 소득이 급증하면 연말정산에서 예상 못 한 추가 납부가 생기곤 합니다.</span>
+      <span class="l">개인투자조합 출자는 「조세특례제한법 제16조」에 따라</span>
+      <span class="l">과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다.</span>
+    </p>
   </div>
 
   <section id="t-myth">
@@ -875,8 +886,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
     <div class="wrap wrap-calc">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">계산기</p>
-        <h2>출자금을 움직여 보세요</h2>
-        <p>슬라이더로 출자금을 조정하면 절세액과 돈의 흐름이 실시간으로 바뀝니다.</p>
+        <h2>얼마 넣으면 얼마 아끼는지, 바로 보입니다</h2>
       </div>
       <div class="panel glass calc reveal">
         <!-- ① 소득: 슬라이더 + 직접입력 -->
@@ -909,6 +919,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
             <div class="ci-ticks" aria-hidden="true">
               <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
               <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
+              <span class="ci-tick" style="left:78%"><i></i>5,000만 초과분<em>30% 공제</em></span>
             </div>
           </div>
         </div>
@@ -921,7 +932,6 @@ html.js .reveal.in{ opacity:1; transform:none; }
         </div>
 
         <div class="sankey-wrap reveal" id="sankeyWrap">
-          <p class="sk-cap">한눈에 보는 돈의 흐름<span>입력값에 따라 실시간 반영 · 굵기는 금액에 비례</span></p>
           <svg id="sankey" role="img" aria-label="종합소득 과세표준이 소득공제와 절세액으로 나뉘는 흐름 다이어그램"></svg>
           <p class="sk-foot">※ 점선 상자는 출자하지 않았을 경우의 세액(공제 전) · 절세액 + 세후 소득이 실제로 남는 금액 · 지방소득세(10%) 별도</p>
         </div>
@@ -1122,7 +1132,7 @@ var skUpdate = (function(){
   if (!svg || !wrap) return function(){};
   var NS = 'http://www.w3.org/2000/svg';
   var mqV = window.matchMedia('(max-width:719px)');
-  var cur = null, rafId = null;
+  var disp = null, rafId = null;
 
   function fmtM(v){
     var man = Math.round(v / 10000);
@@ -1181,7 +1191,8 @@ var skUpdate = (function(){
     var W = vert ? 360 : 820, H = vert ? 580 : 400;
     var pad = vert ? 18 : 34, t = 9, gM = 30, gR = 20;
     var span = (vert ? W : H) - pad * 2;
-    var k = (span - gM - gR) / inc; /* generous shared scale */
+    /* 고스트(save) 포함한 가장 긴 컬럼 기준 스케일 — 오버플로·재센터링 튕김 방지 */
+    var k = (span - gM - 2 * gR) / (inc + save);
     function px(val){ return val > 0 ? Math.max(val * k, 2.5) : 0; }
     var pB = px(capped), pC = px(remain);
     var pD = px(save), pE = px(rest), pF = px(after), pG = px(keep);
@@ -1240,66 +1251,68 @@ var skUpdate = (function(){
     });
     /* labels */
     if (vert){
-      gT.appendChild(txt(W/2, cA - 30, '과세표준', 'sk-name', 'middle'));
+      gT.appendChild(txt(W/2, cA - 32, '과세표준', 'sk-name', 'middle'));
       gT.appendChild(txt(W/2, cA - 12, fmtM(inc), 'sk-val', 'middle'));
       if (pB){ gT.appendChild(txt(B, cM + 24, '출자금: ' + fmtM(inv), 'sk-name', 'start'));
-               gT.appendChild(txt(B, cM + 40, '소득공제: ' + fmtM(capped), 'sk-val', 'start')); }
+               gT.appendChild(txt(B, cM + 43, '소득공제: ' + fmtM(capped), 'sk-val', 'start')); }
       if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
-               gT.appendChild(txt(C + lenC, cM + 40, fmtM(remain), 'sk-val', 'end')); }
+               gT.appendChild(txt(C + lenC, cM + 43, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
       if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
       if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0]); }
       if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
-      xs = relax(xs, 72, pad + 26, W - pad - 26);
+      xs = relax(xs, 78, pad + 26, W - pad - 26);
       defs.forEach(function(dd, i){
         gT.appendChild(txt(xs[i], cR + 24, dd[0], 'sk-name', 'middle'));
-        gT.appendChild(txt(xs[i], cR + 40, dd[1], 'sk-val' + dd[2], 'middle'));
-        if (dd[3]) gT.appendChild(txt(xs[i], cR + 56, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'middle'));
+        gT.appendChild(txt(xs[i], cR + 43, dd[1], 'sk-val' + dd[2], 'middle'));
+        if (dd[3]) gT.appendChild(txt(xs[i], cR + 61, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'middle'));
       });
     } else {
-      gT.appendChild(txt(cA - 12, A + lenA/2 - 5, '과세표준', 'sk-name', 'end'));
-      gT.appendChild(txt(cA - 12, A + lenA/2 + 13, fmtM(inc), 'sk-val', 'end'));
+      gT.appendChild(txt(cA - 12, A + lenA/2 - 7, '과세표준', 'sk-name', 'end'));
+      gT.appendChild(txt(cA - 12, A + lenA/2 + 16, fmtM(inc), 'sk-val', 'end'));
       var mys = [], mdefs = [];
       if (pB){ mys.push(B + lenB/2); mdefs.push(['출자금: ' + fmtM(inv), '소득공제: ' + fmtM(capped)]); }
       if (pC){ mys.push(C + lenC/2); mdefs.push(['공제 후 과세표준', fmtM(remain)]); }
-      mys = relax(mys, 44, pad + 10, H - pad - 10);
+      mys = relax(mys, 50, pad + 10, H - pad - 10);
       mdefs.forEach(function(dd, i){
-        gT.appendChild(txt(cM + t + 10, mys[i] - 4, dd[0], 'sk-name', 'start'));
-        gT.appendChild(txt(cM + t + 10, mys[i] + 13, dd[1], 'sk-val', 'start'));
+        gT.appendChild(txt(cM + t + 10, mys[i] - 6, dd[0], 'sk-name', 'start'));
+        gT.appendChild(txt(cM + t + 10, mys[i] + 16, dd[1], 'sk-val', 'start'));
       });
       var rys = [], rdefs = [];
       if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
       if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0]); }
       if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
-      rys = relax(rys, 46, pad + 10, H - pad - 10);
+      rys = relax(rys, 56, pad + 10, H - pad - 10);
       rdefs.forEach(function(dd, i){
-        gT.appendChild(txt(cR + t + 10, rys[i] - 4, dd[0], 'sk-name', 'start'));
-        gT.appendChild(txt(cR + t + 10, rys[i] + 14, dd[1], 'sk-val' + dd[2], 'start'));
-        if (dd[3]) gT.appendChild(txt(cR + t + 10, rys[i] + 29, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'start'));
+        gT.appendChild(txt(cR + t + 10, rys[i] - 6, dd[0], 'sk-name', 'start'));
+        gT.appendChild(txt(cR + t + 10, rys[i] + 16, dd[1], 'sk-val' + dd[2], 'start'));
+        if (dd[3]) gT.appendChild(txt(cR + t + 10, rys[i] + 33, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'start'));
       });
     }
     svg.appendChild(gL); svg.appendChild(gF); svg.appendChild(gN); svg.appendChild(gT);
   }
 
   function lerp(a, b, t){ return a + (b - a) * t; }
+  /* 연속 드래그 시 '표시 중인 상태(disp)'에서 이어서 트윈 — 뒤로 튕김(스냅백) 제거 */
   function update(vals){
-    if (!vals || vals.inc <= 0){ wrap.style.display = 'none'; cur = null; return; }
+    if (!vals || vals.inc <= 0){ wrap.style.display = 'none'; disp = null; return; }
     wrap.style.display = '';
-    if (!cur || reduced){ cur = vals; build(vals); return; }
-    var from = cur, to = vals, t0 = null, DUR = 260;
+    if (!disp || reduced){ disp = vals; build(vals); return; }
+    var from = disp, to = vals, t0 = null, DUR = 220;
     if (rafId) cancelAnimationFrame(rafId);
     function step(ts){
       if (!t0) t0 = ts;
       var p = Math.min(1, (ts - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-      build({ inc: lerp(from.inc, to.inc, e), capped: lerp(from.capped, to.capped, e),
-              save: lerp(from.save, to.save, e), after: lerp(from.after, to.after, e),
-              inv: lerp(from.inv != null ? from.inv : from.capped, to.inv != null ? to.inv : to.capped, e) });
+      disp = { inc: lerp(from.inc, to.inc, e), capped: lerp(from.capped, to.capped, e),
+               save: lerp(from.save, to.save, e), after: lerp(from.after, to.after, e),
+               inv: lerp(from.inv != null ? from.inv : from.capped, to.inv != null ? to.inv : to.capped, e) };
+      build(disp);
       if (p < 1) rafId = requestAnimationFrame(step);
-      else { cur = to; rafId = null; }
+      else { disp = to; rafId = null; }
     }
     rafId = requestAnimationFrame(step);
   }
-  var onMq = function(){ if (cur) build(cur); };
+  var onMq = function(){ if (disp) build(disp); };
   if (mqV.addEventListener) mqV.addEventListener('change', onMq); else mqV.addListener(onMq);
   return update;
 })();
@@ -1353,12 +1366,12 @@ function calc(){
   paintRange('incomeRange'); paintRange('investRange');
   skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
-/* fill gradient ends exactly under the 26px thumb center */
+/* fill gradient ends exactly under the 22px thumb center */
 function paintRange(id){
   var ir = document.getElementById(id);
   if (!ir) return;
   var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
-  var stop = 'calc(' + pct + '% + ' + (13 - 0.26 * pct).toFixed(1) + 'px)';
+  var stop = 'calc(' + pct + '% + ' + (11 - 0.22 * pct).toFixed(1) + 'px)';
   ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')';
 }
 /* 텍스트 입력 ↔ 슬라이더 양방향 동기화 (확정 시 500만원 단위 스냅) */

@@ -420,8 +420,9 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .rate-card{ background:var(--card); border:1px solid var(--hairline); border-radius:var(--r);
   overflow:hidden; box-shadow:var(--card-shadow); }
 .checks--open{ margin-top:26px; padding:0 8px; }
-table.rate{ width:100%; border-collapse:separate; border-spacing:0; font-size:.98rem; margin-bottom:0;
+table.rate{ width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; font-size:.98rem; margin-bottom:0;
   border:none; border-radius:var(--r); }
+table.rate th:first-child, table.rate td:first-child{ width:60%; }
 table.rate th, table.rate td{ padding:13px 16px; text-align:center; border-bottom:1px solid var(--line-soft);
   font-variant-numeric:tabular-nums; }
 table.rate thead th{ background:var(--navy-deep); color:var(--on-navy); font-weight:600; border-bottom:none; }
@@ -507,6 +508,12 @@ table.rate tr:last-child td{ border-bottom:none; }
   font-size:.72rem; color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .ci-tick i{ display:block; width:1px; height:7px; margin:0 auto 4px; background:color-mix(in srgb, var(--ink) 22%, transparent); }
 .ci-tick em{ display:block; font-style:normal; font-size:.66rem; color:var(--navy); font-weight:600; margin-top:2px; }
+/* 좁은 폰에서 눈금 라벨 겹침 방지 — 폰트 축소 */
+@media (max-width:560px){
+  .ci-ticks{ height:34px; margin-top:8px; }
+  .ci-tick{ font-size:.58rem; }
+  .ci-tick em{ font-size:.52rem; margin-top:1px; }
+}
 label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px 0 0;
   font-size:.82rem; color:var(--ink-2); font-weight:500; }
 .calc input.ci-exact{ width:160px; font-size:.95rem; padding:9px 12px; margin:0; }
@@ -877,7 +884,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
             <div class="ci-ticks" aria-hidden="true">
               <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
               <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
-              <span class="ci-tick" style="left:78%"><i></i>5,000만 초과분<em>30% 공제</em></span>
+              <span class="ci-tick" style="left:80%"><i></i>5,000만 초과<em>30% 공제</em></span>
             </div>
           </div>
         </div>

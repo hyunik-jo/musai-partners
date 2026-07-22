@@ -510,17 +510,25 @@ table.rate tr:last-child td{ border-bottom:none; }
 .calc-body > label{ margin-top:0; }
 .ci-head{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; }
 .ci-head label{ margin:0; }
-.ci-amount{ display:flex; align-items:baseline; gap:3px; }
-.ci-amount b{ font-size:1.85rem; font-weight:700; color:var(--navy); letter-spacing:-0.02em;
-  font-variant-numeric:tabular-nums; line-height:1; }
+.ci-amount{ display:flex; align-items:baseline; gap:4px; }
+/* big amount IS the direct input — slider and typing are one control */
+.calc input.ci-big{ width:215px; font-size:1.7rem; font-weight:700; color:var(--navy);
+  text-align:right; background:transparent; border:none; border-bottom:1.5px solid transparent;
+  border-radius:0; padding:0 2px 3px; letter-spacing:-0.02em; line-height:1.1;
+  font-variant-numeric:tabular-nums; }
+.calc input.ci-big:hover{ border-bottom-color:var(--line); }
+.calc input.ci-big:focus{ border-bottom-color:var(--navy); box-shadow:none; }
 .ci-amount span{ font-size:.92rem; color:var(--ink-2); }
+@media (max-width:560px){ .calc input.ci-big{ width:165px; font-size:1.35rem; } }
+@media (max-width:560px){ .ci-ticks .tick-m-hide{ display:none; } }
 .ci-range{ -webkit-appearance:none; appearance:none; width:100%; height:6px; margin:20px 0 0;
   border-radius:980px; background:var(--line); cursor:pointer; }
-.ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:26px; height:26px;
+.ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; box-sizing:border-box;
+  width:26px; height:26px;
   border-radius:50%; background:var(--navy-deep); border:3px solid var(--card);
   box-shadow:0 2px 8px rgba(36,55,72,.3); cursor:grab; transition:transform .12s var(--ease-out); }
 .ci-range::-webkit-slider-thumb:active{ transform:scale(1.12); cursor:grabbing; }
-.ci-range::-moz-range-thumb{ width:24px; height:24px; border-radius:50%; background:var(--navy-deep);
+.ci-range::-moz-range-thumb{ box-sizing:border-box; width:26px; height:26px; border-radius:50%; background:var(--navy-deep);
   border:3px solid var(--card); box-shadow:0 2px 8px rgba(36,55,72,.3); cursor:grab; }
 .ci-range:focus-visible{ outline:none; }
 .ci-range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 4px color-mix(in srgb, var(--navy) 22%, transparent), 0 2px 8px rgba(36,55,72,.3); }
@@ -871,30 +879,37 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <p>슬라이더로 출자금을 조정하면 절세액과 돈의 흐름이 실시간으로 바뀝니다.</p>
       </div>
       <div class="panel glass calc reveal">
-        <!-- ① 소득: 컨텍스트 -->
+        <!-- ① 소득: 슬라이더 + 직접입력 -->
         <div class="calc-step">
           <span class="calc-num">1</span>
           <div class="calc-body">
-            <label for="income">내 종합소득 과세표준
-              <small>연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small></label>
-            <input id="income" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote">
+            <div class="ci-head">
+              <label for="income">내 종합소득 과세표준
+                <small>연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small></label>
+              <div class="ci-amount"><input id="income" class="ci-big" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력"><span>원</span></div>
+            </div>
+            <input id="incomeRange" class="ci-range" type="range" min="0" max="300000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
+            <div class="ci-ticks" aria-hidden="true">
+              <span class="ci-tick tick-m-hide" style="left:16.7%"><i></i>5,000만<em>세율 24%</em></span>
+              <span class="ci-tick" style="left:29.3%"><i></i>8,800만<em>세율 35%</em></span>
+              <span class="ci-tick" style="left:50%"><i></i>1.5억<em>세율 38%</em></span>
+            </div>
           </div>
         </div>
 
-        <!-- ② 출자금: 슬라이더 (주역) -->
+        <!-- ② 출자금: 슬라이더 + 직접입력 (주역) -->
         <div class="calc-step calc-step--invest">
           <span class="calc-num">2</span>
           <div class="calc-body">
             <div class="ci-head">
-              <label for="investRange">개인투자조합에 출자할 금액</label>
-              <div class="ci-amount"><b id="investBig">3,000만</b><span>원</span></div>
+              <label for="invest">개인투자조합에 출자할 금액</label>
+              <div class="ci-amount"><input id="invest" class="ci-big" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력"><span>원</span></div>
             </div>
             <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
             <div class="ci-ticks" aria-hidden="true">
               <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
               <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
             </div>
-            <label class="ci-exact-lbl" for="invest">직접 입력 <input id="invest" class="ci-exact" type="text" inputmode="numeric" value="30,000,000" aria-label="출자금 직접 입력"><span>원</span></label>
           </div>
         </div>
 
@@ -1335,53 +1350,45 @@ function calc(){
   setVal('rSave', fmt(save) + '원');
   setVal('rSaveL', fmt(Math.round(save * 1.1)) + '원');
   setVal('rRoi', inv > 0 ? (save / inv * 100).toFixed(1) + '%' : '–');
-  setVal('investBig', fmtMan(inv));
-  var ir = document.getElementById('investRange');
-  if (ir){ var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
-    /* thumb(26px) center alignment: fill ends exactly under the thumb center */
-    var stop = 'calc(' + pct + '% + ' + (13 - 0.26 * pct).toFixed(1) + 'px)';
-    ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')'; }
+  paintRange('incomeRange'); paintRange('investRange');
   skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
-function attach(id){
-  var el = document.getElementById(id);
-  el.addEventListener('input', function(){
-    var pos = el.selectionStart, len = el.value.length;
-    var v = parseNum(el.value);
-    el.value = v ? fmt(v) : '';
-    var diff = el.value.length - len;
+/* fill gradient ends exactly under the 26px thumb center */
+function paintRange(id){
+  var ir = document.getElementById(id);
+  if (!ir) return;
+  var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
+  var stop = 'calc(' + pct + '% + ' + (13 - 0.26 * pct).toFixed(1) + 'px)';
+  ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')';
+}
+/* 텍스트 입력 ↔ 슬라이더 양방향 동기화 (확정 시 500만원 단위 스냅) */
+function bindPair(textId, rangeId){
+  var txt = document.getElementById(textId), rng = document.getElementById(rangeId);
+  if (!txt || !rng) return;
+  var rmax = parseInt(rng.max, 10);
+  txt.addEventListener('input', function(){
+    var pos = txt.selectionStart, len = txt.value.length;
+    var v = parseNum(txt.value);
+    txt.value = v ? fmt(v) : '';
+    var diff = txt.value.length - len;
     var np = Math.max(0, (pos || 0) + diff);
-    try { el.setSelectionRange(np, np); } catch(e){}
+    try { txt.setSelectionRange(np, np); } catch(e){}
+    rng.value = Math.min(v, rmax);
+    calc();
+  });
+  txt.addEventListener('change', function(){
+    var v = Math.round(parseNum(txt.value) / 5000000) * 5000000;
+    txt.value = fmt(v);
+    rng.value = Math.min(v, rmax);
+    calc();
+  });
+  rng.addEventListener('input', function(){
+    txt.value = fmt(parseInt(rng.value, 10));
     calc();
   });
 }
-attach('income');
-(function(){
-  var invText = document.getElementById('invest');
-  var invRange = document.getElementById('investRange');
-  if (!invText || !invRange) return;
-  var rmax = parseInt(invRange.max, 10);
-  invText.addEventListener('input', function(){
-    var pos = invText.selectionStart, len = invText.value.length;
-    var v = parseNum(invText.value);
-    invText.value = v ? fmt(v) : '';
-    var diff = invText.value.length - len;
-    try { invText.setSelectionRange(Math.max(0, (pos || 0) + diff), Math.max(0, (pos || 0) + diff)); } catch(e){}
-    invRange.value = Math.min(v, rmax);
-    calc();
-  });
-  invRange.addEventListener('input', function(){
-    invText.value = fmt(parseInt(invRange.value, 10));
-    calc();
-  });
-  /* 확정(blur/Enter) 시 500만원 단위로 스냅 — 슬라이더·표시 숫자와 항상 일치 */
-  invText.addEventListener('change', function(){
-    var v = Math.round(parseNum(invText.value) / 5000000) * 5000000;
-    invText.value = fmt(v);
-    invRange.value = Math.min(v, rmax);
-    calc();
-  });
-})();
+bindPair('income', 'incomeRange');
+bindPair('invest', 'investRange');
 calc();
 
 route(false);

@@ -5,74 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" id="metaTheme">
 <title>뮤사이파트너스 — 음악 IP 투자</title>
+<script>
+/* set theme (default light) + js flag before first paint — avoids FOUC */
+(function(){
+  var t;
+  try { t = localStorage.getItem('theme'); } catch(e){}
+  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+  document.documentElement.classList.add('js');
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   MUSAI PARTNERS — Apple-referenced base, dark mode kept
-   system-first type · frosted chrome · restraint · quiet motion
+   MUSAI PARTNERS — Apple base · Liquid Glass · light default
+   system-first type · translucent materials · quiet motion
    ============================================================ */
 :root{
-  color-scheme:light dark;
+  color-scheme:light;
   --bg:#ffffff;
-  --bg-alt:#f5f5f7;          /* Apple section gray */
+  --bg-alt:#f4f5f7;
   --card:#ffffff;
-  --ink:#1d1d1f;             /* Apple primary text */
-  --ink-2:#6e6e73;           /* Apple secondary */
-  --ink-3:#86868b;           /* decorative only */
-  --line:#d2d2d7;            /* Apple hairline */
-  --line-soft:#e8e8ed;
-  --accent:#1a6a4a;          /* brand green — links/marks (AA on white) */
-  --accent-solid:#17553b;    /* filled surfaces */
+  --ink:#1d1d1f;
+  --ink-2:#6e6e73;
+  --ink-3:#86868b;
+  --line:#d2d2d7;
+  --line-soft:#e6e6ec;
+  --accent:#1a6a4a;
+  --accent-solid:#17553b;
   --on-accent:#ffffff;
-  --nav-bg:rgba(255,255,255,0.72);
-  --nav-line:rgba(0,0,0,0.10);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
-  --shadow:0 4px 24px rgba(0,0,0,.06);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.10);
+  /* liquid glass */
+  --glass-bg:rgba(255,255,255,0.60);
+  --glass-border:rgba(255,255,255,0.55);
+  --glass-hi:inset 0 1px 0 rgba(255,255,255,0.75);
+  --glass-blur:blur(24px) saturate(185%);
+  --card-shadow:0 8px 30px rgba(20,40,30,.08);
+  --nav-bg:rgba(255,255,255,0.62);
+  --nav-line:rgba(0,0,0,0.08);
   --r:18px;
   --r-lg:24px;
   --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
   --font:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#000000;
-    --bg-alt:#0c0c0e;
-    --card:#161618;
-    --ink:#f5f5f7;
-    --ink-2:#a1a1a6;
-    --ink-3:#86868b;
-    --line:#2a2a2d;
-    --line-soft:#202023;
-    --accent:#3db588;
-    --accent-solid:#1a6a4a;
-    --on-accent:#ffffff;
-    --nav-bg:rgba(10,10,12,0.72);
-    --nav-line:rgba(255,255,255,0.10);
-    /* dark separates by surface luminance, not shadow */
-    --shadow-sm:none;
-    --shadow:none;
-    --shadow-lg:none;
-  }
-}
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#000000; --bg-alt:#0c0c0e; --card:#161618; --ink:#f5f5f7; --ink-2:#a1a1a6; --ink-3:#86868b;
-  --line:#2a2a2d; --line-soft:#202023; --accent:#3db588; --accent-solid:#1a6a4a; --on-accent:#ffffff;
-  --nav-bg:rgba(10,10,12,0.72); --nav-line:rgba(255,255,255,0.10);
-  --shadow-sm:none; --shadow:none; --shadow-lg:none;
-}
-:root[data-theme="light"]{
-  color-scheme:light;
-  --bg:#ffffff; --bg-alt:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b;
-  --line:#d2d2d7; --line-soft:#e8e8ed; --accent:#1a6a4a; --accent-solid:#17553b; --on-accent:#ffffff;
-  --nav-bg:rgba(255,255,255,0.72); --nav-line:rgba(0,0,0,0.10);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.05); --shadow:0 4px 24px rgba(0,0,0,.06); --shadow-lg:0 12px 40px rgba(0,0,0,.10);
+  --bg:#000000;
+  --bg-alt:#0b0b0d;
+  --card:#161618;
+  --ink:#f5f5f7;
+  --ink-2:#a1a1a6;
+  --ink-3:#86868b;
+  --line:#2a2a2d;
+  --line-soft:#242427;
+  --accent:#40c08f;
+  --accent-solid:#1c6f4d;
+  --on-accent:#ffffff;
+  --glass-bg:rgba(30,30,34,0.52);
+  --glass-border:rgba(255,255,255,0.10);
+  --glass-hi:inset 0 1px 0 rgba(255,255,255,0.10);
+  --glass-blur:blur(24px) saturate(180%);
+  --card-shadow:0 8px 30px rgba(0,0,0,.55);
+  --nav-bg:rgba(12,12,14,0.55);
+  --nav-line:rgba(255,255,255,0.10);
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -84,43 +81,48 @@ html.js .reveal{ opacity:0; transform:translateY(18px); }
 }
 body{
   font-family:var(--font);
-  background:var(--bg); color:var(--ink);
+  color:var(--ink);
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(58% 42% at 14% -6%, rgba(26,106,74,.07), transparent 60%),
+    radial-gradient(46% 38% at 102% 2%, rgba(26,106,74,.05), transparent 58%);
+  background-attachment:fixed; background-repeat:no-repeat;
   font-size:17px; line-height:1.55; letter-spacing:-0.01em;
   overflow-x:hidden; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
+:root[data-theme="dark"] body{
+  background-image:
+    radial-gradient(58% 42% at 14% -6%, rgba(64,192,143,.10), transparent 60%),
+    radial-gradient(46% 38% at 102% 2%, rgba(64,192,143,.06), transparent 58%);
+}
 a{ color:inherit; text-decoration:none; }
-::selection{ background:rgba(26,106,74,.18); background:color-mix(in srgb, var(--accent) 22%, transparent); }
+::selection{ background:color-mix(in srgb, var(--accent) 24%, transparent); }
 :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
 .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
-.narrow{ max-width:720px; }
-section[id]{ scroll-margin-top:52px; }
+.narrow{ max-width:720px; margin-left:auto; margin-right:auto; }
+section[id]{ scroll-margin-top:56px; }
 
 .skip{ position:absolute; left:-9999px; top:0; z-index:100; background:var(--ink); color:var(--bg);
   padding:10px 16px; font-weight:600; border-radius:0 0 8px 0; }
 .skip:focus-visible{ left:0; top:0; }
 
-/* ---------- frosted chrome nav ---------- */
+/* ---------- liquid glass chrome ---------- */
 nav{
   position:sticky; top:0; z-index:50;
   background:var(--nav-bg);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  box-shadow:inset 0 -1px 0 transparent, var(--glass-hi);
 }
-@supports not ((backdrop-filter:blur(20px)) or (-webkit-backdrop-filter:blur(20px))){
-  nav{ background:var(--bg); }
-}
-/* scroll edge: soft gradient in light, hairline in dark (Apple §12) */
 nav::after{
-  content:""; position:absolute; left:0; right:0; top:100%; height:14px; pointer-events:none;
-  background:linear-gradient(to bottom, rgba(0,0,0,.05), transparent);
+  content:""; position:absolute; left:0; right:0; top:100%; height:16px; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(0,0,0,.06), transparent);
   opacity:0; transition:opacity .3s var(--ease-out);
 }
 nav.scrolled::after{ opacity:1; }
-@media (prefers-color-scheme: dark){ nav::after{ height:1px; background:var(--nav-line); } }
 :root[data-theme="dark"] nav::after{ height:1px; background:var(--nav-line); }
-:root[data-theme="light"] nav::after{ height:14px; background:linear-gradient(to bottom, rgba(0,0,0,.05), transparent); }
-.nav-in{ max-width:960px; margin:0 auto; padding:0 24px; height:52px;
-  display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.nav-in{ max-width:960px; margin:0 auto; padding:0 24px; height:54px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .logo{ font-weight:600; font-size:1.05rem; letter-spacing:-0.02em; line-height:1.1; }
 .logo small{ display:block; font-size:.52rem; letter-spacing:.32em; font-weight:600;
   color:var(--ink-3); margin-top:1px; }
@@ -128,31 +130,51 @@ nav.scrolled::after{ opacity:1; }
 .menu a{ color:var(--ink-2); padding:8px 12px; border-radius:8px; font-weight:400;
   transition:color .2s var(--ease-out); white-space:nowrap; }
 @media (hover:hover){ .menu a:hover{ color:var(--ink); } }
-.menu a.tax-link{ background:var(--accent-solid); color:var(--on-accent); font-weight:500;
-  padding:7px 15px; border-radius:980px; margin-left:8px;
+.menu a.tax-link{
+  color:var(--on-accent); font-weight:500; padding:8px 16px; border-radius:980px; margin-left:6px;
+  background:var(--accent-solid);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 2px 10px rgba(23,85,59,.28);
   transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
-@media (hover:hover){ .menu a.tax-link:hover{ filter:brightness(1.12); color:var(--on-accent); } }
+@media (hover:hover){ .menu a.tax-link:hover{ filter:brightness(1.1); color:var(--on-accent); } }
 .menu a.tax-link:active{ transform:scale(0.97); }
+.theme-toggle{
+  width:34px; height:34px; flex:none; border:1px solid var(--glass-border); border-radius:50%;
+  display:grid; place-items:center; cursor:pointer; color:var(--ink-2);
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+  box-shadow:var(--glass-hi); margin-left:4px;
+  transition:transform .16s var(--ease-out), color .2s var(--ease-out); }
+@media (hover:hover){ .theme-toggle:hover{ color:var(--ink); } }
+.theme-toggle:active{ transform:scale(0.92); }
+.theme-toggle svg{ width:16px; height:16px; }
+.theme-toggle .ic-sun{ display:none; }
+:root[data-theme="dark"] .theme-toggle .ic-sun{ display:block; }
+:root[data-theme="dark"] .theme-toggle .ic-moon{ display:none; }
 @media (max-width:560px){ .menu a.hide-m{ display:none; } }
 
-/* ---------- page switching (JS-gated: non-JS shows both pages) ---------- */
+/* fallback when backdrop-filter unsupported */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  nav{ background:var(--bg); }
+  .theme-toggle,.stat,.b-card,.info,.panel{ background:var(--card); }
+}
+
+/* ---------- page switching (JS-gated) ---------- */
 html.js .page{ display:none; }
 html.js .page.active{ display:block; }
 @media (prefers-reduced-motion: no-preference){
   html.js .page.active{ transition:opacity .3s var(--ease-out); }
-  @starting-style{
-    html.js .page.active{ opacity:0; }
-  }
+  @starting-style{ html.js .page.active{ opacity:0; } }
 }
 
 /* ---------- buttons ---------- */
 .btn{ display:inline-flex; align-items:center; gap:7px; font-family:inherit; font-size:1rem;
   font-weight:500; letter-spacing:-0.01em; border:none; cursor:pointer; border-radius:980px;
   padding:13px 26px; transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
-.btn-primary{ background:var(--accent-solid); color:var(--on-accent); }
+.btn-primary{ background:var(--accent-solid); color:var(--on-accent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 6px 20px rgba(23,85,59,.28); }
 .btn-ghost{ background:transparent; color:var(--accent); padding-left:6px; padding-right:6px; }
 @media (hover:hover){
-  .btn-primary:hover{ filter:brightness(1.12); }
+  .btn-primary:hover{ filter:brightness(1.1); }
   .btn-ghost:hover .arr{ transform:translateX(3px); }
 }
 .btn:active{ transform:scale(0.97); }
@@ -168,15 +190,13 @@ html.js .page.active{ display:block; }
   line-height:1.5; letter-spacing:-0.015em; }
 .hero .actions{ margin-top:36px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
-/* subtle groove watermark behind hero */
+/* groove watermark behind hero */
 .hero-wrap{ position:relative; overflow:hidden; }
 .groove{ position:absolute; top:-40%; left:50%; transform:translateX(-50%);
   width:min(760px,140vw); aspect-ratio:1; pointer-events:none; z-index:-1;
   opacity:.4; -webkit-mask-image:radial-gradient(circle,#000 0 48%,transparent 70%);
   mask-image:radial-gradient(circle,#000 0 48%,transparent 70%); }
-@media (prefers-color-scheme: dark){ .groove{ opacity:.28; } }
 :root[data-theme="dark"] .groove{ opacity:.28; }
-:root[data-theme="light"] .groove{ opacity:.4; }
 
 /* ---------- section scaffolding ---------- */
 .band{ background:var(--bg-alt); }
@@ -188,14 +208,19 @@ section{ padding:clamp(60px, 9vw, 96px) 0; }
 h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.1;
   letter-spacing:-0.028em; text-wrap:balance; }
 .sec-head p:not(.sec-eyebrow){ margin:16px auto 0; max-width:40ch; color:var(--ink-2); font-size:1.05rem; }
+.hero .sub,.sec-head p,.b-card p,.step p,.faq details p,.tax-hero p{ text-wrap:pretty; }
 
-/* body copy: avoid orphans */
-.hero .sub,.sec-head p,.b-card p,.step p,.faq details p,.tax-hero p,.vision-note{ text-wrap:pretty; }
+/* glass surface mixin */
+.glass{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-hi), var(--card-shadow);
+}
 
 /* ---------- stats ---------- */
 .stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.stat{ background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r);
-  padding:32px 20px; text-align:center; box-shadow:var(--shadow-sm); }
+.stat{ border-radius:var(--r); padding:32px 20px; text-align:center; }
 .stat b{ display:block; font-size:clamp(1.6rem,5vw,2.8rem); font-weight:700; letter-spacing:-0.03em;
   font-variant-numeric:tabular-nums; line-height:1; white-space:nowrap; }
 .stat span{ display:block; margin-top:10px; font-size:.86rem; color:var(--ink-2); white-space:nowrap; }
@@ -209,12 +234,18 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.1;
 /* ---------- bento business cards ---------- */
 .bento{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
 .bento .b-card:first-child{ grid-column:1 / -1; }
-.b-card{ background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-lg);
-  padding:32px 30px; box-shadow:var(--shadow); }
-.b-card h3{ font-size:1.28rem; font-weight:600; letter-spacing:-0.02em; margin-bottom:10px; }
+.b-card{ border-radius:var(--r-lg); padding:32px 30px; }
+.b-card h3{ font-size:1.28rem; font-weight:600; letter-spacing:-0.02em; margin-bottom:10px;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .b-card p{ color:var(--ink-2); font-size:.98rem; line-height:1.6; }
 .b-card .accent{ color:var(--accent); font-weight:500; }
 @media (max-width:640px){ .bento{ grid-template-columns:1fr; } }
+
+/* pilot chip */
+.chip{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.02em; color:var(--accent);
+  background:color-mix(in srgb, var(--accent) 13%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius:980px; padding:2px 10px; vertical-align:middle; }
 
 /* ---------- timeline ---------- */
 .timeline{ max-width:640px; margin:0 auto; }
@@ -226,8 +257,7 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.1;
 .tl-row p{ font-size:1rem; }
 
 /* ---------- info list ---------- */
-.info{ max-width:640px; margin:0 auto; background:var(--card); border:1px solid var(--line-soft);
-  border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow); }
+.info{ max-width:640px; margin:0 auto; border-radius:var(--r); overflow:hidden; }
 .info-row{ display:grid; grid-template-columns:130px 1fr; gap:16px; padding:16px 24px;
   border-top:1px solid var(--line-soft); }
 .info-row:first-child{ border-top:none; }
@@ -238,19 +268,16 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.1;
 
 /* ---------- tax hero ---------- */
 .tax-hero{ text-align:center; padding:clamp(72px, 10vw, 88px) 0 20px; }
-.badge{ display:inline-block; font-size:.76rem; font-weight:600;
-  color:var(--accent);
-  background:rgba(26,106,74,.12);
+.badge{ display:inline-block; font-size:.76rem; font-weight:600; color:var(--accent);
   background:color-mix(in srgb, var(--accent) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   border-radius:980px; padding:6px 15px; margin-bottom:22px; }
 .tax-hero h1{ font-size:clamp(2rem,5.2vw,3.3rem); font-weight:700; line-height:1.1;
   letter-spacing:-0.03em; text-wrap:balance; }
 .tax-hero p{ margin:22px auto 0; max-width:44ch; color:var(--ink-2); font-size:1.1rem; line-height:1.55; }
 
-/* generic content card */
-.panel{ background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-lg);
-  padding:32px; box-shadow:var(--shadow); }
-.panel.calc{ box-shadow:var(--shadow-lg); }
+/* content panels */
+.panel{ border-radius:var(--r-lg); padding:32px; }
 .panel h3.lead{ font-size:1.05rem; font-weight:600; margin-bottom:14px; }
 .checks{ list-style:none; display:flex; flex-direction:column; gap:11px; }
 .checks li{ position:relative; padding-left:26px; color:var(--ink-2); font-size:.98rem; line-height:1.55; }
@@ -277,10 +304,9 @@ table.rate tr:last-child td{ border-bottom:none; }
   color:var(--ink); outline:none; font-variant-numeric:tabular-nums;
   transition:border-color .2s var(--ease-out), box-shadow .2s var(--ease-out); }
 .calc input:focus{ border-color:var(--accent);
-  box-shadow:0 0 0 4px rgba(26,106,74,.15);
   box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent); }
 .result{ margin-top:24px; border-radius:var(--r); background:var(--accent-solid); color:#fff;
-  padding:24px; }
+  padding:24px; box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 10px 30px rgba(23,85,59,.22); }
 .result .row{ display:flex; justify-content:space-between; align-items:baseline; gap:12px;
   font-size:.92rem; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.16); color:rgba(255,255,255,.82); }
 .result .row b{ color:#fff; font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:500; }
@@ -298,42 +324,31 @@ table.rate tr:last-child td{ border-bottom:none; }
 
 /* process steps */
 .steps{ counter-reset:s; display:grid; gap:14px; }
-.step{ counter-increment:s; background:var(--card); border:1px solid var(--line-soft);
-  border-radius:var(--r); padding:22px 26px 22px 68px; position:relative; box-shadow:var(--shadow-sm); }
+.step{ counter-increment:s; border-radius:var(--r); padding:22px 26px 22px 68px; position:relative; }
 .step::before{ content:counter(s); position:absolute; left:22px; top:22px; width:30px; height:30px;
-  border-radius:50%;
-  background:rgba(26,106,74,.14);
-  background:color-mix(in srgb, var(--accent) 14%, transparent);
-  color:var(--accent);
+  border-radius:50%; background:color-mix(in srgb, var(--accent) 14%, transparent); color:var(--accent);
   display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.95rem; }
 .step b{ display:block; font-size:1.02rem; font-weight:600; margin-bottom:3px; }
 .step p{ color:var(--ink-2); font-size:.92rem; line-height:1.5; }
 
-/* vision */
-.chip{ display:inline-block; font-size:.72rem; font-weight:700; color:var(--accent);
-  background:rgba(26,106,74,.12);
-  background:color-mix(in srgb, var(--accent) 12%, transparent);
-  border-radius:980px; padding:3px 11px; margin-right:9px; vertical-align:middle; }
-.vision-note{ text-align:center; max-width:54ch; margin:30px auto 0; color:var(--ink-2);
-  font-size:.95rem; line-height:1.6; }
-
-/* faq — details-content height transition (progressive enhancement) */
-.faq details{ background:var(--card); border:1px solid var(--line-soft); border-radius:14px;
-  padding:4px 22px; margin-top:12px; overflow:hidden; }
+/* faq */
+.faq details{ border-radius:14px; padding:4px 22px; margin-top:12px; overflow:hidden; }
 .faq summary{ font-weight:600; font-size:.98rem; cursor:pointer; list-style:none; padding:18px 0;
   display:flex; justify-content:space-between; align-items:center; gap:16px; }
 .faq summary::-webkit-details-marker{ display:none; }
-.faq summary::after{ content:"+"; content:"+" / ""; font-size:1.4rem; font-weight:400; color:var(--ink-3);
+.faq summary::after{ content:"+" / ""; font-size:1.4rem; font-weight:400; color:var(--ink-3);
   transition:transform .25s var(--ease-out); line-height:1; }
 .faq details[open] summary::after{ transform:rotate(45deg); }
-.faq details p{ color:var(--ink-2); font-size:.94rem; line-height:1.6; padding:0 0 20px; }
+.faq details p{ color:var(--ink-2); font-size:.94rem; line-height:1.6; padding:0 0 12px; }
+.faq details .cite{ margin:0 0 20px; padding:12px 15px; background:var(--bg-alt); border-radius:10px;
+  font-size:.82rem; line-height:1.55; color:var(--ink-2); }
+.faq details .cite .cite-law{ display:block; color:var(--accent); font-weight:600; font-size:.78rem;
+  margin-bottom:4px; }
 @supports (interpolate-size: allow-keywords){
   :root{ interpolate-size:allow-keywords; }
   @media (prefers-reduced-motion: no-preference){
-    .faq details::details-content{
-      height:0; overflow:clip;
-      transition:height .3s var(--ease-out), content-visibility .3s allow-discrete;
-    }
+    .faq details::details-content{ height:0; overflow:clip;
+      transition:height .3s var(--ease-out), content-visibility .3s allow-discrete; }
     .faq details[open]::details-content{ height:auto; }
   }
 }
@@ -349,7 +364,7 @@ footer{ background:var(--bg-alt); border-top:1px solid var(--line-soft); padding
 .foot b{ color:var(--ink); font-size:.86rem; }
 .foot a{ color:var(--accent); }
 
-/* reveal transition */
+/* reveal */
 html.js .reveal{ transition:opacity .7s var(--ease-out), transform .7s var(--ease-out); }
 html.js .reveal.in{ opacity:1; transform:none; }
 
@@ -373,9 +388,12 @@ html.js .reveal.in{ opacity:1; transform:none; }
     <a class="logo" href="#home" data-nav>뮤사이파트너스<small>MUSAI&nbsp;PARTNERS</small></a>
     <div class="menu">
       <a href="#home" data-nav class="hide-m">회사소개</a>
-      <a href="#vision" data-nav class="hide-m">성장 방향</a>
       <a href="#history" data-nav class="hide-m">연혁</a>
       <a href="#contact" data-nav>문의</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="라이트/다크 모드 전환">
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
       <a href="#tax" data-nav class="tax-link" id="taxLink">소득공제 안내</a>
     </div>
   </div>
@@ -412,9 +430,9 @@ html.js .reveal.in{ opacity:1; transform:none; }
   <section class="band">
     <div class="wrap">
       <div class="stats">
-        <div class="stat reveal"><b>1,782곡</b><span>보유 음원 저작권</span></div>
-        <div class="stat reveal"><b>2021</b><span>회사 설립</span></div>
-        <div class="stat reveal"><b>2개</b><span>결성 투자조합</span></div>
+        <div class="stat glass reveal"><b>1,782곡</b><span>보유 음원 저작권</span></div>
+        <div class="stat glass reveal"><b>2021</b><span>회사 설립</span></div>
+        <div class="stat glass reveal"><b>2개</b><span>결성 투자조합</span></div>
       </div>
     </div>
   </section>
@@ -426,39 +444,23 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <h2>음악 자산에 새로운 수명을</h2>
       </div>
       <div class="bento">
-        <div class="b-card reveal">
+        <div class="b-card glass reveal">
           <h3>음원 IP 투자</h3>
           <p>저평가된 음악저작권·저작인접권을 발굴해 매입합니다. 음원 IP는 원저작자 사후 70년까지 사용료가 발생하는 <span class="accent">초장기 현금흐름 자산</span>이며, 경기 변동의 영향을 적게 받습니다. 보유 저작권은 한국음악저작권협회(KOMCA) 신탁으로 관리됩니다.</p>
         </div>
-        <div class="b-card reveal">
+        <div class="b-card glass reveal">
           <h3>가치 제고 (Value-Up)</h3>
           <p>리메이크, 드라마 OST, 숏폼 콘텐츠 삽입 등 원곡을 다시 세상에 꺼내는 방식으로 저작권료 수익을 키웁니다. ‘분홍립스틱(강애리자)’, ‘우연히봄(로꼬·유주)’ 등이 대표 보유·활용 사례입니다.</p>
         </div>
-        <div class="b-card reveal">
-          <h3>개인투자조합 운영</h3>
-          <p>대표가 업무집행조합원(GP)으로서 중소벤처기업부 등록 개인투자조합을 결성·운영합니다. 2024년 1호, 2025년 2호 조합을 결성하였으며, 조합원은 벤처기업 투자에 따른 <span class="accent">소득공제 혜택</span>을 받을 수 있습니다.</p>
+        <div class="b-card glass reveal">
+          <h3>AI 음원 IP 창출·유통 <span class="chip">파일럿</span></h3>
+          <p>생성형 AI(Suno 등)로 신규 음원을 <span class="accent">직접 창출</span>하고, DistroKid 등 글로벌 배급망과 인스타그램 릴스·쇼츠 등 숏폼으로 유통합니다. ‘발굴·매입’을 넘어 IP를 직접 만들어내는 방향으로 파이프라인을 확장하고 있으며, 현재 첫 음원으로 모델을 검증하는 단계입니다.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="vision" class="band">
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
-      <div class="sec-head reveal">
-        <p class="sec-eyebrow">성장 방향</p>
-        <h2>발굴을 넘어, 창출로</h2>
-        <p>지금까지 뮤사이파트너스는 이미 존재하는 음원 IP를 발굴·매입해 그 가치를 되살려 왔습니다. 다음 단계는 생성형 AI를 활용해 음원 IP를 <strong>직접 창출</strong>하고 글로벌 시장에 유통하는 것입니다.</p>
-      </div>
-      <div class="steps">
-        <div class="step reveal"><b>창작</b><p>생성형 AI(Suno 등)를 활용해 신규 음원을 제작합니다.</p></div>
-        <div class="step reveal"><b>배급</b><p>DistroKid 등 글로벌 디지털 배급망을 통해 주요 스트리밍 플랫폼에 음원을 등록합니다.</p></div>
-        <div class="step reveal"><b>유통·수익화</b><p>인스타그램 릴스·쇼츠 등 숏폼 콘텐츠에 활용하여 재생·저작권료 수익으로 연결합니다.</p></div>
-      </div>
-      <p class="vision-note reveal"><span class="chip">파일럿 단계</span>현재 첫 음원을 제작·배급하며 모델을 검증하고 있습니다. 적은 인력으로도 지속 가능한 저비용 IP 창출 파이프라인으로 발전시켜 나가는 것이 목표입니다.</p>
-    </div>
-  </section>
-
-  <section id="history">
+  <section id="history" class="band">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="sec-eyebrow">연혁</p>
@@ -476,13 +478,13 @@ html.js .reveal.in{ opacity:1; transform:none; }
     </div>
   </section>
 
-  <section id="contact" class="band">
+  <section id="contact">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="sec-eyebrow">회사 정보</p>
         <h2>MUSAI Partners</h2>
       </div>
-      <dl class="info reveal">
+      <dl class="info glass reveal">
         <div class="info-row"><dt>상호</dt><dd>주식회사 뮤사이파트너스 (MUSAI Partners Co., Ltd.)</dd></div>
         <div class="info-row"><dt>대표이사</dt><dd>조현익</dd></div>
         <div class="info-row"><dt>설립일</dt><dd>2021년 3월 9일</dd></div>
@@ -505,12 +507,12 @@ html.js .reveal.in{ opacity:1; transform:none; }
   </div>
 
   <section>
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
+    <div class="wrap narrow">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">오해</p>
         <h2>“회사가 원천징수 해주는 거 아닌가요?”</h2>
       </div>
-      <div class="panel reveal">
+      <div class="panel glass reveal">
         <h3 class="lead">원천징수는 ‘선납’일 뿐, 세금 계산이 끝난 것이 아닙니다.</h3>
         <ul class="checks">
           <li>성과급·상여가 커지면 연말정산에서 <strong>추가 납부</strong>가 발생하는 경우가 많습니다.</li>
@@ -523,12 +525,12 @@ html.js .reveal.in{ opacity:1; transform:none; }
   </section>
 
   <section class="band">
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
+    <div class="wrap narrow">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">제도 요약</p>
         <h2>조세특례제한법 제16조</h2>
       </div>
-      <div class="panel reveal">
+      <div class="panel glass reveal">
         <table class="rate">
           <thead><tr><th>출자 구간</th><th>소득공제율</th></tr></thead>
           <tbody>
@@ -548,17 +550,17 @@ html.js .reveal.in{ opacity:1; transform:none; }
   </section>
 
   <section>
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
+    <div class="wrap narrow">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">계산기</p>
         <h2>예상 절세액 계산</h2>
       </div>
-      <div class="panel calc reveal">
+      <div class="panel glass calc reveal">
         <label for="income">종합소득 과세표준 (원)
           <small>— 연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란을 참고하세요</small></label>
         <input id="income" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote">
         <label for="invest">출자 예정 금액 (원)</label>
-        <input id="invest" type="text" inputmode="numeric" value="10,000,000" aria-describedby="calcnote">
+        <input id="invest" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote">
         <div class="result">
           <div class="row"><span>소득공제액 (한도 적용 후)</span><b id="rDeduct">–</b></div>
           <div class="row"><span>공제 전 산출세액</span><b id="rBefore">–</b></div>
@@ -575,35 +577,43 @@ html.js .reveal.in{ opacity:1; transform:none; }
   </section>
 
   <section class="band">
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
+    <div class="wrap narrow">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">참여 절차</p>
         <h2>출자부터 회수까지</h2>
       </div>
       <div class="steps">
-        <div class="step reveal"><b>개인투자조합 출자</b><p>중소벤처기업부에 등록되는 개인투자조합에 조합원(LP)으로 출자합니다.</p></div>
-        <div class="step reveal"><b>벤처기업 투자 집행</b><p>조합이 벤처기업 신주에 투자하고, 중기부 발급 투자확인서로 소득공제를 신청합니다.</p></div>
-        <div class="step reveal"><b>3년 보유</b><p>소득공제 유지를 위해 투자일부터 3년 이상 보유합니다. 공제 연도는 3개 연도 중 선택합니다.</p></div>
-        <div class="step reveal"><b>회수·정산</b><p>보유기간 경과 후 조합 규약과 투자계약에 따라 회수·분배 절차가 진행됩니다.</p></div>
+        <div class="step glass reveal"><b>개인투자조합 출자</b><p>중소벤처기업부에 등록되는 개인투자조합에 조합원(LP)으로 출자합니다.</p></div>
+        <div class="step glass reveal"><b>벤처기업 투자 집행</b><p>조합이 벤처기업 신주에 투자하고, 중기부 발급 투자확인서로 소득공제를 신청합니다.</p></div>
+        <div class="step glass reveal"><b>3년 보유</b><p>소득공제 유지를 위해 투자일부터 3년 이상 보유합니다. 공제 연도는 3개 연도 중 선택합니다.</p></div>
+        <div class="step glass reveal"><b>회수·정산</b><p>보유기간 경과 후 조합 규약과 투자계약에 따라 회수·분배 절차가 진행됩니다.</p></div>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="wrap narrow" style="margin-left:auto;margin-right:auto">
+    <div class="wrap narrow">
       <div class="sec-head reveal sec-head--tight">
         <p class="sec-eyebrow">FAQ</p>
         <h2>자주 묻는 질문</h2>
       </div>
       <div class="faq reveal">
         <details><summary>공제는 꼭 투자한 해에 받아야 하나요?</summary>
-          <p>아닙니다. 투자일이 속한 과세연도부터 2년 후 과세연도까지 총 3개 연도 중 1개를 선택할 수 있습니다. 성과급이 몰린 해를 골라 신청하는 것이 유리합니다.</p></details>
+          <p>아닙니다. 투자일이 속한 과세연도부터 2년 후 과세연도까지 총 3개 연도 중 1개를 선택할 수 있습니다. 성과급이 몰린 해를 골라 신청하는 것이 유리합니다.</p>
+          <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제1항</span>“그 출자일 또는 투자일이 속하는 과세연도… 1과세연도를 선택하여 … 공제시기 변경을 신청하는 경우에는 신청한 과세연도의 종합소득금액에서 공제한다.”</div>
+        </details>
         <details><summary>3년 안에 돈을 빼면 어떻게 되나요?</summary>
-          <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다. 조합 출자는 3년 이상 보유를 전제로 설계됩니다.</p></details>
+          <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다. 조합 출자는 3년 이상 보유를 전제로 설계됩니다.</p>
+          <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제2항</span>“출자일 또는 투자일부터 3년이 지나기 전에 … 출자지분 또는 투자지분을 이전하거나 회수하는 경우에는 … 이미 공제받은 소득금액에 해당하는 세액을 추징한다.”</div>
+        </details>
         <details><summary>원금이 보장되나요?</summary>
-          <p>아닙니다. 벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 세제혜택은 법령에 따른 것이지만 투자 성과는 보장되지 않습니다. 투자 판단 전 조합 규약·투자계약서를 반드시 확인하세요.</p></details>
+          <p>아닙니다. 벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 오히려 원금을 보장한다고 약정하는 행위 자체가 법으로 금지되어 있습니다. 세제혜택은 법령에 따른 것이지만 투자 성과는 보장되지 않으니, 투자 판단 전 조합 규약·투자계약서를 반드시 확인하세요.</p>
+          <div class="cite"><span class="cite-law">「유사수신행위의 규제에 관한 법률」 제3조</span>“누구든지 … 장래에 원금의 전액 또는 이를 초과하는 금액을 지급할 것을 약정하고 … 유사수신행위를 하여서는 아니 된다.”</div>
+        </details>
         <details><summary>아무나 참여할 수 있나요?</summary>
-          <p>조합은 사모(私募) 방식으로만 결성됩니다. 공개 모집이 아니며, 기존 조합원과 지인의 소개를 통해서만 안내드립니다.</p></details>
+          <p>조합은 사모(私募) 방식으로만 결성됩니다. 공개 모집이 아니며, 기존 조합원과 지인의 소개를 통해서만 안내드립니다. 조합원 수도 법령상 49인 이하로 제한됩니다.</p>
+          <div class="cite"><span class="cite-law">「벤처투자 촉진에 관한 법률」 제12조</span>개인투자조합을 결성하려는 경우에는 「자본시장과 금융투자업에 관한 법률」에 따른 사모의 방법으로 가입을 권유하여야 하며, 조합원의 수는 49인 이하로 한다.</div>
+        </details>
       </div>
 
       <div class="cta-block reveal" style="margin-top:48px">
@@ -627,11 +637,24 @@ html.js .reveal.in{ opacity:1; transform:none; }
 </footer>
 
 <script>
-document.documentElement.classList.add('js');
+/* ---------- theme toggle (default light; persisted) ---------- */
+(function(){
+  var tt = document.getElementById('themeToggle');
+  var meta = document.getElementById('metaTheme');
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t);
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#000000' : '#ffffff');
+  }
+  tt.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('theme', next); } catch(e){}
+  });
+})();
 
 /* ---------- page routing (home / #tax) ---------- */
 function route(moveFocus){
-  if (location.hash === '#main') return; /* skip link: let native fragment nav handle it */
+  if (location.hash === '#main') return;
   var tax = location.hash === '#tax';
   document.getElementById('page-home').classList.toggle('active', !tax);
   document.getElementById('page-tax').classList.toggle('active', tax);
@@ -642,9 +665,7 @@ function route(moveFocus){
     window.scrollTo({ top:0, behavior:'instant' });
   } else {
     var h = location.hash, el = null;
-    if (h && h !== '#home'){
-      try { el = document.getElementById(decodeURIComponent(h.slice(1))); } catch(e){}
-    }
+    if (h && h !== '#home'){ try { el = document.getElementById(decodeURIComponent(h.slice(1))); } catch(e){} }
     if (el) el.scrollIntoView();
     else window.scrollTo({ top:0, behavior:'instant' });
   }
@@ -654,14 +675,13 @@ function route(moveFocus){
   }
 }
 window.addEventListener('hashchange', function(){ route(true); });
-/* same-hash re-click: hashchange won't fire, run route() manually */
 document.querySelectorAll('[data-nav]').forEach(function(a){
   a.addEventListener('click', function(){
     if (a.getAttribute('href') === (location.hash || '#home')) route(false);
   });
 });
 
-/* ---------- scroll reveal (stagger within groups) ---------- */
+/* ---------- scroll reveal ---------- */
 var io;
 function observeReveals(){
   var page = document.querySelector('.page.active');
@@ -672,9 +692,7 @@ function observeReveals(){
         if (e.isIntersecting){
           e.target.classList.add('in');
           io.unobserve(e.target);
-          e.target.addEventListener('transitionend', function(ev){
-            ev.target.style.transitionDelay = '';
-          }, { once:true });
+          e.target.addEventListener('transitionend', function(ev){ ev.target.style.transitionDelay=''; }, { once:true });
         }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
@@ -695,7 +713,7 @@ window.addEventListener('scroll', onScroll, { passive:true });
 onScroll();
 
 /* ---------- calculator (identical logic — verified vs. source sheet) ---------- */
-var BR = [ /* [과세표준 상한(원), 세율, 누진공제(원)] — 종합소득세율 */
+var BR = [
   [14000000, 0.06, 0],
   [50000000, 0.15, 1260000],
   [88000000, 0.24, 5760000],

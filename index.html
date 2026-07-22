@@ -52,6 +52,8 @@
   --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
   --font:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --serif:"Marcellus",ui-serif,Georgia,serif;
+  /* numeric display — legible, distinct from the Marcellus wordmark */
+  --num:"Pretendard",-apple-system,BlinkMacSystemFont,"Noto Sans KR",system-ui,sans-serif;
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
@@ -122,6 +124,26 @@ section[id]{ scroll-margin-top:56px; }
   .blob-2{ animation:drift2 32s ease-in-out infinite; }
   .blob-3{ animation:drift3 38s ease-in-out infinite; }
 }
+
+/* ---------- smooth marble texture (very subtle veining) ---------- */
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'%3E%3Cfilter%20id='m'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.008%200.018'%20numOctaves='5'%20seed='4'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA%20type='gamma'%20amplitude='1'%20exponent='3.4'%20offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23m%29'/%3E%3C/svg%3E");
+  background-size:640px 640px;
+  opacity:.5; mix-blend-mode:multiply;
+}
+:root[data-theme="dark"] body::after{ mix-blend-mode:screen; opacity:.16; }
+/* polished sheen on the navy band + veining */
+.band-navy{ position:relative; overflow:hidden; }
+.band-navy::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.007%200.02'%20numOctaves='5'%20seed='9'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA%20type='gamma'%20amplitude='1'%20exponent='3.6'%20offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23n%29'/%3E%3C/svg%3E"),
+    radial-gradient(120% 80% at 50% -10%, rgba(246,242,233,.14), transparent 60%);
+  background-size:640px 640px, cover;
+  opacity:.5; mix-blend-mode:screen;
+}
+.band-navy > *{ position:relative; z-index:1; }
+@media (prefers-reduced-motion: reduce){ body::after,.band-navy::before{ opacity:.35; } }
 
 /* ---------- liquid glass nav ---------- */
 nav{
@@ -312,7 +334,7 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.12;
 .band-navy .stat{ background:rgba(246,242,233,.07); border:1px solid rgba(246,242,233,.14);
   box-shadow:inset 0 1px 0 rgba(246,242,233,.14); -webkit-backdrop-filter:none; backdrop-filter:none; }
 .band-navy .stat::before{ display:none; }
-.band-navy .stat b{ color:var(--on-navy); font-family:var(--serif); font-weight:400; letter-spacing:0; }
+.band-navy .stat b{ color:var(--on-navy); font-family:var(--num); font-weight:700; letter-spacing:-0.02em; }
 .band-navy .stat span{ color:rgba(246,242,233,.62); }
 
 /* ---------- navy feature card ---------- */
@@ -336,9 +358,21 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.12;
 .tl-row{ display:grid; grid-template-columns:88px 1fr; gap:20px; padding:20px 0;
   border-top:1px solid var(--line); align-items:baseline; }
 .tl-row:last-child{ border-bottom:1px solid var(--line); }
-.tl-row time{ font-family:var(--serif); font-size:1.02rem; color:var(--navy);
-  font-variant-numeric:tabular-nums; }
+.tl-row time{ font-family:var(--num); font-weight:600; font-size:.92rem; color:var(--navy);
+  letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
 .tl-row p{ font-size:1rem; }
+
+/* ---------- credentials (KOMCA certificates) ---------- */
+.certs{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width:720px; margin:0 auto; }
+.cert{ border-radius:var(--r-lg); padding:14px 14px 6px; }
+.cert-img{ border-radius:12px; overflow:hidden; background:#fdfbf6;
+  box-shadow:inset 0 0 0 1px rgba(49,73,100,.08); }
+.cert-img img{ display:block; width:100%; height:auto; }
+.cert figcaption{ padding:14px 6px 10px; text-align:center; }
+.cert figcaption b{ display:block; font-size:.98rem; font-weight:600; }
+.cert figcaption span{ display:block; margin-top:3px; font-size:.8rem; color:var(--ink-2);
+  font-variant-numeric:tabular-nums; }
+@media (max-width:600px){ .certs{ grid-template-columns:1fr; max-width:420px; } }
 
 /* ---------- info list ---------- */
 .info{ max-width:640px; margin:0 auto; border-radius:var(--r); overflow:hidden; }
@@ -580,7 +614,27 @@ html.js .reveal.in{ opacity:1; transform:none; filter:none; }
     </div>
   </section>
 
-  <section id="contact">
+  <section id="credentials">
+    <div class="wrap">
+      <div class="sec-head sec-head--left reveal">
+        <p class="sec-eyebrow">인증 · 자격</p>
+        <h2>검증된 음악 IP 신탁</h2>
+        <p>보유 저작권은 한국음악저작권협회(KOMCA)에 신탁·등록되어 관리됩니다.</p>
+      </div>
+      <div class="certs">
+        <figure class="cert glass reveal">
+          <div class="cert-img"><img src="assets/komca-trust.png" alt="한국음악저작권협회 저작권신탁증서 (제10029928호)" loading="lazy" width="720" height="1049"></div>
+          <figcaption><b>저작권신탁증서</b><span>KOMCA 제10029928호 · 신탁 2021.04.19~</span></figcaption>
+        </figure>
+        <figure class="cert glass reveal">
+          <div class="cert-img"><img src="assets/komca-works.png" alt="저작물 등록 확인서 (총 1,782곡)" loading="lazy" width="720" height="1049"></div>
+          <figcaption><b>저작물 등록 확인서</b><span>KOMCA 신탁 저작물 총 1,782곡 등록 확인</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="band">
     <div class="wrap">
       <div class="sec-head sec-head--left reveal" style="max-width:640px;margin-left:auto;margin-right:auto">
         <p class="sec-eyebrow">회사 정보</p>

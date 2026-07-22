@@ -416,9 +416,12 @@ h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
 .checks li::before{ content:""; position:absolute; left:4px; top:.55em; width:8px; height:8px;
   border-radius:2px; background:var(--navy); transform:rotate(45deg); }
 
-/* rate table */
-table.rate{ width:100%; border-collapse:separate; border-spacing:0; font-size:.98rem; margin-bottom:18px;
-  border:1px solid var(--hairline); border-radius:var(--r); }
+/* rate table — 표만 흰 카드, 목록은 배경 위에 */
+.rate-card{ background:var(--card); border:1px solid var(--hairline); border-radius:var(--r);
+  overflow:hidden; box-shadow:var(--card-shadow); }
+.checks--open{ margin-top:26px; padding:0 8px; }
+table.rate{ width:100%; border-collapse:separate; border-spacing:0; font-size:.98rem; margin-bottom:0;
+  border:none; border-radius:var(--r); }
 table.rate th, table.rate td{ padding:13px 16px; text-align:center; border-bottom:1px solid var(--line-soft);
   font-variant-numeric:tabular-nums; }
 table.rate thead th{ background:var(--navy-deep); color:var(--on-navy); font-weight:600; border-bottom:none; }
@@ -518,9 +521,10 @@ label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px
 .ch-sub b{ color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
 
 /* ---------- sankey infographic (계산기 실시간 연동) ---------- */
-.sankey-wrap{ margin-top:24px; padding:24px 22px 14px; border-radius:var(--r);
+.sankey-wrap{ margin-top:24px; padding:16px 10px 10px; border-radius:var(--r);
   background:color-mix(in srgb, var(--bg-alt) 50%, transparent);
   border:1px solid var(--hairline-soft); }
+.sankey-wrap .sk-foot{ padding:0 10px; }
 .sk-cap{ font-size:.88rem; font-weight:600; }
 .sk-cap span{ font-weight:400; color:var(--ink-3); font-size:.76rem; margin-left:8px; letter-spacing:-0.01em; }
 .sk-foot{ margin-top:2px; font-size:.72rem; color:var(--ink-3); text-align:right; }
@@ -550,6 +554,7 @@ label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px
 .lk-back{ fill:color-mix(in srgb, var(--sk-pos) 28%, transparent); }
 .lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 38%, transparent); }
 .lk-tax{ fill:color-mix(in srgb, var(--ink) 22%, transparent); }
+.sk-leader{ stroke:var(--ink-3); stroke-width:1; }
 .sk-flow{ fill:none; stroke-width:2; stroke-linecap:round; opacity:0; pointer-events:none; }
 .sankey-wrap.in .sk-flow{ opacity:.4; transition:opacity .8s var(--ease-out) .9s; }
 .fl-save{ stroke:var(--sk-gain); }
@@ -816,7 +821,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <p class="sec-eyebrow">제도 요약</p>
         <h2>조세특례제한법 제16조</h2>
       </div>
-      <div class="panel glass reveal">
+      <div class="rate-card reveal">
         <table class="rate">
           <thead><tr><th>출자 구간</th><th>소득공제율</th></tr></thead>
           <tbody>
@@ -825,13 +830,13 @@ html.js .reveal.in{ opacity:1; transform:none; }
             <tr><td>5,000만원 초과분</td><td>30%</td></tr>
           </tbody>
         </table>
-        <ul class="checks">
-          <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
-          <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
-          <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
-          <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
-        </ul>
       </div>
+      <ul class="checks checks--open reveal">
+        <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
+        <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
+        <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
+        <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
+      </ul>
     </div>
   </section>
 
@@ -1123,9 +1128,11 @@ var skUpdate = (function(){
     var inv = v.inv != null ? v.inv : capped;
     var remain = inc - capped, rest = capped - save, keep = remain - after;
     var back = rest + keep; /* 세후 소득(절세 제외) */
-    var W = vert ? 360 : 820, H = vert ? 580 : 400;
-    var pad = vert ? 18 : 34, t = 9, gM = 30, gR = 20;
-    var span = (vert ? W : H) - pad * 2;
+    var W = vert ? 360 : 820, H = vert ? 580 : 460;
+    var t = 9, gM = 30, gR = 20;
+    /* 가로: 상단은 출자금 주석 공간(padT), 세로: 좌우 균등 */
+    var padT = vert ? 18 : 64, padB = vert ? 18 : 26;
+    var span = (vert ? W : H) - padT - padB;
     /* 고스트(save) 포함한 가장 긴 컬럼 기준 스케일 — 오버플로·재센터링 튕김 방지 */
     var k = (span - gM - 2 * gR) / (inc + save);
     function px(val){ return val > 0 ? Math.max(val * k, 2.5) : 0; }
@@ -1137,13 +1144,14 @@ var skUpdate = (function(){
     var lenMcol = lenB + lenC + (lenB && lenC ? gM : 0);
     var parts = []; if (pD) parts.push(pD); if (lenH) parts.push(lenH); if (lenFgrp) parts.push(lenFgrp);
     var lenRcol = parts.reduce(function(a,b){ return a+b; }, 0) + gR * Math.max(0, parts.length - 1);
-    var sA = pad + (span - lenA) / 2, sM = pad + (span - lenMcol) / 2, sR = pad + (span - lenRcol) / 2;
+    var sA = padT + (span - lenA) / 2, sM = padT + (span - lenMcol) / 2, sR = padT + (span - lenRcol) / 2;
     /* main-axis positions */
     var A = sA, B = sM, C = sM + (lenB ? lenB + gM : 0);
     var D = sR, Hn = sR + (pD ? pD + gR : 0), F = Hn + (lenH ? lenH + gR : 0);
     var FZ = F + gs; /* 실제 납부 세액 노드는 고스트 아래 */
     /* cross-axis columns */
-    var cA = vert ? 64 : 148, cM = vert ? 300 : 430, cR = vert ? 512 : 690;
+    /* 가로 좌표: 좌우 라벨 여백이 균형되도록 중앙 정렬 */
+    var cA = vert ? 64 : 96, cM = vert ? 300 : 392, cR = vert ? 512 : 688;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.setAttribute('data-o', vert ? 'v' : 'h');
     while (svg.firstChild) svg.removeChild(svg.firstChild);
@@ -1188,15 +1196,15 @@ var skUpdate = (function(){
     if (vert){
       gT.appendChild(txt(W/2, cA - 32, '과세표준', 'sk-name', 'middle'));
       gT.appendChild(txt(W/2, cA - 12, fmtM(inc), 'sk-val', 'middle'));
-      if (pB){ gT.appendChild(txt(B, cM + 24, '출자금: ' + fmtM(inv), 'sk-name', 'start'));
-               gT.appendChild(txt(B, cM + 43, '소득공제: ' + fmtM(capped), 'sk-val', 'start')); }
+      if (pB){ gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(inv), 'sk-name', 'start'));
+               gT.appendChild(txt(B, cM + 43, '소득공제 ' + fmtM(capped), 'sk-val', 'start')); }
       if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
                gT.appendChild(txt(C + lenC, cM + 43, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
       if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
       if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0]); }
       if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
-      xs = relax(xs, 78, pad + 26, W - pad - 26);
+      xs = relax(xs, 78, padT + 26, W - padB - 26);
       defs.forEach(function(dd, i){
         gT.appendChild(txt(xs[i], cR + 24, dd[0], 'sk-name', 'middle'));
         gT.appendChild(txt(xs[i], cR + 43, dd[1], 'sk-val' + dd[2], 'middle'));
@@ -1205,19 +1213,25 @@ var skUpdate = (function(){
     } else {
       gT.appendChild(txt(cA - 12, A + lenA/2 - 7, '과세표준', 'sk-name', 'end'));
       gT.appendChild(txt(cA - 12, A + lenA/2 + 16, fmtM(inc), 'sk-val', 'end'));
-      var mys = [], mdefs = [];
-      if (pB){ mys.push(B + lenB/2); mdefs.push(['출자금: ' + fmtM(inv), '소득공제: ' + fmtM(capped)]); }
-      if (pC){ mys.push(C + lenC/2); mdefs.push(['공제 후 과세표준', fmtM(remain)]); }
-      mys = relax(mys, 50, pad + 10, H - pad - 10);
-      mdefs.forEach(function(dd, i){
-        gT.appendChild(txt(cM + t + 10, mys[i] - 6, dd[0], 'sk-name', 'start'));
-        gT.appendChild(txt(cM + t + 10, mys[i] + 16, dd[1], 'sk-val', 'start'));
-      });
+      /* 출자금·소득공제 — 다이어그램 위 주석 + 가는 리더선 (리본 위 겹침 제거) */
+      if (pB){
+        var bcx = cM + t / 2;
+        gT.appendChild(txt(bcx, sM - 36, '출자금 ' + fmtM(inv), 'sk-name', 'middle'));
+        gT.appendChild(txt(bcx, sM - 16, '소득공제 ' + fmtM(capped), 'sk-val', 'middle'));
+        var ld = mk('line', 'sk-leader');
+        ld.setAttribute('x1', bcx.toFixed(1)); ld.setAttribute('x2', bcx.toFixed(1));
+        ld.setAttribute('y1', (sM - 11).toFixed(1)); ld.setAttribute('y2', (sM - 3).toFixed(1));
+        gT.appendChild(ld);
+      }
+      if (pC){
+        gT.appendChild(txt(cM + t + 10, C + lenC/2 - 6, '공제 후 과세표준', 'sk-name', 'start'));
+        gT.appendChild(txt(cM + t + 10, C + lenC/2 + 16, fmtM(remain), 'sk-val', 'start'));
+      }
       var rys = [], rdefs = [];
       if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
       if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0]); }
       if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
-      rys = relax(rys, 56, pad + 10, H - pad - 10);
+      rys = relax(rys, 56, padT + 10, H - padB - 10);
       rdefs.forEach(function(dd, i){
         gT.appendChild(txt(cR + t + 10, rys[i] - 6, dd[0], 'sk-name', 'start'));
         gT.appendChild(txt(cR + t + 10, rys[i] + 16, dd[1], 'sk-val' + dd[2], 'start'));

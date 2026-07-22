@@ -57,7 +57,10 @@
   --accent:#2e4860;
   --on-navy:#f5f3ee;
   --steel:#7d93ad;         /* desaturated steel */
-  --brass:#9a7f4e;         /* muted brass — 절세액 highlight only */
+  --brass:#9a7f4e;         /* legacy accent */
+  --sk-pos:#5f7a99;        /* steel blue — 내게 남는 소득 */
+  --sk-gain:#5d8168;       /* sage green — 절세로 지킨 돈 */
+  --sk-loss:#a86a5b;       /* terracotta — 출자 안 했으면 낼 세금 */
   --hairline:color-mix(in srgb, var(--ink) 16%, transparent);
   --hairline-soft:color-mix(in srgb, var(--ink) 9%, transparent);
   --glass-bg:rgba(255,255,255,0.66);
@@ -91,6 +94,9 @@
   --on-navy:#f5f3ee;
   --steel:#5d7590;
   --brass:#c2a677;
+  --sk-pos:#7d97b8;
+  --sk-gain:#7ba589;
+  --sk-loss:#c08575;
   --hairline:color-mix(in srgb, #cfd8e4 18%, transparent);
   --hairline-soft:color-mix(in srgb, #cfd8e4 10%, transparent);
   --glass-bg:rgba(26,32,41,0.6);
@@ -516,31 +522,33 @@ table.rate tr:last-child td{ border-bottom:none; }
 #sankey text{ font-family:var(--num); }
 .sk-name{ font-size:12px; fill:var(--ink-2); font-weight:600; letter-spacing:-0.01em; }
 .sk-val{ font-size:13.5px; fill:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
-.sk-val--save{ fill:var(--brass); font-size:15px; }
+.sk-val--save{ fill:var(--sk-gain); font-size:15px; }
 #sankey[data-o="v"] .sk-name{ font-size:11px; }
 #sankey[data-o="v"] .sk-val{ font-size:12.5px; }
 #sankey[data-o="v"] .sk-val--save{ font-size:13.5px; }
-.sk-node{ fill:color-mix(in srgb, var(--ink) 52%, transparent); }
-.nd-save{ fill:var(--brass); }
-.nd-deduct{ fill:color-mix(in srgb, var(--brass) 65%, transparent); }
-/* ghost band — 출자하지 않았다면 냈을 세금 (반사실, 점선) */
-.nd-ghost{ fill:color-mix(in srgb, var(--brass) 13%, transparent);
-  stroke:var(--brass); stroke-opacity:.45; stroke-width:1; stroke-dasharray:3 3; }
-.sk-name--ghost{ fill:var(--ink-3); }
-.sk-val--ghost{ fill:var(--ink-3); font-size:12px; text-decoration:line-through; }
-/* 출자금 경로 — 반불투명 브라스로 하이라이트 (A→공제→절세가 한 색으로 이어짐) */
-.lk-deduct{ fill:color-mix(in srgb, var(--brass) 20%, transparent); }
-.lk-remain{ fill:color-mix(in srgb, var(--steel) 20%, transparent); }
-.lk-save{ fill:color-mix(in srgb, var(--brass) 52%, transparent);
-  filter:drop-shadow(0 0 7px color-mix(in srgb, var(--brass) 30%, transparent)); }
-.lk-back{ fill:color-mix(in srgb, var(--ink) 9%, transparent); }
-.lk-tax{ fill:color-mix(in srgb, var(--ink) 20%, transparent); }
-.lk-keep{ fill:color-mix(in srgb, var(--steel) 26%, transparent); }
+/* colour semantics — 무채:통제불가(세금) · 파랑:내게 남음 · 초록:절세 · 붉은:냈을 세금 */
+.sk-node{ fill:color-mix(in srgb, var(--ink) 44%, transparent); } /* 무채 — 과세표준/납부세액 */
+.nd-pos{ fill:var(--sk-pos); }      /* 파랑 — 내게 남는 소득 */
+.nd-save{ fill:var(--sk-gain); }    /* 초록 — 절세로 지킨 돈 */
+.nd-deduct{ fill:color-mix(in srgb, var(--ink) 30%, transparent); } /* 경유: 소득공제 */
+/* ghost band — 출자하지 않았다면 냈을 세금 (반사실, 붉은 점선) */
+.nd-ghost{ fill:color-mix(in srgb, var(--sk-loss) 16%, transparent);
+  stroke:var(--sk-loss); stroke-opacity:.65; stroke-width:1; stroke-dasharray:3 3; }
+.sk-name--ghost{ fill:var(--sk-loss); }
+.sk-val--ghost{ fill:var(--sk-loss); font-size:11.5px; text-decoration:line-through; opacity:.92; }
+/* links coloured by DESTINATION so each branch reads at a glance */
+.lk-deduct{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
+.lk-remain{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
+.lk-save{ fill:color-mix(in srgb, var(--sk-gain) 48%, transparent);
+  filter:drop-shadow(0 0 7px color-mix(in srgb, var(--sk-gain) 32%, transparent)); }
+.lk-back{ fill:color-mix(in srgb, var(--sk-pos) 28%, transparent); }
+.lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 38%, transparent); }
+.lk-tax{ fill:color-mix(in srgb, var(--ink) 22%, transparent); }
 .sk-flow{ fill:none; stroke-width:2; stroke-linecap:round; opacity:0; pointer-events:none; }
-.sankey-wrap.in .sk-flow{ opacity:.45; transition:opacity .8s var(--ease-out) .9s; }
-.fl-save{ stroke:var(--brass); }
-.fl-deduct{ stroke:var(--brass); }
-.fl-remain{ stroke:var(--steel); }
+.sankey-wrap.in .sk-flow{ opacity:.4; transition:opacity .8s var(--ease-out) .9s; }
+.fl-save{ stroke:var(--sk-gain); }
+.fl-deduct{ stroke:var(--ink-3); }
+.fl-remain{ stroke:var(--ink-3); }
 .fl-mute{ stroke:var(--ink-3); }
 @media (prefers-reduced-motion: no-preference){
   .sk-flow{ stroke-dasharray:1 15; animation:skflow 1.3s linear infinite; }
@@ -1144,7 +1152,7 @@ var skUpdate = (function(){
     if (lenB) Ns.push([cM, B, lenB, ' nd-deduct']);
     if (lenC) Ns.push([cM, C, lenC, '']);
     if (pD)  Ns.push([cR, D, pD, ' nd-save']);
-    if (lenH) Ns.push([cR, Hn, lenH, '']);
+    if (lenH) Ns.push([cR, Hn, lenH, ' nd-pos']);
     if (gs)  Ns.push([cR, F, gs, ' nd-ghost']);
     if (pF)  Ns.push([cR, FZ, pF, '']);
     Ns.forEach(function(n){
@@ -1164,7 +1172,7 @@ var skUpdate = (function(){
                gT.appendChild(txt(C + lenC, cM + 40, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
       if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
-      if (lenH){ xs.push(Hn + lenH/2); defs.push(['세후 소득', fmtM(back), '', 0]); }
+      if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0]); }
       if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
       xs = relax(xs, 72, pad + 26, W - pad - 26);
       defs.forEach(function(dd, i){
@@ -1184,14 +1192,14 @@ var skUpdate = (function(){
         gT.appendChild(txt(cM + t + 10, mys[i] + 13, dd[1], 'sk-val', 'start'));
       });
       var rys = [], rdefs = [];
-      if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', '']); }
-      if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['세후 소득', fmtM(back), '', '']); }
-      if (gs){ rys.push(F + gs/2); rdefs.push(['공제 전 세액', fmtM(after + save), ' sk-val--ghost', ' sk-name--ghost']); }
-      if (pF){ rys.push(FZ + pF/2); rdefs.push(['납부 세액', fmtM(after), '', '']); }
-      rys = relax(rys, 38, pad + 10, H - pad - 10);
+      if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
+      if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0]); }
+      if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
+      rys = relax(rys, 46, pad + 10, H - pad - 10);
       rdefs.forEach(function(dd, i){
-        gT.appendChild(txt(cR + t + 10, rys[i] - 4, dd[0], 'sk-name' + dd[3], 'start'));
+        gT.appendChild(txt(cR + t + 10, rys[i] - 4, dd[0], 'sk-name', 'start'));
         gT.appendChild(txt(cR + t + 10, rys[i] + 14, dd[1], 'sk-val' + dd[2], 'start'));
+        if (dd[3]) gT.appendChild(txt(cR + t + 10, rys[i] + 29, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'start'));
       });
     }
     svg.appendChild(gL); svg.appendChild(gF); svg.appendChild(gN); svg.appendChild(gT);

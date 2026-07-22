@@ -7,6 +7,22 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#efe9dd" id="metaTheme">
 <title>뮤사이파트너스 — 음악 IP 투자</title>
+<meta name="description" content="음악저작권·저작인접권에 투자하는 IP 전문기업. 시간이 지나도 사랑받는 곡을 발굴해 리메이크·OST·콘텐츠로 새로운 수명을 만들어 갑니다.">
+<!-- Open Graph / link preview (company wordmark, not the KOMCA certificate) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://musaipartners.com/">
+<meta property="og:site_name" content="뮤사이파트너스">
+<meta property="og:title" content="뮤사이파트너스 — 음악 IP 투자">
+<meta property="og:description" content="음악저작권·저작인접권에 투자하는 IP 전문기업. 시간이 지나도 사랑받는 곡을 발굴해 새로운 수명을 만들어 갑니다.">
+<meta property="og:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MUSAI PARTNERS — 음악 IP 투자">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="뮤사이파트너스 — 음악 IP 투자">
+<meta name="twitter:description" content="음악저작권·저작인접권에 투자하는 IP 전문기업.">
+<meta name="twitter:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
 <script>
 /* theme (default light) + js flag before first paint */
 (function(){
@@ -27,28 +43,28 @@
    ============================================================ */
 :root{
   color-scheme:light;
-  --bg:#f4f0e6;            /* warm sand, lifted from deck #eae3d6 */
-  --bg-alt:#eae3d6;        /* deck sand — section bands */
+  --bg:#f3f1eb;            /* neutral warm off-white — yellow pulled back */
+  --bg-alt:#e8e4da;        /* calmer sand — section bands */
   --card:#ffffff;
-  --ink:#20242b;
-  --ink-2:#5c6470;
-  --ink-3:#8a8f98;
-  --line:#d4cdbd;
-  --line-soft:#e0d9c9;
-  --navy:#314964;          /* deck cover navy */
-  --navy-deep:#27394f;
-  --accent:#314964;
-  --on-navy:#f6f2e9;
-  --steel:#7f9cbd;
-  --glass-bg:rgba(255,255,255,0.44);
+  --ink:#1b1f27;           /* deeper ink for cleaner contrast */
+  --ink-2:#535a65;
+  --ink-3:#888d97;
+  --line:#dad5c9;
+  --line-soft:#e4dfd4;
+  --navy:#2e4860;          /* deck navy, a touch deeper */
+  --navy-deep:#243748;
+  --accent:#2e4860;
+  --on-navy:#f5f2ea;
+  --steel:#7c99bb;
+  --glass-bg:rgba(255,255,255,0.46);
   --glass-border:rgba(255,255,255,0.62);
   --glass-hi:inset 0 1px 0 rgba(255,255,255,0.85);
-  --glass-blur:blur(28px) saturate(160%);
-  --card-shadow:0 10px 34px rgba(49,73,100,.10);
-  --nav-bg:rgba(244,240,230,0.55);
-  --nav-line:rgba(49,73,100,0.14);
+  --glass-blur:blur(28px) saturate(150%);
+  --card-shadow:0 10px 32px rgba(36,55,72,.11);
+  --nav-bg:rgba(243,241,235,0.58);
+  --nav-line:rgba(46,72,96,0.14);
   --r:18px;
-  --r-lg:24px;
+  --r-lg:18px;             /* unified with --r (buttons + cards) */
   --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
   --font:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --serif:"Marcellus",ui-serif,Georgia,serif;
@@ -175,7 +191,7 @@ nav.scrolled::after{ opacity:1; }
   transition:color .2s var(--ease-out); white-space:nowrap; }
 @media (hover:hover){ .menu a:hover{ color:var(--ink); } }
 .menu a.tax-link{
-  color:var(--on-navy); font-weight:500; padding:8px 16px; border-radius:980px; margin-left:6px;
+  color:var(--on-navy); font-weight:500; padding:8px 16px; border-radius:var(--r); margin-left:6px;
   background:linear-gradient(180deg, color-mix(in srgb, var(--navy-deep) 88%, #fff 12%), var(--navy-deep));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.32), 0 3px 12px rgba(49,73,100,.32);
   transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
@@ -225,7 +241,7 @@ html.js .page.active{ display:block; }
 
 /* ---------- buttons ---------- */
 .btn{ display:inline-flex; align-items:center; gap:7px; font-family:inherit; font-size:1rem;
-  font-weight:500; letter-spacing:-0.01em; border:none; cursor:pointer; border-radius:980px;
+  font-weight:500; letter-spacing:-0.01em; border:none; cursor:pointer; border-radius:var(--r);
   padding:13px 26px; transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
 .btn-primary{ color:var(--on-navy);
   background:linear-gradient(180deg, color-mix(in srgb, var(--navy-deep) 86%, #fff 14%), var(--navy-deep));
@@ -283,13 +299,14 @@ html.js .page.active{ display:block; }
 /* ---------- section scaffolding ---------- */
 .band{ background:color-mix(in srgb, var(--bg-alt) 72%, transparent); }
 section{ padding:clamp(60px, 9vw, 96px) 0; }
-.sec-head{ text-align:center; margin-bottom:52px; }
+.sec-head{ display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:52px; }
 .sec-head--tight{ margin-bottom:32px; }
-.sec-eyebrow{ font-size:1rem; font-weight:700; letter-spacing:.01em; color:var(--navy);
-  margin-bottom:14px; }
-h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.12;
+/* eyebrow now sits BELOW the title as a small caption (order:2) */
+.sec-eyebrow{ order:2; font-size:.82rem; font-weight:700; letter-spacing:.16em; color:var(--navy);
+  margin-top:14px; text-transform:uppercase; }
+h2{ font-size:clamp(1.75rem, 3.8vw, 2.7rem); font-weight:700; line-height:1.12;
   letter-spacing:-0.028em; text-wrap:balance; }
-.sec-head p:not(.sec-eyebrow){ margin:16px auto 0; max-width:40ch; color:var(--ink-2); font-size:1.05rem; }
+.sec-head p:not(.sec-eyebrow){ order:3; margin:16px auto 0; max-width:42ch; color:var(--ink-2); font-size:1.05rem; }
 .hero .sub,.sec-head p,.b-card p,.step p,.faq details p{ text-wrap:pretty; }
 
 /* ---------- stats ---------- */
@@ -307,14 +324,14 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.12;
 }
 
 /* ---------- bento business cards ---------- */
-.bento{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-.bento .b-card:first-child{ grid-column:1 / -1; }
-.b-card{ border-radius:var(--r-lg); padding:32px 30px; }
-.b-card h3{ font-size:1.28rem; font-weight:600; letter-spacing:-0.02em; margin-bottom:10px;
+.bento{ display:flex; flex-direction:column; gap:16px; }
+.b-card{ border-radius:var(--r-lg); padding:30px 34px;
+  display:grid; grid-template-columns:210px 1fr; gap:6px 44px; align-items:start; }
+.b-card h3{ font-size:1.3rem; font-weight:600; letter-spacing:-0.02em; margin-bottom:0;
   display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.b-card p{ color:var(--ink-2); font-size:.98rem; line-height:1.6; }
+.b-card p{ color:var(--ink-2); font-size:.98rem; line-height:1.62; max-width:58ch; }
 .b-card .accent{ color:var(--navy); font-weight:600; }
-@media (max-width:640px){ .bento{ grid-template-columns:1fr; } }
+@media (max-width:720px){ .b-card{ grid-template-columns:1fr; gap:10px; padding:26px 24px; } }
 
 .chip{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.02em; color:var(--navy);
   background:color-mix(in srgb, var(--navy) 12%, transparent);
@@ -324,9 +341,9 @@ h2{ font-size:clamp(1.7rem, 3.6vw, 2.6rem); font-weight:700; line-height:1.12;
   background:rgba(246,242,233,.12); border-color:rgba(246,242,233,.3); }
 
 /* ---------- left-aligned section heads (rhythm break) ---------- */
-.sec-head--left{ text-align:left; }
-.sec-head--left h2{ max-width:14em; }
-.sec-head--left p:not(.sec-eyebrow){ margin-left:0; }
+.sec-head--left{ align-items:flex-start; text-align:left; }
+.sec-head--left h2{ max-width:16em; }
+.sec-head--left p:not(.sec-eyebrow){ margin-left:0; margin-right:0; }
 
 /* ---------- navy band (deck cover moment) ---------- */
 .band-navy{ background:linear-gradient(168deg, #38536f, var(--navy-deep) 78%); }

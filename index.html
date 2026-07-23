@@ -448,12 +448,12 @@ table.rate tr:last-child td{ border-bottom:none; }
 .calc label{ display:block; font-size:.9rem; font-weight:600; margin:20px 0 8px; }
 .calc label:first-child{ margin-top:0; }
 .calc label small{ font-weight:400; color:var(--ink-2); letter-spacing:-0.01em; }
-.calc input{ width:100%; font-family:inherit; font-size:1.15rem; font-weight:500;
+.calc input:not([type=range]){ width:100%; font-family:inherit; font-size:1.15rem; font-weight:500;
   padding:14px 16px; border:1px solid var(--line); border-radius:12px;
   background:color-mix(in srgb, var(--card) 75%, transparent);
   color:var(--ink); outline:none; font-variant-numeric:tabular-nums;
   transition:border-color .2s var(--ease-out), box-shadow .2s var(--ease-out); }
-.calc input:focus{ border-color:var(--navy);
+.calc input:not([type=range]):focus{ border-color:var(--navy);
   box-shadow:0 0 0 4px color-mix(in srgb, var(--navy) 16%, transparent); }
 .result{ position:relative; margin-top:24px; border-radius:var(--r); color:var(--on-navy); padding:24px;
   background:linear-gradient(180deg, #2c445f, var(--navy-deep));
@@ -480,15 +480,17 @@ table.rate tr:last-child td{ border-bottom:none; }
 
 /* ---------- calculator redesign: slider studio ---------- */
 .wrap-calc{ max-width:840px; margin-left:auto; margin-right:auto; }
-.calc-step{ display:flex; gap:16px; align-items:flex-start; }
-.calc-step + .calc-step{ margin-top:26px; padding-top:26px; border-top:1px solid var(--hairline-soft); }
-.calc-num{ flex:none; width:27px; height:27px; border-radius:50%; margin-top:1px;
+/* 독립 카드 구조: 슬라이더가 카드 전체폭 — 들여쓰기 비대칭 원천 제거 */
+.calc{ display:flex; flex-direction:column; gap:14px; }
+.cstep{ border-radius:var(--r); padding:20px 24px 10px; }
+.cs-head{ display:flex; align-items:center; gap:11px; flex-wrap:wrap; }
+.cs-head > label{ margin:0; font-size:.95rem; font-weight:600; }
+.cs-head .ci-amount{ margin-left:auto; }
+.cs-hint{ display:block; margin:3px 0 0 38px; font-size:.76rem; color:var(--ink-3);
+  font-weight:400; letter-spacing:-0.01em; }
+.calc-num{ flex:none; width:27px; height:27px; border-radius:50%;
   border:1px solid var(--hairline); color:var(--navy); font-size:.84rem; font-weight:700;
   display:flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums; }
-.calc-body{ flex:1; min-width:0; }
-.calc-body > label{ margin-top:0; }
-.ci-head{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; }
-.ci-head label{ margin:0; }
 .ci-amount{ display:flex; align-items:baseline; gap:4px; }
 /* big amount IS the direct input — slider and typing are one control */
 .calc input.ci-big{ width:215px; font-size:1.7rem; font-weight:700; color:var(--navy);
@@ -523,15 +525,8 @@ table.rate tr:last-child td{ border-bottom:none; }
   .ci-ticks{ height:34px; margin-top:8px; }
   .ci-tick{ font-size:.58rem; }
   .ci-tick em{ font-size:.52rem; margin-top:1px; }
-  /* 슬라이더·눈금을 넘버(①②) 들여쓰기 없이 카드 전체폭 대칭으로
-     — calc-num(27px) + calc-step gap(16px) = 43px 만큼 왼쪽으로 확장 */
-  .calc-body .ci-range, .calc-body .ci-ticks{ margin-left:-43px; width:calc(100% + 43px); }
 }
-label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px 0 0;
-  font-size:.82rem; color:var(--ink-2); font-weight:500; }
-.calc input.ci-exact{ width:160px; font-size:.95rem; padding:9px 12px; margin:0; }
-.ci-exact-lbl > span{ color:var(--ink-3); }
-.calc-hero{ text-align:center; margin:30px 0 6px; padding:26px 20px; border-radius:var(--r);
+.calc-hero{ text-align:center; margin:0; padding:26px 20px; border-radius:var(--r);
   background:color-mix(in srgb, var(--sk-gain) 9%, var(--card));
   border:1px solid color-mix(in srgb, var(--sk-gain) 28%, transparent); }
 .ch-label{ display:block; font-size:.92rem; color:var(--ink-2); font-weight:500; }
@@ -541,7 +536,7 @@ label.ci-exact-lbl{ display:inline-flex; align-items:center; gap:8px; margin:8px
 .ch-sub b{ color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
 
 /* ---------- sankey infographic (계산기 실시간 연동) ---------- */
-.sankey-wrap{ margin-top:24px; padding:16px 10px 10px; border-radius:var(--r);
+.sankey-wrap{ margin:0; padding:16px 10px 10px; border-radius:var(--r);
   background:color-mix(in srgb, var(--bg-alt) 50%, transparent);
   border:1px solid var(--hairline-soft); }
 .sankey-wrap .sk-foot{ padding:0 10px; }
@@ -595,6 +590,7 @@ html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
 @media (max-width:560px){
   html{ font-size:14.5px; }   /* rem 기반 타이포 일괄 ~9% 축소 */
   body{ font-size:15px; }
+  .wrap{ padding:0 26px; }    /* 양옆 숨통 여백 */
   section{ padding:44px 0; }
   .hero{ padding:62px 0 44px; }
   .sec-head{ margin-bottom:30px; }
@@ -604,16 +600,18 @@ html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
   .tax-hero p{ margin-top:14px; }
   .panel{ padding:20px 14px; }
   .b-card{ padding:20px 16px; }
-  /* 계산기: 슬라이더~샌키 세로 거리 압축 — 조작하며 다이어그램 보이게 */
-  .calc-step + .calc-step{ margin-top:16px; padding-top:16px; }
+  /* 계산기: 카드 압축 — 조작하며 다이어그램 보이게 */
+  .calc{ gap:10px; }
+  .cstep{ padding:15px 14px 6px; }
+  .cs-hint{ margin-left:38px; }
   .ci-range{ margin-top:12px; }
-  .calc-hero{ margin:16px 0 2px; padding:13px 12px; }
+  .calc-hero{ padding:13px 12px; }
   .ch-num{ font-size:clamp(1.7rem, 7.5vw, 2.2rem); margin:4px 0 6px; }
   .ch-label{ font-size:.82rem; }
   .ch-sub{ font-size:.8rem; }
-  /* 샌키 이중 카드 제거 — 배경·테두리 없이 흐름만 */
-  .sankey-wrap{ border:none; background:transparent; padding:8px 0 0; margin-top:8px; }
-  .sankey-wrap .sk-foot{ padding:0 2px; }
+  /* 샌키: 카드 없이 흐름만 — 좌우 숨통 여백 */
+  .sankey-wrap{ border:none; background:transparent; padding:6px 4px 0; }
+  .sankey-wrap .sk-foot{ padding:0 6px; }
   .tax-note{ padding:14px 12px; font-size:.8rem; }
 }
 
@@ -890,52 +888,51 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <p class="sec-eyebrow">계산기</p>
         <h2>얼마 넣으면 얼마 아끼는지, 바로 보입니다</h2>
       </div>
-      <div class="panel glass calc reveal">
-        <!-- ① 소득: 슬라이더 + 직접입력 -->
-        <div class="calc-step">
-          <span class="calc-num">1</span>
-          <div class="calc-body">
-            <div class="ci-head">
-              <label for="income">내 종합소득 과세표준
-                <small>연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small></label>
-              <div class="ci-amount"><input id="income" class="ci-big" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력"><span>원</span></div>
-            </div>
-            <input id="incomeRange" class="ci-range" type="range" min="0" max="300000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
-            <div class="ci-ticks" aria-hidden="true">
-              <span class="ci-tick tick-m-hide" style="left:16.7%"><i></i>5,000만<em>세율 24%</em></span>
-              <span class="ci-tick" style="left:29.3%"><i></i>8,800만<em>세율 35%</em></span>
-              <span class="ci-tick" style="left:50%"><i></i>1.5억<em>세율 38%</em></span>
-            </div>
+      <div class="calc">
+        <!-- ① 소득 카드 -->
+        <div class="cstep glass reveal">
+          <div class="cs-head">
+            <span class="calc-num">1</span>
+            <label for="income">내 종합소득 과세표준</label>
+            <div class="ci-amount"><input id="income" class="ci-big" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력"><span>원</span></div>
+          </div>
+          <small class="cs-hint">연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small>
+          <input id="incomeRange" class="ci-range" type="range" min="0" max="500000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
+          <div class="ci-ticks" aria-hidden="true">
+            <span class="ci-tick tick-m-hide" style="left:10%"><i></i>5,000만<em>세율 24%</em></span>
+            <span class="ci-tick tick-m-hide" style="left:17.6%"><i></i>8,800만<em>세율 35%</em></span>
+            <span class="ci-tick" style="left:30%"><i></i>1.5억<em>세율 38%</em></span>
+            <span class="ci-tick" style="left:60%"><i></i>3억<em>세율 40%</em></span>
+            <span class="ci-tick tick-m-hide" style="left:100%"><i></i>5억<em>세율 42%</em></span>
           </div>
         </div>
 
-        <!-- ② 출자금: 슬라이더 + 직접입력 (주역) -->
-        <div class="calc-step calc-step--invest">
-          <span class="calc-num">2</span>
-          <div class="calc-body">
-            <div class="ci-head">
-              <label for="invest">개인투자조합에 출자할 금액</label>
-              <div class="ci-amount"><input id="invest" class="ci-big" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력"><span>원</span></div>
-            </div>
-            <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
-            <div class="ci-ticks" aria-hidden="true">
-              <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
-              <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
-              <span class="ci-tick" style="left:80%"><i></i>5,000만 초과<em>30% 공제</em></span>
-            </div>
+        <!-- ② 출자금 카드 -->
+        <div class="cstep glass reveal">
+          <div class="cs-head">
+            <span class="calc-num">2</span>
+            <label for="invest">개인투자조합에 출자할 금액</label>
+            <div class="ci-amount"><input id="invest" class="ci-big" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력"><span>원</span></div>
+          </div>
+          <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
+          <div class="ci-ticks" aria-hidden="true">
+            <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
+            <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
+            <span class="ci-tick" style="left:80%"><i></i>5,000만 초과<em>30% 공제</em></span>
           </div>
         </div>
 
-        <!-- HERO: 절세액 -->
-        <div class="calc-hero" aria-live="polite">
-          <span class="ch-label">이렇게 출자하면, 예상 절세액</span>
-          <b class="ch-num" id="rSave">–</b>
-          <span class="ch-sub">지방소득세 포함 <b id="rSaveL">–</b> · 출자금 대비 <b id="rRoi">–</b> 절세</span>
-        </div>
-
+        <!-- ③ 돈의 흐름 (샌키) -->
         <div class="sankey-wrap reveal" id="sankeyWrap">
           <svg id="sankey" role="img" aria-label="종합소득 과세표준이 소득공제와 절세액으로 나뉘는 흐름 다이어그램"></svg>
           <p class="sk-foot">※ 점선 상자는 출자하지 않았을 경우의 세액(공제 전) · 절세액 + 세후 소득이 실제로 남는 금액 · 지방소득세(10%) 별도</p>
+        </div>
+
+        <!-- ④ 결론: 절세액 (샌키 아래) -->
+        <div class="calc-hero reveal" aria-live="polite">
+          <span class="ch-label">이렇게 출자하면, 예상 절세액</span>
+          <b class="ch-num" id="rSave">–</b>
+          <span class="ch-sub">지방소득세 포함 <b id="rSaveL">–</b> · 출자금 대비 <b id="rRoi">–</b> 절세</span>
         </div>
         <div class="tax-note" id="calcnote">
           ※ 세무 검토 안내 — 본 계산기는 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을 반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등 개인별 세무 상황에 따라 달라지므로 이 금액은 확정치가 아닙니다. 소득공제 대상은 출자금 중 조합이 벤처기업에 실제 투자한 금액을 기준으로 하며, 본 계산기는 출자금 전액이 벤처기업 투자로 집행되는 경우를 가정합니다. 출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.

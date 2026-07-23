@@ -565,6 +565,8 @@ table.rate tr:last-child td{ border-bottom:none; }
   stroke:var(--sk-loss); stroke-opacity:.65; stroke-width:1; stroke-dasharray:3 3; }
 .sk-name--ghost{ fill:var(--sk-loss); }
 .sk-val--ghost{ fill:var(--sk-loss); font-size:11.5px; text-decoration:line-through; opacity:.92; }
+/* '내게 남는 소득 + 절세액' 합산 표시 — 슬라이더에 따라 실시간 변동 */
+.sk-val--sum{ fill:var(--sk-gain); font-size:12px; font-weight:600; }
 /* links coloured by DESTINATION so each branch reads at a glance */
 .lk-deduct{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
 .lk-remain{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
@@ -1255,14 +1257,15 @@ var skUpdate = (function(){
       if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
                gT.appendChild(txt(C + lenC, cM + 43, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
-      if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
-      if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0]); }
-      if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
+      if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0, 0]); }
+      if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0, save > 0 ? back + save : 0]); }
+      if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0, 0]); }
       xs = relax(xs, 78, padT + 26, W - padB - 26);
       defs.forEach(function(dd, i){
         gT.appendChild(txt(xs[i], cR + 24, dd[0], 'sk-name', 'middle'));
         gT.appendChild(txt(xs[i], cR + 43, dd[1], 'sk-val' + dd[2], 'middle'));
         if (dd[3]) gT.appendChild(txt(xs[i], cR + 61, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'middle'));
+        if (dd[4]) gT.appendChild(txt(xs[i], cR + 61, '＋절세 = ' + fmtM(dd[4]), 'sk-val sk-val--sum', 'middle'));
       });
     } else {
       gT.appendChild(txt(cA - 12, A + lenA/2 - 7, '과세표준', 'sk-name', 'end'));
@@ -1282,14 +1285,15 @@ var skUpdate = (function(){
         gT.appendChild(txt(cM + t + 10, C + lenC/2 + 16, fmtM(remain), 'sk-val', 'start'));
       }
       var rys = [], rdefs = [];
-      if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0]); }
-      if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0]); }
-      if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0]); }
-      rys = relax(rys, 56, padT + 10, H - padB - 10);
+      if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0, 0]); }
+      if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0, save > 0 ? back + save : 0]); }
+      if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0, 0]); }
+      rys = relax(rys, 58, padT + 10, H - padB - 10);
       rdefs.forEach(function(dd, i){
         gT.appendChild(txt(cR + t + 10, rys[i] - 6, dd[0], 'sk-name', 'start'));
         gT.appendChild(txt(cR + t + 10, rys[i] + 16, dd[1], 'sk-val' + dd[2], 'start'));
         if (dd[3]) gT.appendChild(txt(cR + t + 10, rys[i] + 33, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'start'));
+        if (dd[4]) gT.appendChild(txt(cR + t + 10, rys[i] + 33, '＋절세 = ' + fmtM(dd[4]), 'sk-val sk-val--sum', 'start'));
       });
     }
     svg.appendChild(gL); svg.appendChild(gF); svg.appendChild(gN); svg.appendChild(gT);

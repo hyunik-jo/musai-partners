@@ -86,8 +86,8 @@
   --ink:#e9e7e1;
   --ink-2:#a2a7ae;
   --ink-3:#7c8188;
-  --line:#2a313b;
-  --line-soft:#232a33;
+  --line:#39434f;
+  --line-soft:#2b333e;
   --navy:#9db2cc;          /* accent flips to quiet steel */
   --navy-deep:#31485f;
   --accent:#9db2cc;
@@ -97,9 +97,9 @@
   --sk-pos:#7d97b8;
   --sk-gain:#7ba589;
   --sk-loss:#c08575;
-  --hairline:color-mix(in srgb, #cfd8e4 18%, transparent);
-  --hairline-soft:color-mix(in srgb, #cfd8e4 10%, transparent);
-  --glass-bg:rgba(26,32,41,0.6);
+  --hairline:color-mix(in srgb, #cfd8e4 26%, transparent);
+  --hairline-soft:color-mix(in srgb, #cfd8e4 14%, transparent);
+  --glass-bg:rgba(32,39,51,0.74);
   --glass-border:var(--hairline);
   --glass-hi:inset 0 1px 0 rgba(233,231,225,0.06);
   --glass-blur:blur(16px) saturate(110%);
@@ -483,10 +483,11 @@ table.rate tr:last-child td{ border-bottom:none; }
 /* 독립 카드 구조: 슬라이더가 카드 전체폭 — 들여쓰기 비대칭 원천 제거 */
 .calc{ display:flex; flex-direction:column; gap:14px; }
 .cstep{ border-radius:var(--r); padding:20px 24px 10px; }
-.cs-head{ display:flex; align-items:center; gap:11px; flex-wrap:wrap; }
-.cs-head > label{ margin:0; font-size:.95rem; font-weight:600; }
+.cs-head{ display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; }
+.cs-head .calc-num{ align-self:center; transform:translateY(1px); }
+.cs-head > label{ margin:0; font-size:1rem; font-weight:600; }
 .cs-head .ci-amount{ margin-left:auto; }
-.cs-hint{ display:block; margin:3px 0 0 38px; font-size:.76rem; color:var(--ink-3);
+.cs-hint{ display:block; margin:3px 0 0 38px; font-size:.8rem; color:var(--ink-3);
   font-weight:400; letter-spacing:-0.01em; }
 .calc-num{ flex:none; width:27px; height:27px; border-radius:50%;
   border:1px solid var(--hairline); color:var(--navy); font-size:.84rem; font-weight:700;
@@ -516,6 +517,9 @@ table.rate tr:last-child td{ border-bottom:none; }
 .ci-range:focus-visible::-webkit-slider-thumb{
   box-shadow:0 0 0 3px var(--card), 0 0 0 6px color-mix(in srgb, var(--navy) 30%, transparent); }
 .ci-ticks{ position:relative; height:38px; margin-top:9px; }
+/* 붐비는 구간용 2단 눈금 (예: 5,000만·8,800만) */
+.ci-ticks--tall{ height:58px; }
+.ci-tick.ci-tick--lo i{ height:25px; }
 .ci-tick{ position:absolute; transform:translateX(-50%); text-align:center;
   font-size:.72rem; color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .ci-tick i{ display:block; width:1px; height:7px; margin:0 auto 4px; background:color-mix(in srgb, var(--ink) 22%, transparent); }
@@ -570,6 +574,15 @@ table.rate tr:last-child td{ border-bottom:none; }
 .lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 38%, transparent); }
 .lk-tax{ fill:color-mix(in srgb, var(--ink) 22%, transparent); }
 .sk-leader{ stroke:var(--ink-3); stroke-width:1; }
+/* 다크모드: 리본이 배경에 묻히지 않게 대비 상향 */
+:root[data-theme="dark"] .lk-deduct,
+:root[data-theme="dark"] .lk-remain{ fill:rgba(207,216,228,.15); }
+:root[data-theme="dark"] .lk-tax{ fill:rgba(207,216,228,.28); }
+:root[data-theme="dark"] .lk-back{ fill:color-mix(in srgb, var(--sk-pos) 36%, transparent); }
+:root[data-theme="dark"] .lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 46%, transparent); }
+:root[data-theme="dark"] .lk-save{ fill:color-mix(in srgb, var(--sk-gain) 58%, transparent); }
+:root[data-theme="dark"] .sk-node{ fill:rgba(233,231,225,.55); }
+:root[data-theme="dark"] .sankey-wrap{ background:rgba(233,231,225,.035); }
 .sk-flow{ fill:none; stroke-width:2; stroke-linecap:round; opacity:0; pointer-events:none; }
 .sankey-wrap.in .sk-flow{ opacity:.4; transition:opacity .8s var(--ease-out) .9s; }
 .fl-save{ stroke:var(--sk-gain); }
@@ -898,9 +911,9 @@ html.js .reveal.in{ opacity:1; transform:none; }
           </div>
           <small class="cs-hint">연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small>
           <input id="incomeRange" class="ci-range" type="range" min="0" max="500000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
-          <div class="ci-ticks" aria-hidden="true">
+          <div class="ci-ticks ci-ticks--tall" aria-hidden="true">
             <span class="ci-tick tick-m-hide" style="left:10%"><i></i>5,000만<em>세율 24%</em></span>
-            <span class="ci-tick tick-m-hide" style="left:17.6%"><i></i>8,800만<em>세율 35%</em></span>
+            <span class="ci-tick ci-tick--lo tick-m-hide" style="left:17.6%"><i></i>8,800만<em>세율 35%</em></span>
             <span class="ci-tick" style="left:30%"><i></i>1.5억<em>세율 38%</em></span>
             <span class="ci-tick" style="left:60%"><i></i>3억<em>세율 40%</em></span>
             <span class="ci-tick tick-m-hide" style="left:100%"><i></i>5억<em>세율 42%</em></span>

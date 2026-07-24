@@ -1252,8 +1252,14 @@ var skUpdate = (function(){
     if (vert){
       gT.appendChild(txt(W/2, cA - 32, '과세표준', 'sk-name', 'middle'));
       gT.appendChild(txt(W/2, cA - 12, fmtM(inc), 'sk-val', 'middle'));
-      if (pB){ gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(inv), 'sk-name', 'start'));
-               gT.appendChild(txt(B, cM + 43, '소득공제 ' + fmtM(capped), 'sk-val', 'start')); }
+      if (pB){
+        if (Math.abs(inv - capped) < 10000){
+          gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(capped) + ' 전액 공제', 'sk-val', 'start'));
+        } else {
+          gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(inv), 'sk-name', 'start'));
+          gT.appendChild(txt(B, cM + 43, '소득공제 ' + fmtM(capped), 'sk-val', 'start'));
+        }
+      }
       if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
                gT.appendChild(txt(C + lenC, cM + 43, fmtM(remain), 'sk-val', 'end')); }
       var xs = [], defs = [];
@@ -1270,11 +1276,16 @@ var skUpdate = (function(){
     } else {
       gT.appendChild(txt(cA - 12, A + lenA/2 - 7, '과세표준', 'sk-name', 'end'));
       gT.appendChild(txt(cA - 12, A + lenA/2 + 16, fmtM(inc), 'sk-val', 'end'));
-      /* 출자금·소득공제 — 다이어그램 위 주석 + 가는 리더선 (리본 위 겹침 제거) */
+      /* 출자금·소득공제 — 다이어그램 위 주석 + 가는 리더선.
+         금액이 같으면 '전액 공제' 한 줄(중복 제거), 다르면 두 줄 */
       if (pB){
         var bcx = cM + t / 2;
-        gT.appendChild(txt(bcx, sM - 36, '출자금 ' + fmtM(inv), 'sk-name', 'middle'));
-        gT.appendChild(txt(bcx, sM - 16, '소득공제 ' + fmtM(capped), 'sk-val', 'middle'));
+        if (Math.abs(inv - capped) < 10000){
+          gT.appendChild(txt(bcx, sM - 16, '출자금 ' + fmtM(capped) + ' 전액 공제', 'sk-val', 'middle'));
+        } else {
+          gT.appendChild(txt(bcx, sM - 36, '출자금 ' + fmtM(inv), 'sk-name', 'middle'));
+          gT.appendChild(txt(bcx, sM - 16, '소득공제 ' + fmtM(capped), 'sk-val', 'middle'));
+        }
         var ld = mk('line', 'sk-leader');
         ld.setAttribute('x1', bcx.toFixed(1)); ld.setAttribute('x2', bcx.toFixed(1));
         ld.setAttribute('y1', (sM - 11).toFixed(1)); ld.setAttribute('y2', (sM - 3).toFixed(1));

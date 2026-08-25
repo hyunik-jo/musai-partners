@@ -103,6 +103,7 @@ body{
   color:var(--ink);
   background:var(--bg);
   font-size:16.5px; line-height:1.62; letter-spacing:-0.008em;
+  word-break:keep-all; overflow-wrap:break-word;
   overflow-x:hidden; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 a{ color:inherit; text-decoration:none; }
@@ -173,30 +174,39 @@ html.js .page.active{ display:block; }
   @starting-style{ html.js .page.active{ opacity:0; } }
 }
 
-/* ---------- 진입: 2-도어 ---------- */
-.entry{ min-height:calc(100svh - 58px); display:flex; flex-direction:column;
-  justify-content:center; gap:26px; padding:clamp(40px,7vh,72px) 0 clamp(40px,6vh,60px); }
+/* ---------- 진입: 히어로 ---------- */
 .mono{ font-family:var(--num); font-size:.74rem; font-weight:600; letter-spacing:.14em;
   color:var(--ink-3); font-variant-numeric:tabular-nums; }
-.entry h1{ font-size:clamp(1.9rem, 4.8vw, 2.7rem); font-weight:700; line-height:1.3;
-  letter-spacing:-0.032em; text-wrap:balance; }
-.entry .sub{ color:var(--ink-2); font-size:.98rem; max-width:46ch; margin-top:-8px; text-wrap:pretty; }
-.gold-rule{ width:44px; height:2px; background:var(--gold); }
-.doors{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
-.door{ display:flex; flex-direction:column; gap:6px; padding:20px 22px;
-  border:1px solid var(--ink); background:transparent;
-  transition:background .2s var(--ease-out), transform .16s var(--ease-out); }
-.door b{ font-size:1.02rem; font-weight:700; letter-spacing:-0.015em; }
-.door .dsub{ font-size:.83rem; color:var(--ink-3); }
-.door .go{ margin-top:10px; font-family:var(--num); font-size:.82rem; font-weight:600;
-  color:var(--gold-deep); }
-@media (hover:hover){ .door:hover{ background:var(--bg-alt); } }
-.door:active{ transform:scale(0.99); }
-.door.gold{ border-color:var(--gold); background:var(--bg-alt); }
-.door.gold b{ color:var(--gold-deep); }
-:root[data-theme="dark"] .door.gold{ background:color-mix(in srgb, var(--gold) 9%, transparent); }
-.entry .private{ font-size:.8rem; color:var(--ink-3); }
-@media (max-width:600px){ .doors{ grid-template-columns:1fr; } }
+.hero-wrap{ position:relative; overflow:hidden; }
+.entry{ min-height:calc(100svh - 58px); display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; gap:0;
+  padding:clamp(48px,8vh,88px) 0 clamp(48px,7vh,72px); }
+.entry .eyebrow{ font-family:var(--serif); font-size:.8rem; letter-spacing:.3em;
+  color:var(--gold-deep); margin-bottom:22px; }
+.entry h1{ font-size:clamp(2.3rem, 5.4vw, 3.6rem); font-weight:700; line-height:1.14;
+  letter-spacing:-0.04em; text-wrap:balance; }
+.entry .sub{ margin:24px auto 0; max-width:36ch; color:var(--ink-2);
+  font-size:clamp(1rem, 2.2vw, 1.16rem); line-height:1.6; letter-spacing:-0.014em; text-wrap:pretty; }
+.entry .actions{ margin-top:38px; display:flex; gap:14px; align-items:center;
+  justify-content:center; flex-wrap:wrap; }
+.entry .private{ margin-top:46px; font-size:.78rem; color:var(--ink-3); }
+/* groove disc — 금색 음반 괘선 */
+.groove{ position:absolute; top:-44%; left:50%; transform:translateX(-50%);
+  width:min(760px,140vw); aspect-ratio:1; pointer-events:none; z-index:-1;
+  color:var(--gold); opacity:.28;
+  -webkit-mask-image:radial-gradient(circle,#000 0 48%,transparent 70%);
+  mask-image:radial-gradient(circle,#000 0 48%,transparent 70%); }
+:root[data-theme="dark"] .groove{ opacity:.2; }
+@media (prefers-reduced-motion: no-preference){
+  @keyframes grooveTurn{ to{ transform:translateX(-50%) rotate(360deg); } }
+  .groove{ animation:grooveTurn 150s linear infinite; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+  .entry .eyebrow{ animation:rise .7s var(--ease-out) both; }
+  .entry h1{ animation:rise .8s var(--ease-out) .06s both; }
+  .entry .sub{ animation:rise .8s var(--ease-out) .14s both; }
+  .entry .actions{ animation:rise .8s var(--ease-out) .22s both; }
+  .entry .private{ animation:rise .8s var(--ease-out) .3s both; }
+}
 
 /* ---------- 섹션 공통 ---------- */
 section.sec{ padding:clamp(48px, 7vw, 76px) 0; }
@@ -291,17 +301,20 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 
 /* ---------- 버튼 ---------- */
 .btnf{ display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
-  font-family:inherit; font-size:.95rem; font-weight:600; letter-spacing:-0.01em;
-  color:var(--on-ink); background:var(--ink); border:none; border-radius:5px; padding:13px 26px;
+  font-family:inherit; font-size:.98rem; font-weight:600; letter-spacing:-0.01em;
+  color:var(--on-ink); background:var(--ink); border:none; border-radius:980px; padding:14px 28px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 3px 12px rgba(32,31,29,.14);
   transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
-@media (hover:hover){ .btnf:hover{ filter:brightness(1.12); } }
+:root[data-theme="dark"] .btnf{ box-shadow:inset 0 1px 0 rgba(232,227,217,.14), 0 3px 12px rgba(0,0,0,.4); }
+@media (hover:hover){ .btnf:hover{ filter:brightness(1.12); } .btnf:hover .arr{ transform:translateX(3px); } }
 .btnf:active{ transform:scale(0.97); }
-.btno{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer;
-  font-family:inherit; font-size:.9rem; font-weight:600; color:var(--gold-deep);
-  background:transparent; border:1px solid var(--gold); border-radius:5px; padding:11px 22px;
-  transition:background .2s var(--ease-out), transform .16s var(--ease-out); }
-@media (hover:hover){ .btno:hover{ background:color-mix(in srgb, var(--gold) 10%, transparent); } }
-.btno:active{ transform:scale(0.97); }
+.btng{ display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+  font-family:inherit; font-size:.95rem; font-weight:600; color:var(--gold-deep);
+  background:transparent; border:none; padding:14px 8px;
+  transition:transform .16s var(--ease-out); }
+@media (hover:hover){ .btng:hover .arr{ transform:translateX(3px); } }
+.btng:active{ transform:scale(0.97); }
+.arr{ display:inline-block; transition:transform .2s var(--ease-out); }
 
 /* ---------- 계산기 (세무서식형 기입란) ---------- */
 .form-field{ margin-top:20px; }
@@ -520,26 +533,29 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
 <main id="main">
 
-<!-- ==================== 진입: 2-도어 ==================== -->
+<!-- ==================== 진입: 히어로 ==================== -->
 <div class="page" id="page-home">
-  <div class="wrap entry">
-    <p class="mono">MUSAI&nbsp;PARTNERS</p>
-    <h1>잊혀진 음악의 가치를<br>다시 조명합니다.</h1>
-    <div class="gold-rule" aria-hidden="true"></div>
-    <p class="sub">뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다.</p>
-    <nav class="doors" aria-label="목적별 안내">
-      <a class="door" href="#company" data-nav>
-        <b>회사를 알아보러 오셨나요</b>
-        <span class="dsub">사업영역 · 연혁 · 인증 · 회사 정보</span>
-        <span class="go">회사 소개 →</span>
-      </a>
-      <a class="door gold" href="#fund" data-nav>
-        <b>출자를 검토하러 오셨나요</b>
-        <span class="dsub">소득공제 · 계산기 · 절차 · 위험</span>
-        <span class="go">조합 안내 →</span>
-      </a>
-    </nav>
-    <p class="private">소개받으신 분을 위한 정보 제공 페이지입니다</p>
+  <div class="hero-wrap">
+    <svg class="groove" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor">
+      <g stroke-width="0.22" opacity="0.5">
+        <circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="41"/>
+        <circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="31"/>
+        <circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="21"/>
+        <circle cx="50" cy="50" r="16"/>
+      </g>
+      <circle cx="50" cy="50" r="8" fill="currentColor" stroke="none" opacity="0.2"/>
+      <circle cx="50" cy="50" r="1.4" fill="var(--bg)" stroke="none"/>
+    </svg>
+    <div class="wrap entry">
+      <p class="eyebrow">MUSAI&nbsp;PARTNERS</p>
+      <h1>잊혀진 음악의 가치를<br>다시 조명합니다.</h1>
+      <p class="sub">뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다. 시간이 지나도 사랑받는 곡을 발굴하고, 음악 자산의 새로운 수명을 만들어 갑니다.</p>
+      <div class="actions">
+        <a class="btnf" href="#fund" data-nav>소득공제 혜택 알아보기 <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btng" href="#business" data-nav>사업영역 살펴보기 <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="private">소개받으신 분을 위한 정보 제공 페이지입니다</p>
+    </div>
   </div>
 </div>
 

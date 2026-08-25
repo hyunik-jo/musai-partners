@@ -7,13 +7,13 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f2f0eb" id="metaTheme">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23201f1d'/%3E%3Cg%20fill='none'%20stroke='%23f2f0eb'%20stroke-opacity='.55'%20stroke-width='1.6'%3E%3Ccircle%20cx='32'%20cy='32'%20r='22'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='16'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='10'/%3E%3C/g%3E%3Ccircle%20cx='32'%20cy='32'%20r='4'%20fill='%23b68235'/%3E%3C/svg%3E">
-<title>뮤사이파트너스 — 음악저작권 투자 안내서</title>
+<title>뮤사이파트너스 — 음악 IP 투자</title>
 <meta name="description" content="음악저작권·저작인접권에 투자하는 IP 전문기업. 시간이 지나도 사랑받는 곡을 발굴해 리메이크·OST·콘텐츠로 새로운 수명을 만들어 갑니다.">
 <!-- Open Graph / link preview (company wordmark, not the KOMCA certificate) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://musaipartners.com/">
 <meta property="og:site_name" content="뮤사이파트너스">
-<meta property="og:title" content="뮤사이파트너스 — 음악저작권 투자 안내서">
+<meta property="og:title" content="뮤사이파트너스 — 음악 IP 투자">
 <meta property="og:description" content="음악저작권·저작인접권에 투자하는 IP 전문기업. 시간이 지나도 사랑받는 곡을 발굴해 새로운 수명을 만들어 갑니다.">
 <meta property="og:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
 <meta property="og:image:type" content="image/png">
@@ -21,7 +21,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MUSAI PARTNERS — 음악 IP 투자">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="뮤사이파트너스 — 음악저작권 투자 안내서">
+<meta name="twitter:title" content="뮤사이파트너스 — 음악 IP 투자">
 <meta name="twitter:description" content="음악저작권·저작인접권에 투자하는 IP 전문기업.">
 <meta name="twitter:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
 <script>
@@ -38,8 +38,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   MUSAI PARTNERS — 투자설명서형(2a)
-   warm paper · ink · single gold accent · document norms
+   MUSAI PARTNERS — 2-도어형(1d) · 종이+금색
+   진입에서 「회사 소개 / 조합 안내」 두 동선을 분리
    한글 웹폰트 없음 — 시스템 산세리프 + Marcellus(라틴 마크)
    ============================================================ */
 :root{
@@ -67,12 +67,11 @@
   --serif:"Marcellus",ui-serif,Georgia,serif;
   --num:"Pretendard",-apple-system,BlinkMacSystemFont,"Noto Sans KR",system-ui,sans-serif;
 }
-/* ---------- 다크모드: 별도 설계 — 서고의 등불 아래 문서
-   종이의 보색이 아니라 '어두운 열람실' — 웜 차콜 지면,
-   잉크는 아이보리, 금색은 채도를 올려 등불처럼 ---------- */
+/* ---------- 다크모드: 별도 설계 — 어두운 열람실
+   웜 차콜 지면 · 아이보리 잉크 · 등불 같은 금색 ---------- */
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#171512;            /* warm charcoal — no blue cast */
+  --bg:#171512;
   --bg-alt:#1d1a16;
   --card:#1f1c18;
   --ink:#e8e3d9;
@@ -80,7 +79,7 @@
   --ink-3:#7d7669;
   --line:#3a362f;
   --line-soft:#2b2823;
-  --gold:#c9954a;          /* lamplight gold */
+  --gold:#c9954a;
   --gold-deep:#c9954a;
   --on-ink:#171512;
   --sk-pos:#7d97b8;
@@ -109,8 +108,9 @@ body{
 a{ color:inherit; text-decoration:none; }
 ::selection{ background:color-mix(in srgb, var(--gold) 30%, transparent); }
 :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:3px; }
+h1:focus-visible,h1:focus{ outline:none; }
 .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
-section[id]{ scroll-margin-top:72px; }
+section[id], [id^="f-"]{ scroll-margin-top:72px; }
 
 .skip{ position:absolute; left:-9999px; top:0; z-index:100; background:var(--ink); color:var(--bg);
   padding:10px 16px; font-weight:600; border-radius:0 0 8px 0; }
@@ -125,7 +125,7 @@ body::after{
 }
 :root[data-theme="dark"] body::after{ mix-blend-mode:screen; opacity:.04; }
 
-/* ---------- 고정 헤더: 마크 + 장 번호 + 소득공제 안내 CTA ---------- */
+/* ---------- 고정 헤더 ---------- */
 header.doc{
   position:sticky; top:0; z-index:50;
   background:var(--hdr-bg);
@@ -136,10 +136,8 @@ header.doc{
   display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .hdr-mark{ display:flex; align-items:baseline; gap:9px; line-height:1; }
 .hdr-mark .mark{ font-family:var(--serif); font-size:1.18rem; letter-spacing:.16em; color:var(--ink); }
-.hdr-mark .ch-no{ font-family:var(--num); font-size:.74rem; font-weight:600; color:var(--gold-deep);
-  letter-spacing:.08em; font-variant-numeric:tabular-nums;
-  opacity:0; transform:translateY(2px); transition:opacity .25s var(--ease-out), transform .25s var(--ease-out); }
-.hdr-mark .ch-no.show{ opacity:1; transform:none; }
+.hdr-mark small{ font-family:var(--num); font-size:.68rem; font-weight:600; letter-spacing:.1em;
+  color:var(--ink-3); }
 .hdr-right{ display:flex; align-items:center; gap:8px; }
 .theme-toggle{
   width:34px; height:34px; flex:none; border:1px solid var(--hairline); border-radius:50%;
@@ -163,63 +161,55 @@ header.doc{
 @media (max-width:430px){
   .hdr-in{ padding:0 16px; height:52px; }
   .hdr-mark .mark{ font-size:1.05rem; }
+  .hdr-mark small{ display:none; }
   .hdr-cta{ font-size:.76rem; padding:6px 10px; }
 }
 
-/* ---------- 표지 ---------- */
-.cover{ min-height:calc(100svh - 58px); display:flex; flex-direction:column;
-  justify-content:space-between; padding:clamp(40px,7vh,72px) 0 clamp(32px,5vh,48px); }
+/* ---------- 페이지 전환 ---------- */
+html.js .page{ display:none; }
+html.js .page.active{ display:block; }
+@media (prefers-reduced-motion: no-preference){
+  html.js .page.active{ transition:opacity .3s var(--ease-out); }
+  @starting-style{ html.js .page.active{ opacity:0; } }
+}
+
+/* ---------- 진입: 2-도어 ---------- */
+.entry{ min-height:calc(100svh - 58px); display:flex; flex-direction:column;
+  justify-content:center; gap:26px; padding:clamp(40px,7vh,72px) 0 clamp(40px,6vh,60px); }
 .mono{ font-family:var(--num); font-size:.74rem; font-weight:600; letter-spacing:.14em;
   color:var(--ink-3); font-variant-numeric:tabular-nums; }
-.cover .conf{ color:var(--ink-3); }
-.cover-mid{ display:flex; flex-direction:column; gap:22px; }
-.cover h1{ font-size:clamp(2.2rem, 6vw, 3.4rem); font-weight:700; line-height:1.22;
-  letter-spacing:-0.035em; text-wrap:balance; }
+.entry h1{ font-size:clamp(1.9rem, 4.8vw, 2.7rem); font-weight:700; line-height:1.3;
+  letter-spacing:-0.032em; text-wrap:balance; }
+.entry .sub{ color:var(--ink-2); font-size:.98rem; max-width:46ch; margin-top:-8px; text-wrap:pretty; }
 .gold-rule{ width:44px; height:2px; background:var(--gold); }
-.cover .ed{ font-size:.95rem; color:var(--ink-2); line-height:1.7; }
-.cover-foot{ display:flex; flex-direction:column; gap:12px; max-width:340px; }
-.btnf{ display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
-  font-family:inherit; font-size:.95rem; font-weight:600; letter-spacing:-0.01em;
-  color:var(--on-ink); background:var(--ink); border:none; border-radius:5px; padding:13px 26px;
-  transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
-:root[data-theme="dark"] .btnf{ background:var(--ink); color:var(--on-ink); }
-@media (hover:hover){ .btnf:hover{ filter:brightness(1.12); } }
-.btnf:active{ transform:scale(0.97); }
-.btno{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer;
-  font-family:inherit; font-size:.9rem; font-weight:600; color:var(--gold-deep);
-  background:transparent; border:1px solid var(--gold); border-radius:5px; padding:11px 22px;
+.doors{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
+.door{ display:flex; flex-direction:column; gap:6px; padding:20px 22px;
+  border:1px solid var(--ink); background:transparent;
   transition:background .2s var(--ease-out), transform .16s var(--ease-out); }
-@media (hover:hover){ .btno:hover{ background:color-mix(in srgb, var(--gold) 10%, transparent); } }
-.btno:active{ transform:scale(0.97); }
-.cover .disc{ font-size:.78rem; color:var(--ink-3); text-align:center; }
+.door b{ font-size:1.02rem; font-weight:700; letter-spacing:-0.015em; }
+.door .dsub{ font-size:.83rem; color:var(--ink-3); }
+.door .go{ margin-top:10px; font-family:var(--num); font-size:.82rem; font-weight:600;
+  color:var(--gold-deep); }
+@media (hover:hover){ .door:hover{ background:var(--bg-alt); } }
+.door:active{ transform:scale(0.99); }
+.door.gold{ border-color:var(--gold); background:var(--bg-alt); }
+.door.gold b{ color:var(--gold-deep); }
+:root[data-theme="dark"] .door.gold{ background:color-mix(in srgb, var(--gold) 9%, transparent); }
+.entry .private{ font-size:.8rem; color:var(--ink-3); }
+@media (max-width:600px){ .doors{ grid-template-columns:1fr; } }
 
-/* ---------- 목차 ---------- */
-.toc-head{ margin-bottom:18px; }
+/* ---------- 섹션 공통 ---------- */
+section.sec{ padding:clamp(48px, 7vw, 76px) 0; }
+section.sec + section.sec{ border-top:1px solid var(--line-soft); }
+.sec-head{ margin-bottom:28px; }
 .kick{ font-family:var(--num); font-size:.72rem; font-weight:700; letter-spacing:.2em;
   color:var(--gold-deep); }
-.toc{ border-top:1.5px solid var(--ink); }
-.toc a{ display:grid; grid-template-columns:34px 1fr auto; gap:14px; align-items:baseline;
-  padding:15px 4px; border-bottom:1px solid var(--line-soft);
-  transition:background .2s var(--ease-out); }
-@media (hover:hover){ .toc a:hover{ background:var(--bg-alt); } }
-.toc a.toc-hl{ background:var(--bg-alt); }
-.toc .no{ font-family:var(--num); font-size:.82rem; font-weight:600; color:var(--gold-deep);
-  font-variant-numeric:tabular-nums; }
-.toc .tt{ font-size:1.02rem; font-weight:600; }
-.toc .tt small{ display:block; font-size:.8rem; font-weight:400; color:var(--ink-3); margin-top:1px; }
-.toc .go{ font-family:var(--num); font-size:.8rem; color:var(--ink-3); }
-
-/* ---------- 장(章) 공통 ---------- */
-section.ch{ padding:clamp(52px, 8vw, 84px) 0; }
-section.ch + section.ch{ border-top:1px solid var(--line-soft); }
-.ch-head{ margin-bottom:30px; }
-.ch-head .kick{ display:block; margin-bottom:10px; }
-.ch-head h2{ font-size:clamp(1.5rem, 3.4vw, 2.1rem); font-weight:700; line-height:1.25;
+.sec-head .kick{ display:block; margin-bottom:10px; }
+.sec-head h1, .sec-head h2{ font-size:clamp(1.5rem, 3.4vw, 2.1rem); font-weight:700; line-height:1.25;
   letter-spacing:-0.028em; text-wrap:balance; }
-.ch-head .desc{ margin-top:12px; color:var(--ink-2); font-size:.98rem; max-width:56ch; text-wrap:pretty; }
-.rule{ height:1px; background:var(--line-soft); border:none; }
+.sec-head .desc{ margin-top:12px; color:var(--ink-2); font-size:.98rem; max-width:56ch; text-wrap:pretty; }
 
-/* 번호 매긴 본문 항목 */
+/* 번호 매긴 본문 항목 (사업영역) */
 .art{ display:grid; grid-template-columns:44px 1fr; gap:14px; padding:22px 0;
   border-top:1px solid var(--line-soft); }
 .art:last-of-type{ border-bottom:1px solid var(--line-soft); }
@@ -231,7 +221,7 @@ section.ch + section.ch{ border-top:1px solid var(--line-soft); }
 .fn{ margin-top:10px; padding-left:10px; border-left:2px solid var(--line);
   font-size:.8rem; color:var(--ink-3); line-height:1.6; }
 
-/* ---------- 기본정보 표 (01 회사 / 06 문의) ---------- */
+/* ---------- 기본정보 표 ---------- */
 .info{ border-top:1.5px solid var(--ink); }
 .info-row{ display:grid; grid-template-columns:130px 1fr; gap:16px; padding:13px 4px;
   border-bottom:1px solid var(--line-soft); }
@@ -252,7 +242,7 @@ section.ch + section.ch{ border-top:1px solid var(--line-soft); }
 .tl-row.hl{ background:var(--bg-alt); }
 
 /* ---------- 도판 (KOMCA 증서) ---------- */
-.plates{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:34px; }
+.plates{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
 .plate{ position:relative; padding:14px 14px 6px; background:var(--card);
   border:1px solid var(--hairline-soft); box-shadow:var(--card-shadow); }
 .plate::after{ content:""; position:absolute; inset:6px; pointer-events:none;
@@ -262,20 +252,25 @@ section.ch + section.ch{ border-top:1px solid var(--line-soft); }
 .plate-img img{ display:block; width:100%; height:auto; filter:saturate(.88) contrast(.99); }
 :root[data-theme="dark"] .plate-img{ background:#f2f0ea; }
 .plate figcaption{ padding:12px 4px 8px; }
-.plate figcaption .fig-no{ display:block; font-family:var(--num); font-size:.68rem; font-weight:700;
-  letter-spacing:.12em; color:var(--gold-deep); margin-bottom:3px; }
 .plate figcaption b{ display:block; font-size:.9rem; font-weight:600; }
 .plate figcaption span{ display:block; margin-top:2px; font-size:.76rem; color:var(--ink-3);
   font-variant-numeric:tabular-nums; }
 @media (max-width:600px){ .plates{ grid-template-columns:1fr; max-width:420px; } }
 
-/* ---------- 04 소득공제 — 조문 인용 ---------- */
+/* ---------- 조합 안내: 요건 요약 ---------- */
+.sum{ border-top:1.5px solid var(--ink); }
+.sum-row{ display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  padding:12px 4px; border-bottom:1px solid var(--line-soft); }
+.sum-row .lb{ font-size:.9rem; color:var(--ink-2); }
+.sum-row b{ font-size:.95rem; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+/* ---------- 조문 인용 ---------- */
 .quote{ margin:24px 0; padding:4px 0 4px 16px; border-left:2px solid var(--gold); }
 .quote p{ font-size:.93rem; font-style:italic; color:var(--ink-2); line-height:1.75; }
 .quote .src{ display:block; margin-top:8px; font-style:normal; font-family:var(--num);
   font-size:.76rem; font-weight:600; color:var(--gold-deep); }
 
-/* 표 04-A 공제율 */
+/* 공제율 표 */
 .tbl-cap{ font-family:var(--num); font-size:.76rem; font-weight:600; letter-spacing:.06em;
   color:var(--ink-3); margin:30px 0 8px; }
 table.rate{ width:100%; border-collapse:collapse; font-size:.93rem;
@@ -294,13 +289,21 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 .reqs li::before{ content:""; position:absolute; left:3px; top:.6em; width:7px; height:7px;
   background:var(--gold); transform:rotate(45deg); }
 
-/* ---------- 별표 B — 절세액 산출 (세무서식형) ---------- */
-.annex{ margin-top:56px; padding-top:40px; border-top:1px solid var(--line-soft); scroll-margin-top:76px; }
-.annex-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px;
-  margin-bottom:8px; }
-.annex-head .kick{ letter-spacing:.16em; }
-.annex-head h3{ font-size:1.25rem; font-weight:700; letter-spacing:-0.02em; }
-.annex .desc{ color:var(--ink-2); font-size:.9rem; margin-bottom:26px; }
+/* ---------- 버튼 ---------- */
+.btnf{ display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
+  font-family:inherit; font-size:.95rem; font-weight:600; letter-spacing:-0.01em;
+  color:var(--on-ink); background:var(--ink); border:none; border-radius:5px; padding:13px 26px;
+  transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
+@media (hover:hover){ .btnf:hover{ filter:brightness(1.12); } }
+.btnf:active{ transform:scale(0.97); }
+.btno{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer;
+  font-family:inherit; font-size:.9rem; font-weight:600; color:var(--gold-deep);
+  background:transparent; border:1px solid var(--gold); border-radius:5px; padding:11px 22px;
+  transition:background .2s var(--ease-out), transform .16s var(--ease-out); }
+@media (hover:hover){ .btno:hover{ background:color-mix(in srgb, var(--gold) 10%, transparent); } }
+.btno:active{ transform:scale(0.97); }
+
+/* ---------- 계산기 (세무서식형 기입란) ---------- */
 .form-field{ margin-top:20px; }
 .form-field .fl{ display:block; font-family:var(--num); font-size:.78rem; font-weight:600;
   letter-spacing:.05em; color:var(--ink-3); margin-bottom:2px; }
@@ -337,7 +340,7 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
   .calc-out b.tick, .co-sub b.tick{ animation:tick .3s var(--ease-out); }
 }
 
-/* 도해 B-1 · 샌키 */
+/* 도해 · 샌키 */
 .sankey-wrap{ margin-top:26px; padding:14px 10px 8px;
   background:color-mix(in srgb, var(--bg-alt) 55%, transparent);
   border:1px solid var(--hairline-soft); }
@@ -399,24 +402,24 @@ html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
   font-size:.8rem; line-height:1.65; color:var(--ink-2); }
 .tax-note b{ color:var(--ink); }
 
-/* ---------- 05 절차·위험 ---------- */
+/* ---------- 절차 ---------- */
 .steps{ counter-reset:s; border-top:1.5px solid var(--ink); }
 .step{ counter-increment:s; display:grid; grid-template-columns:44px 1fr; gap:14px;
   padding:18px 4px; border-bottom:1px solid var(--line-soft); }
-.step::before{ content:"5." counter(s); font-family:var(--num); font-size:.85rem; font-weight:600;
-  color:var(--gold-deep); font-variant-numeric:tabular-nums; padding-top:2px; }
+.step::before{ content:counter(s, decimal-leading-zero); font-family:var(--num); font-size:.85rem;
+  font-weight:600; color:var(--gold-deep); font-variant-numeric:tabular-nums; padding-top:2px; }
 .step b{ display:block; font-size:.98rem; font-weight:700; margin-bottom:3px; }
 .step p{ color:var(--ink-2); font-size:.9rem; line-height:1.6; }
 
-.risks{ display:grid; gap:12px; margin-top:34px; }
+/* ---------- 위험 ---------- */
+.risks{ display:grid; gap:12px; }
 .risk{ padding:16px 18px; border:1px solid var(--line); background:var(--card); }
 .risk b{ display:block; font-size:.95rem; font-weight:700; margin-bottom:5px; }
 .risk p{ font-size:.88rem; color:var(--ink-2); line-height:1.65; }
 .risk .cite-law{ display:block; margin-top:9px; padding-left:9px; border-left:2px solid var(--gold);
   font-family:var(--num); font-size:.75rem; font-weight:600; color:var(--gold-deep); font-style:normal; }
 
-/* FAQ */
-.faq{ margin-top:40px; }
+/* ---------- FAQ ---------- */
 .faq details{ border-bottom:1px solid var(--line-soft); }
 .faq details:first-of-type{ border-top:1.5px solid var(--ink); }
 .faq summary{ font-weight:600; font-size:.96rem; cursor:pointer; list-style:none; padding:16px 4px;
@@ -445,19 +448,21 @@ html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
   }
 }
 
-/* ---------- 장 이동 (문서 하단 내비) ---------- */
-.ch-nav{ display:flex; justify-content:space-between; gap:12px; margin-top:44px;
-  padding-top:14px; border-top:1px solid var(--line-soft);
-  font-family:var(--num); font-size:.8rem; font-weight:600; }
-.ch-nav a{ color:var(--ink-3); transition:color .2s var(--ease-out); }
-.ch-nav a.next{ color:var(--gold-deep); }
-@media (hover:hover){ .ch-nav a:hover{ color:var(--ink); } }
+/* ---------- 교차 동선 배너 ---------- */
+.cross{ margin-top:44px; padding:18px 20px; display:flex; align-items:center; gap:14px;
+  justify-content:space-between; flex-wrap:wrap;
+  border:1px solid var(--gold); background:var(--bg-alt); }
+:root[data-theme="dark"] .cross{ background:color-mix(in srgb, var(--gold) 9%, transparent); }
+.cross .cx{ font-size:.92rem; font-weight:600; }
+.cross .cx small{ display:block; font-weight:400; font-size:.8rem; color:var(--ink-3); margin-top:2px; }
+.cross a{ font-family:var(--num); font-size:.84rem; font-weight:600; color:var(--gold-deep);
+  white-space:nowrap; }
 
-/* ---------- 06 문의 + CTA ---------- */
+/* ---------- CTA ---------- */
 .cta-block{ margin-top:30px; display:flex; flex-direction:column; gap:12px; max-width:340px; }
 .private{ font-size:.8rem; color:var(--ink-3); }
 
-/* footer / 판권장 */
+/* footer */
 footer{ border-top:1.5px solid var(--ink); margin-top:20px;
   padding:36px 0 64px; color:var(--ink-2); }
 .foot{ font-size:.78rem; line-height:1.8; }
@@ -475,7 +480,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
   html{ font-size:14.5px; }
   body{ font-size:15px; }
   .wrap{ padding:0 22px; }
-  section.ch{ padding:42px 0; }
+  section.sec{ padding:40px 0; }
   .art{ grid-template-columns:36px 1fr; gap:10px; padding:18px 0; }
   .step{ grid-template-columns:36px 1fr; gap:10px; }
   .fill input{ font-size:1.25rem; }
@@ -483,12 +488,13 @@ html.js .reveal.in{ opacity:1; transform:none; }
   .sankey-wrap{ border:none; background:transparent; padding:6px 0 0; }
 }
 
-/* ---------- print: 안내서를 그대로 인쇄물로 ---------- */
+/* ---------- print ---------- */
 @media print{
-  header.doc, .theme-toggle, .chips, .ch-nav, .skip{ display:none !important; }
+  header.doc, .theme-toggle, .chips, .cross, .skip{ display:none !important; }
   body::after{ display:none; }
   body{ background:#fff; }
-  section.ch{ padding:28px 0; }
+  html.js .page{ display:block; }
+  section.sec{ padding:28px 0; }
   html.js .reveal{ opacity:1; transform:none; }
 }
 </style>
@@ -498,181 +504,206 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
 <header class="doc" id="hdr">
   <div class="hdr-in">
-    <a class="hdr-mark" href="#cover" aria-label="표지로 이동">
+    <a class="hdr-mark" href="#home" data-nav aria-label="뮤사이파트너스 홈">
       <span class="mark">MUSAI</span>
-      <span class="ch-no" id="chNo" aria-hidden="true"></span>
+      <small>뮤사이파트너스</small>
     </a>
     <div class="hdr-right">
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="라이트/다크 모드 전환">
         <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
       </button>
-      <a class="hdr-cta" id="taxCta" href="#ch04">소득공제 안내 <span class="st" aria-hidden="true">→</span></a>
+      <a class="hdr-cta" id="taxCta" href="#fund" data-nav>소득공제 안내 <span class="st" aria-hidden="true">→</span></a>
     </div>
   </div>
 </header>
 
 <main id="main">
 
-<!-- ==================== 표지 ==================== -->
-<div class="wrap cover" id="cover">
-  <p class="mono conf">CONFIDENTIAL · 사모 안내</p>
-  <div class="cover-mid">
-    <h1>음악저작권<br>투자 안내서</h1>
+<!-- ==================== 진입: 2-도어 ==================== -->
+<div class="page" id="page-home">
+  <div class="wrap entry">
+    <p class="mono">MUSAI&nbsp;PARTNERS</p>
+    <h1>잊혀진 음악의 가치를<br>다시 조명합니다.</h1>
     <div class="gold-rule" aria-hidden="true"></div>
-    <p class="ed">2026년판 · 소개받으신 분을 위한<br>정보 제공 자료</p>
-  </div>
-  <div class="cover-foot">
-    <a class="btnf" href="#toc">목차 열기</a>
-    <p class="disc">본 자료는 청약 권유가 아닙니다</p>
+    <p class="sub">뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다.</p>
+    <nav class="doors" aria-label="목적별 안내">
+      <a class="door" href="#company" data-nav>
+        <b>회사를 알아보러 오셨나요</b>
+        <span class="dsub">사업영역 · 연혁 · 인증 · 회사 정보</span>
+        <span class="go">회사 소개 →</span>
+      </a>
+      <a class="door gold" href="#fund" data-nav>
+        <b>출자를 검토하러 오셨나요</b>
+        <span class="dsub">소득공제 · 계산기 · 절차 · 위험</span>
+        <span class="go">조합 안내 →</span>
+      </a>
+    </nav>
+    <p class="private">소개받으신 분을 위한 정보 제공 페이지입니다</p>
   </div>
 </div>
 
-<!-- ==================== 목차 ==================== -->
-<section class="ch" id="toc" aria-label="목차">
-  <div class="wrap">
-    <div class="toc-head"><span class="kick">CONTENTS</span></div>
-    <nav class="toc">
-      <a href="#ch01"><span class="no">01</span><span class="tt">회사<small>설립·대표·주소</small></span><span class="go">↓</span></a>
-      <a href="#ch02"><span class="no">02</span><span class="tt">사업영역<small>IP 투자 · Value-Up · AI 창출</small></span><span class="go">↓</span></a>
-      <a href="#ch03"><span class="no">03</span><span class="tt">연혁과 인증<small>KOMCA 신탁 · 1,782곡</small></span><span class="go">↓</span></a>
-      <a href="#ch04" class="toc-hl"><span class="no">04</span><span class="tt">소득공제 제도<small>조특법 제16조 · 별표 B 계산</small></span><span class="go">↓</span></a>
-      <a href="#ch05"><span class="no">05</span><span class="tt">참여 절차와 위험<small>3년 보유 · 원금 비보장</small></span><span class="go">↓</span></a>
-      <a href="#ch06"><span class="no">06</span><span class="tt">문의<small>개별 상담 안내</small></span><span class="go">↓</span></a>
-    </nav>
-  </div>
-</section>
+<!-- ==================== A · 회사 소개 ==================== -->
+<div class="page" id="page-company">
 
-<!-- ==================== 01 회사 ==================== -->
-<section class="ch" id="ch01" data-ch="01">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">01 — 회사</span>
-      <h2>잊혀진 음악의 가치를<br>다시 조명합니다</h2>
-      <p class="desc">뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다. 시간이 지나도 사랑받는 곡을 발굴하고, 리메이크·OST·콘텐츠 활용을 통해 음악 자산의 새로운 수명을 만들어 갑니다.</p>
-    </div>
-    <dl class="info reveal">
-      <div class="info-row"><dt>상호</dt><dd>주식회사 뮤사이파트너스 (MUSAI Partners Co., Ltd.)</dd></div>
-      <div class="info-row"><dt>대표이사</dt><dd>조현익</dd></div>
-      <div class="info-row"><dt>설립일</dt><dd>2021년 3월 9일</dd></div>
-      <div class="info-row"><dt>사업자등록번호</dt><dd>164-86-01893</dd></div>
-      <div class="info-row"><dt>주소</dt><dd>서울특별시 영등포구 국제금융로8길 11, 1152호 (여의도동, 대영빌딩)</dd></div>
-    </dl>
-    <div class="ch-nav"><a href="#toc">← 목차</a><a class="next" href="#ch02">02 사업영역 →</a></div>
-  </div>
-</section>
-
-<!-- ==================== 02 사업영역 ==================== -->
-<section class="ch" id="ch02" data-ch="02">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">02 — 사업영역</span>
-      <h2>음악 IP, 발굴에서 창출까지</h2>
-    </div>
-    <div class="art reveal">
-      <span class="no">2.1</span>
-      <div>
-        <h3>음원 IP 투자</h3>
-        <p>저평가된 음악저작권·저작인접권을 발굴해 매입합니다. 음원 IP는 <span class="accent">초장기 현금흐름 자산</span>이며, 경기 변동의 영향을 적게 받습니다. 보유 저작권은 한국음악저작권협회(KOMCA) 신탁으로 관리됩니다.</p>
-        <p class="fn">각주 1) 음악저작권 사용료는 원저작자 사후 70년까지 발생합니다.</p>
+  <section class="sec" id="business">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">사업영역</span>
+        <h1>음악 IP, 발굴에서 창출까지</h1>
+        <p class="desc">시간이 지나도 사랑받는 곡을 발굴하고, 리메이크·OST·콘텐츠 활용을 통해 음악 자산의 새로운 수명을 만들어 갑니다.</p>
+      </div>
+      <div class="art reveal">
+        <span class="no">01</span>
+        <div>
+          <h3>음원 IP 투자</h3>
+          <p>저평가된 음악저작권·저작인접권을 발굴해 매입합니다. 음원 IP는 <span class="accent">초장기 현금흐름 자산</span>이며, 경기 변동의 영향을 적게 받습니다. 보유 저작권은 한국음악저작권협회(KOMCA) 신탁으로 관리됩니다.</p>
+          <p class="fn">각주 1) 음악저작권 사용료는 원저작자 사후 70년까지 발생합니다.</p>
+        </div>
+      </div>
+      <div class="art reveal">
+        <span class="no">02</span>
+        <div>
+          <h3>가치 제고 (Value-Up)</h3>
+          <p>리메이크, 드라마 OST, 숏폼 콘텐츠 삽입 등 원곡을 다시 세상에 꺼내는 방식으로 저작권료 수익을 키웁니다. ‘분홍립스틱(강애리자)’, ‘우연히봄(로꼬·유주)’ 등이 대표 보유·활용 사례입니다.</p>
+        </div>
+      </div>
+      <div class="art reveal">
+        <span class="no">03</span>
+        <div>
+          <h3>AI 음원 IP 창출·유통</h3>
+          <p>생성형 AI 기술을 활용해 신규 음원을 <span class="accent">직접 창출</span>하고, 글로벌 디지털 배급망과 숏폼(릴스·쇼츠) 채널로 유통합니다. ‘발굴·매입’을 넘어 IP를 직접 만들어내는 회사의 향후 성장동력으로, 현재 첫 음원으로 모델을 검증하는 단계입니다.</p>
+        </div>
       </div>
     </div>
-    <div class="art reveal">
-      <span class="no">2.2</span>
-      <div>
-        <h3>가치 제고 (Value-Up)</h3>
-        <p>리메이크, 드라마 OST, 숏폼 콘텐츠 삽입 등 원곡을 다시 세상에 꺼내는 방식으로 저작권료 수익을 키웁니다. ‘분홍립스틱(강애리자)’, ‘우연히봄(로꼬·유주)’ 등이 대표 보유·활용 사례입니다.</p>
+  </section>
+
+  <section class="sec" id="history">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">연혁</span>
+        <h2>지나온 길</h2>
+      </div>
+      <div class="tl reveal">
+        <div class="tl-row"><time>2021.03</time><p>주식회사 뮤사이파트너스 설립 (서울 여의도)</p></div>
+        <div class="tl-row hl"><time>2021.04</time><p>한국음악저작권협회 신탁회원 가입 · <b>음원저작권 1,782곡 양수</b></p></div>
+        <div class="tl-row"><time>2022.11</time><p>기술보증기금 IP가치평가 보증 취득</p></div>
+        <div class="tl-row"><time>2023.02</time><p>중소벤처기업진흥공단 청년전용창업자금 선정</p></div>
+        <div class="tl-row"><time>2024.03</time><p>중소벤처기업부 청년창업사관학교 14기 선정</p></div>
+        <div class="tl-row"><time>2024.10</time><p>뮤사이인베스트먼트조합 1호 결성 · 투자 완료</p></div>
+        <div class="tl-row"><time>2025.12</time><p>뮤사이인베스트먼트조합 2호 결성 · 투자 완료</p></div>
       </div>
     </div>
-    <div class="art reveal">
-      <span class="no">2.3</span>
-      <div>
-        <h3>AI 음원 IP 창출·유통</h3>
-        <p>생성형 AI 기술을 활용해 신규 음원을 <span class="accent">직접 창출</span>하고, 글로벌 디지털 배급망과 숏폼(릴스·쇼츠) 채널로 유통합니다. ‘발굴·매입’을 넘어 IP를 직접 만들어내는 회사의 향후 성장동력으로, 현재 첫 음원으로 모델을 검증하는 단계입니다.</p>
+  </section>
+
+  <section class="sec" id="credentials">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">인증 · 자격</span>
+        <h2>검증된 음악 IP 신탁</h2>
+        <p class="desc">보유 저작권은 한국음악저작권협회(KOMCA)에 신탁·등록되어 관리됩니다.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate reveal">
+          <div class="plate-img"><picture>
+            <source srcset="assets/komca-trust.webp" type="image/webp">
+            <img src="assets/komca-trust.png" alt="한국음악저작권협회 저작권신탁증서 (제10029928호)" loading="lazy" decoding="async" width="720" height="1049">
+          </picture></div>
+          <figcaption><b>저작권신탁증서</b><span>KOMCA 제10029928호 · 신탁 2021.04.19~</span></figcaption>
+        </figure>
+        <figure class="plate reveal">
+          <div class="plate-img"><picture>
+            <source srcset="assets/komca-works.webp" type="image/webp">
+            <img src="assets/komca-works.png" alt="저작물 등록 확인서 (총 1,782곡)" loading="lazy" decoding="async" width="720" height="1049">
+          </picture></div>
+          <figcaption><b>저작물 등록 확인서</b><span>KOMCA 신탁 저작물 총 1,782곡 등록 확인</span></figcaption>
+        </figure>
       </div>
     </div>
-    <div class="ch-nav"><a href="#ch01">← 01 회사</a><a class="next" href="#ch03">03 연혁과 인증 →</a></div>
-  </div>
-</section>
+  </section>
 
-<!-- ==================== 03 연혁과 인증 ==================== -->
-<section class="ch" id="ch03" data-ch="03">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">03 — 연혁과 인증</span>
-      <h2>지나온 길</h2>
-    </div>
-    <div class="tl reveal">
-      <div class="tl-row"><time>2021.03</time><p>주식회사 뮤사이파트너스 설립 (서울 여의도)</p></div>
-      <div class="tl-row hl"><time>2021.04</time><p>한국음악저작권협회 신탁회원 가입 · <b>음원저작권 1,782곡 양수</b></p></div>
-      <div class="tl-row"><time>2022.11</time><p>기술보증기금 IP가치평가 보증 취득</p></div>
-      <div class="tl-row"><time>2023.02</time><p>중소벤처기업진흥공단 청년전용창업자금 선정</p></div>
-      <div class="tl-row"><time>2024.03</time><p>중소벤처기업부 청년창업사관학교 14기 선정</p></div>
-      <div class="tl-row"><time>2024.10</time><p>뮤사이인베스트먼트조합 1호 결성 · 투자 완료</p></div>
-      <div class="tl-row"><time>2025.12</time><p>뮤사이인베스트먼트조합 2호 결성 · 투자 완료</p></div>
-    </div>
-    <div class="plates">
-      <figure class="plate reveal">
-        <div class="plate-img"><picture>
-          <source srcset="assets/komca-trust.webp" type="image/webp">
-          <img src="assets/komca-trust.png" alt="한국음악저작권협회 저작권신탁증서 (제10029928호)" loading="lazy" decoding="async" width="720" height="1049">
-        </picture></div>
-        <figcaption><span class="fig-no">도판 03-A</span><b>저작권신탁증서</b><span>KOMCA 제10029928호 · 신탁 2021.04.19~</span></figcaption>
-      </figure>
-      <figure class="plate reveal">
-        <div class="plate-img"><picture>
-          <source srcset="assets/komca-works.webp" type="image/webp">
-          <img src="assets/komca-works.png" alt="저작물 등록 확인서 (총 1,782곡)" loading="lazy" decoding="async" width="720" height="1049">
-        </picture></div>
-        <figcaption><span class="fig-no">도판 03-B</span><b>저작물 등록 확인서</b><span>KOMCA 신탁 저작물 총 1,782곡 등록 확인</span></figcaption>
-      </figure>
-    </div>
-    <div class="ch-nav"><a href="#ch02">← 02 사업영역</a><a class="next" href="#ch04">04 소득공제 제도 →</a></div>
-  </div>
-</section>
-
-<!-- ==================== 04 소득공제 제도 ==================== -->
-<section class="ch" id="ch04" data-ch="04">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">04 — 소득공제 제도</span>
-      <h2>조세특례제한법 제16조</h2>
-      <p class="desc">성과급·주식보상으로 소득이 급증한 해, 개인투자조합 출자는 과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다. 원천징수는 ‘선납’일 뿐이며 — 근로소득 한계세율은 지방소득세 포함 최대 49.5%까지 올라갑니다.</p>
-    </div>
-
-    <div class="quote reveal">
-      <p>“거주자가 … 개인투자조합에 출자한 금액을 … 그 출자일 또는 투자일이 속하는 과세연도부터 … 1과세연도를 선택하여 해당 과세연도의 종합소득금액에서 공제한다.”</p>
-      <span class="src">「조세특례제한법」 제16조 제1항</span>
-    </div>
-
-    <div class="reveal">
-      <p class="tbl-cap">표 04-A · 출자 구간별 소득공제율</p>
-      <table class="rate">
-        <thead><tr><th scope="col">출자 구간</th><th scope="col">소득공제율</th></tr></thead>
-        <tbody>
-          <tr><td>3,000만원 이하분</td><td class="hl">100%</td></tr>
-          <tr><td>3,000만원 초과 ~ 5,000만원 이하분</td><td>70%</td></tr>
-          <tr><td>5,000만원 초과분</td><td>30%</td></tr>
-        </tbody>
-      </table>
-      <ul class="reqs">
-        <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
-        <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
-        <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
-        <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
-      </ul>
-    </div>
-
-    <!-- ---------- 별표 B — 절세액 산출 ---------- -->
-    <div class="annex" id="annex-b">
-      <div class="annex-head reveal">
-        <h3>별표 B — 절세액 산출</h3>
-        <span class="kick">ANNEX B</span>
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">회사 정보</span>
+        <h2>MUSAI Partners</h2>
       </div>
-      <p class="desc reveal">아래 두 칸을 기입하면 산출표와 도해가 함께 갱신됩니다.</p>
+      <dl class="info reveal">
+        <div class="info-row"><dt>상호</dt><dd>주식회사 뮤사이파트너스 (MUSAI Partners Co., Ltd.)</dd></div>
+        <div class="info-row"><dt>대표이사</dt><dd>조현익</dd></div>
+        <div class="info-row"><dt>설립일</dt><dd>2021년 3월 9일</dd></div>
+        <div class="info-row"><dt>사업자등록번호</dt><dd>164-86-01893</dd></div>
+        <div class="info-row"><dt>주소</dt><dd>서울특별시 영등포구 국제금융로8길 11, 1152호 (여의도동, 대영빌딩)</dd></div>
+        <div class="info-row"><dt>문의</dt><dd><a href="mailto:he.uniq@gmail.com">he.uniq@gmail.com</a></dd></div>
+      </dl>
+      <div class="cta-block reveal">
+        <a class="btnf" href="mailto:he.uniq@gmail.com?subject=뮤사이파트너스 문의">이메일로 상담 문의하기</a>
+      </div>
+      <div class="cross reveal">
+        <span class="cx">출자를 검토하러 오셨나요<small>소득공제 · 계산기 · 절차 · 위험</small></span>
+        <a href="#fund" data-nav>조합 안내 →</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== B · 조합 안내 ==================== -->
+<div class="page" id="page-fund">
+
+  <section class="sec" id="f-benefit">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">개인투자조합</span>
+        <h1>개인투자조합<br>소득공제 안내</h1>
+        <p class="desc">성과급·주식보상으로 소득이 급증한 해, 개인투자조합 출자는 「조세특례제한법 제16조」에 따라 과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다. 원천징수는 ‘선납’일 뿐이며 — 근로소득 한계세율은 지방소득세 포함 최대 49.5%까지 올라갑니다.</p>
+      </div>
+
+      <div class="sum reveal">
+        <div class="sum-row"><span class="lb">최대 공제율</span><b>100%</b></div>
+        <div class="sum-row"><span class="lb">공제 한도</span><b>종합소득금액의 50%</b></div>
+        <div class="sum-row"><span class="lb">공제 시기</span><b>3개 과세연도 중 택1</b></div>
+        <div class="sum-row"><span class="lb">보유 요건</span><b>3년 이상</b></div>
+      </div>
+      <div class="cta-block reveal">
+        <a class="btnf" href="#f-calc">내 절세액 계산 →</a>
+      </div>
+
+      <div class="quote reveal">
+        <p>“거주자가 … 개인투자조합에 출자한 금액을 … 그 출자일 또는 투자일이 속하는 과세연도부터 … 1과세연도를 선택하여 해당 과세연도의 종합소득금액에서 공제한다.”</p>
+        <span class="src">「조세특례제한법」 제16조 제1항</span>
+      </div>
+
+      <div class="reveal">
+        <p class="tbl-cap">출자 구간별 소득공제율</p>
+        <table class="rate">
+          <thead><tr><th scope="col">출자 구간</th><th scope="col">소득공제율</th></tr></thead>
+          <tbody>
+            <tr><td>3,000만원 이하분</td><td class="hl">100%</td></tr>
+            <tr><td>3,000만원 초과 ~ 5,000만원 이하분</td><td>70%</td></tr>
+            <tr><td>5,000만원 초과분</td><td>30%</td></tr>
+          </tbody>
+        </table>
+        <ul class="reqs">
+          <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
+          <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
+          <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
+          <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="f-calc">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">계산기</span>
+        <h2>얼마 넣으면 얼마 아끼는지,<br>바로 보입니다</h2>
+        <p class="desc">아래 두 칸을 기입하면 산출표와 도해가 함께 갱신됩니다.</p>
+      </div>
 
       <div class="form-field reveal">
-        <label class="fl" for="income">① 종합소득 과세표준</label>
+        <label class="fl" for="income">STEP 1 · 내 종합소득 과세표준</label>
         <div class="fill">
           <input id="income" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력">
           <span>원</span>
@@ -688,7 +719,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
       </div>
 
       <div class="form-field reveal">
-        <label class="fl" for="invest">② 개인투자조합 출자 금액</label>
+        <label class="fl" for="invest">STEP 2 · 개인투자조합 출자 금액</label>
         <div class="fill">
           <input id="invest" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력">
           <span>원</span>
@@ -709,7 +740,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
       </div>
 
       <div class="sankey-wrap reveal" id="sankeyWrap">
-        <p class="sk-cap">도해 B-1 · 세액 흐름</p>
+        <p class="sk-cap">세액 흐름</p>
         <svg id="sankey" role="img" aria-label="종합소득 과세표준이 소득공제와 절세액으로 나뉘는 흐름 다이어그램"></svg>
         <p class="sk-foot">※ 점선 상자는 출자하지 않았을 경우의 세액(공제 전) · 지방소득세(10%) 별도</p>
       </div>
@@ -718,89 +749,88 @@ html.js .reveal.in{ opacity:1; transform:none; }
         ※ 세무 검토 안내 — 본 산출은 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을 반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등 개인별 세무 상황에 따라 달라지므로 이 금액은 확정치가 아닙니다. 소득공제 대상은 출자금 중 조합이 벤처기업에 실제 투자한 금액을 기준으로 하며, 본 산출은 출자금 전액이 벤처기업 투자로 집행되는 경우를 가정합니다. 출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.
       </div>
     </div>
+  </section>
 
-    <div class="ch-nav"><a href="#ch03">← 03 연혁과 인증</a><a class="next" href="#ch05">05 참여 절차와 위험 →</a></div>
-  </div>
-</section>
-
-<!-- ==================== 05 참여 절차와 위험 ==================== -->
-<section class="ch" id="ch05" data-ch="05">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">05 — 참여 절차와 위험</span>
-      <h2>출자부터 회수까지</h2>
-    </div>
-    <div class="steps reveal">
-      <div class="step"><div><b>개인투자조합 출자</b><p>중소벤처기업부에 등록되는 개인투자조합에 조합원(LP)으로 출자합니다.</p></div></div>
-      <div class="step"><div><b>벤처기업 투자 집행</b><p>조합이 벤처기업 신주에 투자하고, 중기부 발급 투자확인서로 소득공제를 신청합니다.</p></div></div>
-      <div class="step"><div><b>3년 보유</b><p>소득공제 유지를 위해 투자일부터 3년 이상 보유합니다. 공제 연도는 3개 연도 중 선택합니다.</p></div></div>
-      <div class="step"><div><b>회수·정산</b><p>보유기간 경과 후 조합 규약과 투자계약에 따라 회수·분배 절차가 진행됩니다.</p></div></div>
-    </div>
-
-    <div class="risks">
-      <div class="risk reveal">
-        <b>3년 이상 보유</b>
-        <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다.</p>
-        <span class="cite-law">「조세특례제한법」 제16조 제2항</span>
+  <section class="sec" id="f-steps">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">참여 절차</span>
+        <h2>출자부터 회수까지</h2>
       </div>
-      <div class="risk reveal">
-        <b>원금 비보장</b>
-        <p>벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 원금을 보장한다고 약정하는 행위 자체가 법으로 금지되어 있습니다.</p>
-        <span class="cite-law">「유사수신행위의 규제에 관한 법률」 제3조</span>
-      </div>
-      <div class="risk reveal">
-        <b>RCPS 구조</b>
-        <p>그간 조합의 투자는 상환청구권·잔여재산 우선분배권이 부여된 상환전환우선주(RCPS) 형태로 집행되어 왔습니다. 다만 이는 회사의 재무 상황과 상법상 배당가능이익 범위 내에서만 이행될 수 있는 권리로, 원금이나 수익을 보장하는 장치는 아닙니다.</p>
+      <div class="steps reveal">
+        <div class="step"><div><b>개인투자조합 출자</b><p>중소벤처기업부에 등록되는 개인투자조합에 조합원(LP)으로 출자합니다.</p></div></div>
+        <div class="step"><div><b>벤처기업 투자 집행</b><p>조합이 벤처기업 신주에 투자하고, 중기부 발급 투자확인서로 소득공제를 신청합니다.</p></div></div>
+        <div class="step"><div><b>3년 보유</b><p>소득공제 유지를 위해 투자일부터 3년 이상 보유합니다. 공제 연도는 3개 연도 중 선택합니다.</p></div></div>
+        <div class="step"><div><b>회수·정산</b><p>보유기간 경과 후 조합 규약과 투자계약에 따라 회수·분배 절차가 진행됩니다.</p></div></div>
       </div>
     </div>
+  </section>
 
-    <div class="faq reveal">
-      <details><summary>공제는 꼭 투자한 해에 받아야 하나요?</summary>
-        <p>아닙니다. 투자일이 속한 과세연도부터 2년 후 과세연도까지 총 3개 연도 중 1개를 선택할 수 있습니다. 성과급이 몰린 해를 골라 신청하는 것이 유리합니다.</p>
-        <div class="ex"><b>예시</b> — 2026년 말에 3,000만원을 출자했다면, 공제 귀속연도는 2026·2027·2028년 중 한 해를 고를 수 있습니다. 만약 2027년에 대규모 성과급으로 소득이 가장 커질 것 같다면, 2027년 귀속 연말정산에 몰아서 공제받는 편이 절세 효과가 큽니다.</div>
-        <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제1항</span>“그 출자일 또는 투자일이 속하는 과세연도… 1과세연도를 선택하여 … 공제시기 변경을 신청하는 경우에는 신청한 과세연도의 종합소득금액에서 공제한다.”</div>
-      </details>
-      <details><summary>3년 안에 돈을 빼면 어떻게 되나요?</summary>
-        <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다. 조합 출자는 3년 이상 보유를 전제로 설계됩니다.</p>
-        <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제2항</span>“출자일 또는 투자일부터 3년이 지나기 전에 … 출자지분 또는 투자지분을 이전하거나 회수하는 경우에는 … 이미 공제받은 소득금액에 해당하는 세액을 추징한다.”</div>
-      </details>
-      <details><summary>원금이 보장되나요?</summary>
-        <p>아닙니다. 벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 오히려 원금을 보장한다고 약정하는 행위 자체가 법으로 금지되어 있습니다. 세제혜택은 법령에 따른 것이지만 투자 성과는 보장되지 않으니, 투자 판단 전 조합 규약·투자계약서를 반드시 확인하세요.</p>
-        <p>다만 그간 조합의 투자는 <strong>상환청구권과 잔여재산 우선분배권이 부여된 상환전환우선주(RCPS)</strong> 형태로 집행되어 왔습니다. 일정 기간 경과 후 투자원금과 소정 이율을 기준으로 발행회사에 상환을 청구할 수 있는 계약상 권리가 포함되는 구조입니다. 이는 회사의 재무 상황과 상법상 배당가능이익 범위 내에서만 이행될 수 있는 권리로, 원금이나 수익을 보장하는 장치는 아닙니다.</p>
-        <div class="cite"><span class="cite-law">「유사수신행위의 규제에 관한 법률」 제3조</span>“누구든지 … 장래에 원금의 전액 또는 이를 초과하는 금액을 지급할 것을 약정하고 … 유사수신행위를 하여서는 아니 된다.”</div>
-      </details>
-      <details><summary>아무나 참여할 수 있나요?</summary>
-        <p>조합은 사모(私募) 방식으로만 결성됩니다. 공개 모집이 아니며, 기존 조합원과 지인의 소개를 통해서만 안내드립니다. 조합원 수도 법령상 49인 이하로 제한됩니다.</p>
-        <p>다만 이 페이지를 보시고 <strong>직접 이메일로 문의를 주시는 것은 언제든 가능합니다.</strong> 개별 문의에 대해서는 1:1 상담으로 자세한 내용을 안내드립니다.</p>
-        <div class="cite"><span class="cite-law">「벤처투자 촉진에 관한 법률」 제12조</span>개인투자조합을 결성하려는 경우에는 「자본시장과 금융투자업에 관한 법률」에 따른 사모의 방법으로 가입을 권유하여야 하며, 조합원의 수는 49인 이하로 한다.</div>
-      </details>
+  <section class="sec" id="f-risk">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">반드시 확인</span>
+        <h2>요건과 위험</h2>
+      </div>
+      <div class="risks">
+        <div class="risk reveal">
+          <b>3년 이상 보유</b>
+          <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다.</p>
+          <span class="cite-law">「조세특례제한법」 제16조 제2항</span>
+        </div>
+        <div class="risk reveal">
+          <b>원금 비보장</b>
+          <p>벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 원금을 보장한다고 약정하는 행위 자체가 법으로 금지되어 있습니다.</p>
+          <span class="cite-law">「유사수신행위의 규제에 관한 법률」 제3조</span>
+        </div>
+        <div class="risk reveal">
+          <b>RCPS 구조</b>
+          <p>그간 조합의 투자는 상환청구권·잔여재산 우선분배권이 부여된 상환전환우선주(RCPS) 형태로 집행되어 왔습니다. 다만 이는 회사의 재무 상황과 상법상 배당가능이익 범위 내에서만 이행될 수 있는 권리로, 원금이나 수익을 보장하는 장치는 아닙니다.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="ch-nav"><a href="#ch04">← 04 소득공제 제도</a><a class="next" href="#ch06">06 문의 →</a></div>
-  </div>
-</section>
+  <section class="sec" id="f-faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">FAQ</span>
+        <h2>자주 묻는 질문</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>공제는 꼭 투자한 해에 받아야 하나요?</summary>
+          <p>아닙니다. 투자일이 속한 과세연도부터 2년 후 과세연도까지 총 3개 연도 중 1개를 선택할 수 있습니다. 성과급이 몰린 해를 골라 신청하는 것이 유리합니다.</p>
+          <div class="ex"><b>예시</b> — 2026년 말에 3,000만원을 출자했다면, 공제 귀속연도는 2026·2027·2028년 중 한 해를 고를 수 있습니다. 만약 2027년에 대규모 성과급으로 소득이 가장 커질 것 같다면, 2027년 귀속 연말정산에 몰아서 공제받는 편이 절세 효과가 큽니다.</div>
+          <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제1항</span>“그 출자일 또는 투자일이 속하는 과세연도… 1과세연도를 선택하여 … 공제시기 변경을 신청하는 경우에는 신청한 과세연도의 종합소득금액에서 공제한다.”</div>
+        </details>
+        <details><summary>3년 안에 돈을 빼면 어떻게 되나요?</summary>
+          <p>투자일부터 3년이 지나기 전에 출자지분을 이전·회수하면 이미 공제받은 세액이 추징됩니다. 조합 출자는 3년 이상 보유를 전제로 설계됩니다.</p>
+          <div class="cite"><span class="cite-law">「조세특례제한법」 제16조 제2항</span>“출자일 또는 투자일부터 3년이 지나기 전에 … 출자지분 또는 투자지분을 이전하거나 회수하는 경우에는 … 이미 공제받은 소득금액에 해당하는 세액을 추징한다.”</div>
+        </details>
+        <details><summary>원금이 보장되나요?</summary>
+          <p>아닙니다. 벤처기업 투자이므로 원금 손실이 발생할 수 있습니다. 오히려 원금을 보장한다고 약정하는 행위 자체가 법으로 금지되어 있습니다. 세제혜택은 법령에 따른 것이지만 투자 성과는 보장되지 않으니, 투자 판단 전 조합 규약·투자계약서를 반드시 확인하세요.</p>
+          <p>다만 그간 조합의 투자는 <strong>상환청구권과 잔여재산 우선분배권이 부여된 상환전환우선주(RCPS)</strong> 형태로 집행되어 왔습니다. 일정 기간 경과 후 투자원금과 소정 이율을 기준으로 발행회사에 상환을 청구할 수 있는 계약상 권리가 포함되는 구조입니다. 이는 회사의 재무 상황과 상법상 배당가능이익 범위 내에서만 이행될 수 있는 권리로, 원금이나 수익을 보장하는 장치는 아닙니다.</p>
+          <div class="cite"><span class="cite-law">「유사수신행위의 규제에 관한 법률」 제3조</span>“누구든지 … 장래에 원금의 전액 또는 이를 초과하는 금액을 지급할 것을 약정하고 … 유사수신행위를 하여서는 아니 된다.”</div>
+        </details>
+        <details><summary>아무나 참여할 수 있나요?</summary>
+          <p>조합은 사모(私募) 방식으로만 결성됩니다. 공개 모집이 아니며, 기존 조합원과 지인의 소개를 통해서만 안내드립니다. 조합원 수도 법령상 49인 이하로 제한됩니다.</p>
+          <p>다만 이 페이지를 보시고 <strong>직접 이메일로 문의를 주시는 것은 언제든 가능합니다.</strong> 개별 문의에 대해서는 1:1 상담으로 자세한 내용을 안내드립니다.</p>
+          <div class="cite"><span class="cite-law">「벤처투자 촉진에 관한 법률」 제12조</span>개인투자조합을 결성하려는 경우에는 「자본시장과 금융투자업에 관한 법률」에 따른 사모의 방법으로 가입을 권유하여야 하며, 조합원의 수는 49인 이하로 한다.</div>
+        </details>
+      </div>
 
-<!-- ==================== 06 문의 ==================== -->
-<section class="ch" id="ch06" data-ch="06">
-  <div class="wrap">
-    <div class="ch-head reveal">
-      <span class="kick">06 — 문의</span>
-      <h2>개별 상담으로<br>안내드립니다</h2>
-      <p class="desc">공개 모집이 아닙니다. 다만 이 안내서를 보시고 직접 문의하시는 것은 언제든 가능합니다.</p>
+      <div class="cta-block reveal">
+        <a class="btnf" href="mailto:he.uniq@gmail.com?subject=뮤사이인베스트먼트조합 문의">이메일로 상담 문의하기</a>
+        <p class="private">조합원 49인 이하 · 사모 방식으로만 결성됩니다</p>
+      </div>
+      <div class="cross reveal">
+        <span class="cx">회사가 궁금하신가요<small>사업영역 · 연혁 · 인증 · 회사 정보</small></span>
+        <a href="#company" data-nav>회사 소개 →</a>
+      </div>
     </div>
-    <dl class="info reveal">
-      <div class="info-row"><dt>상호</dt><dd>주식회사 뮤사이파트너스</dd></div>
-      <div class="info-row"><dt>대표이사</dt><dd>조현익</dd></div>
-      <div class="info-row"><dt>사업자등록번호</dt><dd>164-86-01893</dd></div>
-      <div class="info-row"><dt>이메일</dt><dd><a href="mailto:he.uniq@gmail.com">he.uniq@gmail.com</a></dd></div>
-    </dl>
-    <div class="cta-block reveal">
-      <a class="btnf" href="mailto:he.uniq@gmail.com?subject=뮤사이인베스트먼트조합 문의">이메일로 상담 문의</a>
-      <p class="private">조합원 49인 이하 · 사모 방식으로만 결성됩니다</p>
-    </div>
-    <div class="ch-nav"><a href="#ch05">← 05 참여 절차와 위험</a><a class="next" href="#toc">목차 ↑</a></div>
-  </div>
-</section>
+  </section>
+
+</div>
 
 </main>
 
@@ -832,80 +862,81 @@ html.js .reveal.in{ opacity:1; transform:none; }
 })();
 
 /* ---------- 구버전 해시 호환 (기존 공유 링크 유지) ---------- */
-(function(){
-  var LEGACY = {
-    '#home':'#cover', '#business':'#ch02', '#history':'#ch03',
-    '#credentials':'#ch03', '#contact':'#ch06',
-    '#tax':'#ch04', '#t-myth':'#ch04', '#t-law':'#ch04',
-    '#t-calc':'#annex-b', '#t-steps':'#ch05', '#t-faq':'#ch05'
-  };
-  function map(){
-    var to = LEGACY[location.hash];
-    if (to) location.replace(location.pathname + location.search + to);
-  }
-  window.addEventListener('hashchange', map);
-  map();
-})();
+var LEGACY = {
+  '#tax':'#fund', '#t-myth':'#fund', '#t-law':'#f-benefit',
+  '#t-calc':'#f-calc', '#t-steps':'#f-steps', '#t-faq':'#f-faq',
+  '#annex-b':'#f-calc'
+};
 
-/* ---------- scroll reveal ---------- */
-var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-(function(){
+/* ---------- 페이지 라우팅: home / company / fund ---------- */
+var COMPANY = { 'company':1, 'business':1, 'history':1, 'credentials':1, 'contact':1 };
+var FUND = { 'fund':1, 'f-benefit':1, 'f-calc':1, 'f-steps':1, 'f-risk':1, 'f-faq':1 };
+function route(moveFocus){
+  var h = location.hash;
+  if (h === '#main') return;
+  if (LEGACY[h]){ location.replace(location.pathname + location.search + LEGACY[h]); return; }
+  var id = h ? h.slice(1) : '';
+  var view = COMPANY[id] ? 'company' : FUND[id] ? 'fund' : 'home';
+  document.getElementById('page-home').classList.toggle('active', view === 'home');
+  document.getElementById('page-company').classList.toggle('active', view === 'company');
+  document.getElementById('page-fund').classList.toggle('active', view === 'fund');
+  /* 헤더 CTA: 조합 안내 페이지에서는 현재위치(●) */
+  var cta = document.getElementById('taxCta');
+  var st = cta.querySelector('.st');
+  var here = view === 'fund';
+  cta.classList.toggle('here', here);
+  st.textContent = here ? '●' : '→';
+  if (here) cta.setAttribute('aria-current','page'); else cta.removeAttribute('aria-current');
+  requestAnimationFrame(observeReveals);
+  /* 스크롤 위치 */
+  var el = null;
+  if (id && id !== 'company' && id !== 'fund' && id !== 'home'){
+    try { el = document.getElementById(id); } catch(e){}
+  }
+  if (el) el.scrollIntoView();
+  else window.scrollTo({ top:0, behavior:'instant' });
+  if (moveFocus && el === null){
+    var h1 = document.querySelector('.page.active h1');
+    if (h1){ h1.setAttribute('tabindex','-1'); h1.focus({ preventScroll:true }); }
+  }
+}
+window.addEventListener('hashchange', function(){ route(true); });
+document.querySelectorAll('[data-nav]').forEach(function(a){
+  a.addEventListener('click', function(){
+    if (a.getAttribute('href') === (location.hash || '#home')) route(false);
+  });
+});
+
+/* ---------- scroll reveal (페이지 전환마다 재관찰) ---------- */
+var io, reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function observeReveals(){
+  var page = document.querySelector('.page.active');
+  if (!page) return;
   if (!('IntersectionObserver' in window)){
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    page.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     return;
   }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting){
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-        e.target.addEventListener('transitionend', function(ev){ ev.target.style.transitionDelay=''; }, { once:true });
-      }
-    });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  if (!io){
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+          e.target.addEventListener('transitionend', function(ev){ ev.target.style.transitionDelay=''; }, { once:true });
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  }
   var byParent = new Map();
-  document.querySelectorAll('.reveal').forEach(function(el){
+  page.querySelectorAll('.reveal:not(.in)').forEach(function(el){
     var arr = byParent.get(el.parentNode) || []; arr.push(el); byParent.set(el.parentNode, arr);
   });
   byParent.forEach(function(arr){
     arr.forEach(function(el,i){ el.style.transitionDelay = Math.min(i*55,220)+'ms'; io.observe(el); });
   });
-})();
+}
 
-/* ---------- 장 위치 추적: 헤더 장 번호 + CTA 현재위치(●) ---------- */
-(function(){
-  var chNo = document.getElementById('chNo');
-  var cta = document.getElementById('taxCta');
-  var st = cta.querySelector('.st');
-  var sections = document.querySelectorAll('section.ch[data-ch]');
-  if (!('IntersectionObserver' in window) || !sections.length) return;
-  var current = '';
-  function setCh(ch){
-    if (ch === current) return;
-    current = ch;
-    if (ch){ chNo.textContent = '· ' + ch; chNo.classList.add('show'); }
-    else { chNo.classList.remove('show'); }
-    var here = ch === '04';
-    cta.classList.toggle('here', here);
-    st.textContent = here ? '●' : '→';
-    cta.setAttribute('aria-current', here ? 'true' : 'false');
-  }
-  var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if (e.isIntersecting) setCh(e.target.getAttribute('data-ch') || '');
-    });
-  }, { rootMargin:'-25% 0px -65% 0px' });
-  sections.forEach(function(s){ obs.observe(s); });
-  /* 표지·목차로 돌아오면 장 표시 해제 */
-  var top = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if (e.isIntersecting) setCh(''); });
-  }, { rootMargin:'-25% 0px -65% 0px' });
-  ['cover','toc'].forEach(function(id){
-    var el = document.getElementById(id); if (el) top.observe(el);
-  });
-})();
-
-/* ---------- sankey infographic (도해 B-1 · 산출 실시간 연동) ---------- */
+/* ---------- sankey infographic (산출 실시간 연동) ---------- */
 var skUpdate = (function(){
   var svg = document.getElementById('sankey');
   var wrap = document.getElementById('sankeyWrap');
@@ -1148,7 +1179,7 @@ function calc(){
   setVal('rRoi', inv > 0 ? (save / inv * 100).toFixed(1) + '%' : '–');
   skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
-/* 기입란: 입력 중 천단위 콤마 유지 + 확정 시 그대로 반영 */
+/* 기입란: 입력 중 천단위 콤마 유지 */
 function bindField(textId){
   var txt = document.getElementById(textId);
   if (!txt) return;
@@ -1178,6 +1209,8 @@ document.querySelectorAll('.chips button').forEach(function(b){
   });
 });
 calc();
+
+route(false);
 </script>
 </body>
 </html>

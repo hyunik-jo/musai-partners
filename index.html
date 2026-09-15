@@ -216,7 +216,7 @@ nav.scrolled .nav-in{ height:54px; } /* apple-style compact nav on scroll */
 .theme-toggle .ic-sun{ display:none; }
 :root[data-theme="dark"] .theme-toggle .ic-sun{ display:block; }
 :root[data-theme="dark"] .theme-toggle .ic-moon{ display:none; }
-@media (max-width:560px){ .menu a.hide-m{ display:none; } }
+@media (max-width:560px){ .menu a.hide-m{ display:none; } body.is-tax .menu a[href="#contact"]{ display:none; } /* 소득공제 페이지는 서브내비에 '문의'가 있음 */ }
 /* 좁은 폰: nav 요소 축소로 CTA 버튼 우측 여백 확보 */
 @media (max-width:430px){
   .nav-in{ padding:0 16px; }
@@ -504,8 +504,11 @@ table.rate tr:last-child td{ border-bottom:none; }
 .ci-amount span{ font-size:.92rem; color:var(--ink-2); }
 @media (max-width:560px){ .calc input.ci-big{ width:165px; font-size:1.35rem; } }
 @media (max-width:560px){ .ci-ticks .tick-m-hide{ display:none; } }
-.ci-range{ -webkit-appearance:none; appearance:none; width:100%; height:6px; margin:20px 0 0;
-  padding:0; border:none; border-radius:980px; background:var(--line); cursor:pointer; }
+.ci-range{ -webkit-appearance:none; appearance:none; display:block; width:100%; height:6px; margin:5px 0 -9px;
+  padding:15px 0; box-sizing:content-box; border:none; border-radius:980px; cursor:pointer;
+  background:var(--line); background-clip:content-box; /* clip은 반드시 background 축약형 뒤에 */ }
+/* 트랙 시각은 6px 그대로, 투명 패딩으로 터치 영역만 36px — 폰에서 썸을 정확히 안 짚어도 잡힘.
+   (padding 15px 만큼 margin으로 상쇄해 레이아웃 불변, content-box 클립이라 채움 그라데이션·모서리 동일) */
 /* thumb: borderless 22px — 흰 링은 box-shadow(레이아웃 무관)로. 채움 계산이 어떤 브라우저에서도 정확 */
 .ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
   width:22px; height:22px; border-radius:50%; background:var(--navy-deep); border:none;
@@ -517,7 +520,7 @@ table.rate tr:last-child td{ border-bottom:none; }
 .ci-range:focus-visible{ outline:none; }
 .ci-range:focus-visible::-webkit-slider-thumb{
   box-shadow:0 0 0 3px var(--card), 0 0 0 6px color-mix(in srgb, var(--navy) 30%, transparent); }
-.ci-ticks{ position:relative; height:38px; margin-top:9px; }
+.ci-ticks{ position:relative; height:38px; margin-top:9px; pointer-events:none; } /* 라벨은 터치를 슬라이더로 통과 */
 /* 붐비는 구간용 2단 눈금 (예: 5,000만·8,800만) */
 .ci-ticks--tall{ height:58px; }
 .ci-tick.ci-tick--lo i{ height:25px; }
@@ -620,7 +623,7 @@ html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
   .calc{ gap:10px; }
   .cstep{ padding:15px 14px 6px; }
   .cs-hint{ margin-left:38px; }
-  .ci-range{ margin-top:12px; }
+  .ci-range{ margin:-3px 0 -11px; } /* 기존 12px 간격 - 패딩 15px (inline-block 시절 라인박스 여백까지 보정) */
   .calc-hero{ padding:13px 12px; }
   .ch-num{ font-size:clamp(1.7rem, 7.5vw, 2.2rem); margin:4px 0 6px; }
   .ch-label{ font-size:.82rem; }
@@ -1052,6 +1055,7 @@ function route(moveFocus){
   var tax = h0 === '#tax' || taxAnchor;
   document.getElementById('page-home').classList.toggle('active', !tax);
   document.getElementById('page-tax').classList.toggle('active', tax);
+  document.body.classList.toggle('is-tax', tax);   /* 모바일에서 서브내비 '문의'와 중복되는 상단 '문의' 숨김용 */
   var taxLink = document.getElementById('taxLink');
   if (taxLink){ if (tax) taxLink.setAttribute('aria-current','page'); else taxLink.removeAttribute('aria-current'); }
   requestAnimationFrame(observeReveals);
@@ -1113,17 +1117,19 @@ onScroll();
 (function(){
   var links = document.querySelectorAll('#taxSubnav a[href^="#t-"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
-  var map = {};
+  var map = {}, order = ['t-myth','t-law','t-calc','t-steps','t-faq'], visible = {};
   links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  /* 교차 중인 섹션 집합을 유지하고 매번 다시 고른다 — 짧은 섹션이 빠져나갈 때
+     여전히 보이는 긴 섹션(계산기)으로 되돌아오도록. 진입 이벤트만 반영하면 한 섹션 앞서감. */
   var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if (e.isIntersecting){
-        links.forEach(function(a){ a.classList.remove('on'); });
-        var a = map[e.target.id]; if (a) a.classList.add('on');
-      }
-    });
+    es.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+    var active = null;
+    order.forEach(function(id){ if (visible[id]) active = id; });
+    if (!active) return;
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (map[active]) map[active].classList.add('on');
   }, { rootMargin:'-30% 0px -60% 0px' });
-  ['t-myth','t-law','t-calc','t-steps','t-faq'].forEach(function(id){
+  order.forEach(function(id){
     var s = document.getElementById(id); if (s) obs.observe(s);
   });
 })();
@@ -1397,7 +1403,7 @@ function paintRange(id){
   if (!ir) return;
   var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
   var stop = 'calc(' + pct + '% + ' + (11 - 0.22 * pct).toFixed(1) + 'px)';
-  ir.style.background = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')';
+  ir.style.backgroundImage = 'linear-gradient(90deg, var(--navy-deep) ' + stop + ', var(--line) ' + stop + ')'; /* 축약형(background)을 쓰면 background-clip이 초기화되므로 image만 */
 }
 /* 텍스트 입력 ↔ 슬라이더 양방향 동기화 (확정 시 500만원 단위 스냅) */
 function bindPair(textId, rangeId){

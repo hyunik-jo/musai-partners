@@ -166,6 +166,28 @@ header.doc{
   .hdr-cta{ font-size:.76rem; padding:6px 10px; }
 }
 
+/* ---------- 조합 안내 목차 (헤더 아래 고정 러닝헤드) ---------- */
+.subnav{ position:sticky; top:59px; z-index:40; /* 헤더 58 + 하단선 1 */
+  background:var(--hdr-bg);
+  -webkit-backdrop-filter:blur(14px) saturate(110%); backdrop-filter:blur(14px) saturate(110%);
+  border-bottom:1px solid var(--hairline-soft); }
+.subnav-in{ max-width:760px; margin:0 auto; padding:0 24px; height:42px;
+  display:flex; align-items:center; gap:2px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+.subnav-in::-webkit-scrollbar{ display:none; }
+.subnav-in a{ flex:none; display:inline-flex; align-items:center; height:42px; padding:0 10px;
+  font-family:var(--num); font-size:.8rem; font-weight:600; letter-spacing:.02em; color:var(--ink-2);
+  border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s var(--ease-out); }
+.subnav-in a.on{ color:var(--ink); border-bottom-color:var(--gold); }
+@media (hover:hover){ .subnav-in a:hover{ color:var(--ink); } }
+.subnav-in .subnav-cta{ margin-left:auto; color:var(--gold-deep); }
+#page-fund section[id]{ scroll-margin-top:114px; }   /* 헤더 58 + 목차 42 + 여유 */
+@media (max-width:430px){
+  .subnav{ top:53px; }
+  .subnav-in{ padding:0 16px; height:40px; }
+  .subnav-in a{ height:40px; padding:0 8px; font-size:.76rem; }
+  #page-fund section[id]{ scroll-margin-top:104px; }
+}
+
 /* ---------- 페이지 전환 ---------- */
 html.js .page{ display:none; }
 html.js .page.active{ display:block; }
@@ -327,10 +349,11 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
   padding:0; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
 .fill span{ font-size:.85rem; color:var(--ink-3); flex:none; }
 .form-field .fh{ display:block; margin-top:5px; font-size:.78rem; color:var(--ink-3); }
-.chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
-.chips button{ font-family:var(--num); font-size:.74rem; font-weight:600; cursor:pointer;
-  color:var(--ink-2); background:transparent; border:1px solid var(--line); border-radius:4px;
-  padding:4px 9px; font-variant-numeric:tabular-nums;
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+/* 프리셋 칩: 폰 터치 타깃 36px 이상 (기존 25px) */
+.chips button{ font-family:var(--num); font-size:.8rem; font-weight:600; cursor:pointer;
+  color:var(--ink-2); background:transparent; border:1px solid var(--line); border-radius:5px;
+  min-height:36px; padding:6px 12px; font-variant-numeric:tabular-nums;
   transition:border-color .2s var(--ease-out), color .2s var(--ease-out); }
 @media (hover:hover){ .chips button:hover{ border-color:var(--gold); color:var(--gold-deep); } }
 
@@ -503,7 +526,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
 /* ---------- print ---------- */
 @media print{
-  header.doc, .theme-toggle, .chips, .cross, .skip{ display:none !important; }
+  header.doc, .subnav, .theme-toggle, .chips, .cross, .skip{ display:none !important; }
   body::after{ display:none; }
   body{ background:#fff; }
   html.js .page{ display:block; }
@@ -666,6 +689,16 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
 <!-- ==================== B · 조합 안내 ==================== -->
 <div class="page" id="page-fund">
+  <nav class="subnav" id="fundSubnav" aria-label="조합 안내 목차">
+    <div class="subnav-in">
+      <a href="#f-benefit">제도</a>
+      <a href="#f-calc">계산기</a>
+      <a href="#f-steps">절차</a>
+      <a href="#f-risk">위험</a>
+      <a href="#f-faq">FAQ</a>
+      <a class="subnav-cta" href="mailto:he.uniq@gmail.com?subject=뮤사이인베스트먼트조합 문의">문의</a>
+    </div>
+  </nav>
 
   <section class="sec" id="f-benefit">
     <div class="wrap">
@@ -916,6 +949,25 @@ function route(moveFocus){
     if (h1){ h1.setAttribute('tabindex','-1'); h1.focus({ preventScroll:true }); }
   }
 }
+/* ---------- 조합 안내 목차 활성 표시 ----------
+   교차 중인 섹션 집합에서 매번 다시 고른다(진입 이벤트만 반영하면 짧은 섹션이
+   빠져나갈 때 여전히 보이는 긴 섹션으로 되돌아오지 않아 한 섹션 앞서감). */
+(function(){
+  var links = document.querySelectorAll('#fundSubnav a[href^="#f-"]');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var order = ['f-benefit','f-calc','f-steps','f-risk','f-faq'], map = {}, visible = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+    var active = null;
+    order.forEach(function(id){ if (visible[id]) active = id; });
+    if (!active) return;
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (map[active]) map[active].classList.add('on');
+  }, { rootMargin:'-30% 0px -60% 0px' });
+  order.forEach(function(id){ var el = document.getElementById(id); if (el) obs.observe(el); });
+})();
+
 window.addEventListener('hashchange', function(){ route(true); });
 document.querySelectorAll('[data-nav]').forEach(function(a){
   a.addEventListener('click', function(){

@@ -349,13 +349,35 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
   padding:0; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
 .fill span{ font-size:.85rem; color:var(--ink-3); flex:none; }
 .form-field .fh{ display:block; margin-top:5px; font-size:.78rem; color:var(--ink-3); }
-.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-/* 프리셋 칩: 폰 터치 타깃 36px 이상 (기존 25px) */
-.chips button{ font-family:var(--num); font-size:.8rem; font-weight:600; cursor:pointer;
-  color:var(--ink-2); background:transparent; border:1px solid var(--line); border-radius:5px;
-  min-height:36px; padding:6px 12px; font-variant-numeric:tabular-nums;
-  transition:border-color .2s var(--ease-out), color .2s var(--ease-out); }
-@media (hover:hover){ .chips button:hover{ border-color:var(--gold); color:var(--gold-deep); } }
+/* 슬라이더 — 기입란과 양방향 연동. 트랙 6px, 투명 패딩으로 터치 박스 36px(패딩만큼 margin 상쇄) */
+.ci-range{ -webkit-appearance:none; appearance:none; display:block; width:100%; height:6px; margin:12px 0 -9px;
+  padding:15px 0; box-sizing:content-box; border:none; border-radius:980px; cursor:pointer;
+  background:var(--line); background-clip:content-box; /* clip은 background 축약형 뒤에 */ }
+.ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
+  width:22px; height:22px; border-radius:50%; background:var(--ink); border:none;
+  box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(32,31,29,.28);
+  cursor:grab; transition:transform .12s var(--ease-out); }
+.ci-range::-webkit-slider-thumb:active{ transform:scale(1.12); cursor:grabbing; }
+.ci-range::-moz-range-thumb{ width:22px; height:22px; border-radius:50%; background:var(--ink);
+  border:none; box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(32,31,29,.28); cursor:grab; }
+.ci-range:focus-visible{ outline:none; }
+.ci-range:focus-visible::-webkit-slider-thumb{
+  box-shadow:0 0 0 3px var(--bg), 0 0 0 6px color-mix(in srgb, var(--gold) 45%, transparent); }
+.ci-ticks{ position:relative; height:38px; margin-top:9px; pointer-events:none; } /* 라벨은 터치를 슬라이더로 통과 */
+.ci-ticks--tall{ height:58px; }   /* 붐비는 구간(5,000만·8,800만) 2단 눈금 */
+.ci-tick.ci-tick--lo i{ height:25px; }
+.ci-tick{ position:absolute; transform:translateX(-50%); text-align:center; font-family:var(--num);
+  font-size:.72rem; color:var(--ink-3); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.ci-tick i{ display:block; width:1px; height:7px; margin:0 auto 4px; background:color-mix(in srgb, var(--ink) 22%, transparent); }
+.ci-tick em{ display:block; font-style:normal; font-size:.66rem; color:var(--gold-deep); font-weight:600; margin-top:2px; }
+@media (max-width:560px){
+  .ci-range{ margin-top:8px; }
+  .ci-ticks{ height:34px; margin-top:8px; }
+  .ci-ticks--tall{ height:34px; }          /* 폰에서는 5,000만·8,800만·5억 눈금 숨김 → 1단 */
+  .ci-ticks .tick-m-hide{ display:none; }
+  .ci-tick{ font-size:.6rem; }
+  .ci-tick em{ font-size:.54rem; margin-top:1px; }
+}
 
 /* 산출표 */
 .calc-out{ margin-top:28px; padding:16px 18px; background:var(--bg-alt);
@@ -526,7 +548,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
 /* ---------- print ---------- */
 @media print{
-  header.doc, .subnav, .theme-toggle, .chips, .cross, .skip{ display:none !important; }
+  header.doc, .subnav, .theme-toggle, .ci-range, .ci-ticks, .cross, .skip{ display:none !important; }
   body::after{ display:none; }
   body{ background:#fff; }
   html.js .page{ display:block; }
@@ -748,7 +770,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
       <div class="sec-head reveal">
         <span class="kick">계산기</span>
         <h2>얼마 넣으면 얼마 아끼는지,<br>바로 보입니다</h2>
-        <p class="desc">아래 두 칸을 기입하면 산출표와 도해가 함께 갱신됩니다.</p>
+        <p class="desc">슬라이더를 움직이거나 숫자를 직접 입력하면 산출표와 도해가 함께 갱신됩니다.</p>
       </div>
 
       <div class="form-field reveal">
@@ -758,12 +780,13 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <span>원</span>
         </div>
         <small class="fh">연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small>
-        <div class="chips" aria-label="과세표준 예시값">
-          <button type="button" data-set="income" data-v="50000000">5,000만</button>
-          <button type="button" data-set="income" data-v="88000000">8,800만</button>
-          <button type="button" data-set="income" data-v="150000000">1.5억</button>
-          <button type="button" data-set="income" data-v="300000000">3억</button>
-          <button type="button" data-set="income" data-v="500000000">5억</button>
+        <input id="incomeRange" class="ci-range" type="range" min="0" max="500000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
+        <div class="ci-ticks ci-ticks--tall" aria-hidden="true">
+          <span class="ci-tick tick-m-hide" style="left:10%"><i></i>5,000만<em>세율 24%</em></span>
+          <span class="ci-tick ci-tick--lo tick-m-hide" style="left:17.6%"><i></i>8,800만<em>세율 35%</em></span>
+          <span class="ci-tick" style="left:30%"><i></i>1.5억<em>세율 38%</em></span>
+          <span class="ci-tick" style="left:60%"><i></i>3억<em>세율 40%</em></span>
+          <span class="ci-tick tick-m-hide" style="left:100%"><i></i>5억<em>세율 42%</em></span>
         </div>
       </div>
 
@@ -773,11 +796,11 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <input id="invest" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력">
           <span>원</span>
         </div>
-        <div class="chips" aria-label="출자금 예시값">
-          <button type="button" data-set="invest" data-v="10000000">1,000만</button>
-          <button type="button" data-set="invest" data-v="30000000">3,000만</button>
-          <button type="button" data-set="invest" data-v="50000000">5,000만</button>
-          <button type="button" data-set="invest" data-v="100000000">1억</button>
+        <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
+        <div class="ci-ticks" aria-hidden="true">
+          <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
+          <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
+          <span class="ci-tick" style="left:80%"><i></i>5,000만 초과<em>30% 공제</em></span>
         </div>
       </div>
 
@@ -1245,12 +1268,22 @@ function calc(){
   setVal('rSave', fmt(save) + '원');
   setVal('rSaveL', fmt(Math.round(save * 1.1)) + '원');
   setVal('rRoi', inv > 0 ? (save / inv * 100).toFixed(1) + '%' : '–');
+  paintRange('incomeRange'); paintRange('investRange');
   skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
-/* 기입란: 입력 중 천단위 콤마 유지 */
-function bindField(textId){
-  var txt = document.getElementById(textId);
-  if (!txt) return;
+/* 채움 그라데이션 — 22px 썸 중심에서 정확히 끝나도록(style.backgroundImage: 축약형은 background-clip을 초기화) */
+function paintRange(id){
+  var ir = document.getElementById(id);
+  if (!ir) return;
+  var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
+  var stop = 'calc(' + pct + '% + ' + (11 - 0.22 * pct).toFixed(1) + 'px)';
+  ir.style.backgroundImage = 'linear-gradient(90deg, var(--ink) ' + stop + ', var(--line) ' + stop + ')';
+}
+/* 기입란 ↔ 슬라이더 양방향 동기화 (입력 중 천단위 콤마 유지, 확정 시 500만원 단위 스냅) */
+function bindPair(textId, rangeId){
+  var txt = document.getElementById(textId), rng = document.getElementById(rangeId);
+  if (!txt || !rng) return;
+  var rmax = parseInt(rng.max, 10);
   txt.addEventListener('input', function(){
     var pos = txt.selectionStart, len = txt.value.length;
     var v = parseNum(txt.value);
@@ -1258,24 +1291,22 @@ function bindField(textId){
     var diff = txt.value.length - len;
     var np = Math.max(0, (pos || 0) + diff);
     try { txt.setSelectionRange(np, np); } catch(e){}
+    rng.value = Math.min(v, rmax);
     calc();
   });
   txt.addEventListener('change', function(){
-    var v = parseNum(txt.value);
-    txt.value = v ? fmt(v) : '0';
+    var v = Math.round(parseNum(txt.value) / 5000000) * 5000000;
+    txt.value = fmt(v);
+    rng.value = Math.min(v, rmax);
+    calc();
+  });
+  rng.addEventListener('input', function(){
+    txt.value = fmt(parseInt(rng.value, 10));
     calc();
   });
 }
-bindField('income');
-bindField('invest');
-/* 예시값 칩 */
-document.querySelectorAll('.chips button').forEach(function(b){
-  b.addEventListener('click', function(){
-    var el = document.getElementById(b.getAttribute('data-set'));
-    el.value = fmt(parseInt(b.getAttribute('data-v'), 10));
-    calc();
-  });
-});
+bindPair('income', 'incomeRange');
+bindPair('invest', 'investRange');
 calc();
 
 route(false);

@@ -66,10 +66,10 @@
   --gold-deep:var(--brass-deep);
   --on-ink:#ffffff;
   --sk-pos:#5f7a99;
-  --bar-tax:#9a5147;       /* 세금 — 벽돌 */
-  --bar-save:#6a9a45;      /* 절세 — 초록 */
-  --bar-inc:#46688c;       /* 내 소득 — 스틸 블루 */
-  --bar-fund:#16233a;      /* 출자금 — 딥 네이비 */
+  --bar-tax:#a1655a;       /* 세금 — 로즈우드(경고색이 아닌 '비용'의 온도) */
+  --bar-save:#7fa35e;      /* 절세 — 세이지 그린(가장 밝아 시선이 감) */
+  --bar-inc:#5b7a9d;       /* 내 소득 — 스틸 블루(네이비 계열 중간 단계) */
+  --bar-fund:#223550;      /* 출자금 — 네이비-2 */
   --bar-save-ink:#4f7a2f;
   --hairline:color-mix(in srgb, var(--ink) 16%, transparent);
   --hairline-soft:color-mix(in srgb, var(--ink) 9%, transparent);
@@ -99,10 +99,10 @@
   --line-soft:#243349;
   --on-ink:#0d1626;
   --sk-pos:#7d97b8;
-  --bar-tax:#b26a5f;
-  --bar-save:#8fbd68;
-  --bar-inc:#6b8bb3;
-  --bar-fund:#a3b5cc;      /* 어두운 바탕에선 출자금을 밝은 은청색으로 */
+  --bar-tax:#b77c70;
+  --bar-save:#9fc47c;
+  --bar-inc:#7c97ba;
+  --bar-fund:#b0c0d4;      /* 어두운 바탕에선 출자금을 밝은 은청색으로 */
   --bar-save-ink:#b9d998;
   --hairline:color-mix(in srgb, #e9edf3 20%, transparent);
   --hairline-soft:color-mix(in srgb, #e9edf3 10%, transparent);
@@ -727,8 +727,8 @@ html.js .reveal.in{ opacity:1; transform:none; }
 <div class="page" id="page-fund">
   <nav class="subnav" id="fundSubnav" aria-label="조합 안내 목차">
     <div class="subnav-in">
-      <a href="#f-benefit">제도</a>
       <a href="#f-calc">계산기</a>
+      <a href="#f-benefit">제도</a>
       <a href="#f-steps">절차</a>
       <a href="#f-risk">위험</a>
       <a href="#f-faq">FAQ</a>
@@ -736,55 +736,12 @@ html.js .reveal.in{ opacity:1; transform:none; }
     </div>
   </nav>
 
-  <section class="sec" id="f-benefit">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="kick">개인투자조합</span>
-        <h1>개인투자조합<br>소득공제 안내</h1>
-        <p class="desc">성과급·주식보상으로 소득이 급증한 해, 개인투자조합 출자는 「조세특례제한법 제16조」에 따라 과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다. 원천징수는 ‘선납’일 뿐이며 — 근로소득 한계세율은 지방소득세 포함 최대 49.5%까지 올라갑니다.</p>
-      </div>
-
-      <div class="sum reveal">
-        <div class="sum-row"><span class="lb">최대 공제율</span><b>100%</b></div>
-        <div class="sum-row"><span class="lb">공제 한도</span><b>종합소득금액의 50%</b></div>
-        <div class="sum-row"><span class="lb">공제 시기</span><b>3개 과세연도 중 택1</b></div>
-        <div class="sum-row"><span class="lb">보유 요건</span><b>3년 이상</b></div>
-      </div>
-      <div class="cta-block reveal">
-        <a class="btnf" href="#f-calc">내 절세액 계산 →</a>
-      </div>
-
-      <div class="quote reveal">
-        <p>“거주자가 … 개인투자조합에 출자한 금액을 … 그 출자일 또는 투자일이 속하는 과세연도부터 … 1과세연도를 선택하여 해당 과세연도의 종합소득금액에서 공제한다.”</p>
-        <span class="src">「조세특례제한법」 제16조 제1항</span>
-      </div>
-
-      <div class="reveal">
-        <p class="tbl-cap">출자 구간별 소득공제율</p>
-        <table class="rate">
-          <thead><tr><th scope="col">출자 구간</th><th scope="col">소득공제율</th></tr></thead>
-          <tbody>
-            <tr><td>3,000만원 이하분</td><td class="hl">100%</td></tr>
-            <tr><td>3,000만원 초과 ~ 5,000만원 이하분</td><td>70%</td></tr>
-            <tr><td>5,000만원 초과분</td><td>30%</td></tr>
-          </tbody>
-        </table>
-        <ul class="reqs">
-          <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
-          <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
-          <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
-          <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section class="sec" id="f-calc">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="kick">계산기</span>
-        <h2>얼마 넣으면 얼마 아끼는지,<br>바로 보입니다</h2>
-        <p class="desc">슬라이더를 움직이거나 숫자를 직접 입력하면 산출표와 도해가 함께 갱신됩니다.</p>
+        <span class="kick">개인투자조합 소득공제 안내</span>
+        <h1>얼마 넣으면 얼마 아끼는지,<br>바로 보입니다</h1>
+        <p class="desc">슬라이더를 움직이거나 숫자를 직접 입력하면 산출표와 비교 막대가 함께 바뀝니다. 출자금 3,000만 원까지는 100% 소득공제입니다.</p>
       </div>
 
       <div class="form-field reveal">
@@ -840,11 +797,51 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <span><i class="cb-tax"></i>세금</span><span><i class="cb-save"></i>절세</span>
           <span><i class="cb-inc"></i>내 소득</span><span><i class="cb-fund"></i>출자금 (조합 지분 · 3년 보유)</span>
         </div>
-        <p class="cmp-foot">두 줄의 길이는 같습니다 — 세금이 줄어든 만큼(연두) 내 쪽으로 넘어옵니다. 지방소득세(10%) 별도.</p>
+        <p class="cmp-foot">두 줄의 길이는 같습니다 — 세금이 줄어든 만큼(초록) 내 쪽으로 넘어옵니다. 지방소득세(10%) 별도.</p>
       </div>
 
       <div class="tax-note reveal" id="calcnote">
         ※ 세무 검토 안내 — 본 산출은 종합소득세 기본 산식(누진세율·공제구간·공제한도)만을 반영한 참고용입니다. 실제 세액은 인적공제·타 소득공제·세액공제·감면 등 개인별 세무 상황에 따라 달라지므로 이 금액은 확정치가 아닙니다. 소득공제 대상은 출자금 중 조합이 벤처기업에 실제 투자한 금액을 기준으로 하며, 본 산출은 출자금 전액이 벤처기업 투자로 집행되는 경우를 가정합니다. 출자를 검토하시는 분은 반드시 본인의 상황에 대해 세무 전문가의 검토를 받으시기 바랍니다.
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="f-benefit">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">제도</span>
+        <h2>개인투자조합 소득공제란</h2>
+        <p class="desc">성과급·주식보상으로 소득이 급증한 해, 개인투자조합 출자는 「조세특례제한법 제16조」에 따라 과세표준 자체를 줄일 수 있는 몇 안 되는 소득공제 수단입니다. 원천징수는 ‘선납’일 뿐이며 — 근로소득 한계세율은 지방소득세 포함 최대 49.5%까지 올라갑니다.</p>
+      </div>
+
+      <div class="sum reveal">
+        <div class="sum-row"><span class="lb">최대 공제율</span><b>100%</b></div>
+        <div class="sum-row"><span class="lb">공제 한도</span><b>종합소득금액의 50%</b></div>
+        <div class="sum-row"><span class="lb">공제 시기</span><b>3개 과세연도 중 택1</b></div>
+        <div class="sum-row"><span class="lb">보유 요건</span><b>3년 이상</b></div>
+      </div>
+
+      <div class="quote reveal">
+        <p>“거주자가 … 개인투자조합에 출자한 금액을 … 그 출자일 또는 투자일이 속하는 과세연도부터 … 1과세연도를 선택하여 해당 과세연도의 종합소득금액에서 공제한다.”</p>
+        <span class="src">「조세특례제한법」 제16조 제1항</span>
+      </div>
+
+      <div class="reveal">
+        <p class="tbl-cap">출자 구간별 소득공제율</p>
+        <table class="rate">
+          <thead><tr><th scope="col">출자 구간</th><th scope="col">소득공제율</th></tr></thead>
+          <tbody>
+            <tr><td>3,000만원 이하분</td><td class="hl">100%</td></tr>
+            <tr><td>3,000만원 초과 ~ 5,000만원 이하분</td><td>70%</td></tr>
+            <tr><td>5,000만원 초과분</td><td>30%</td></tr>
+          </tbody>
+        </table>
+        <ul class="reqs">
+          <li>공제 한도: 해당 과세연도 <strong>종합소득금액의 50%</strong></li>
+          <li>공제 시기: 투자한 해부터 <strong>3개 과세연도 중 택1</strong> — 소득이 가장 큰 해에 신청 가능</li>
+          <li>적용 기한: <strong>2028년 12월 31일까지</strong>의 출자·투자분</li>
+          <li>보유 요건: 투자일부터 <strong>3년 이상 보유</strong> (3년 내 회수 시 공제세액 추징)</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1015,7 +1012,7 @@ function applyRoute(view, id, moveFocus){
 (function(){
   var links = document.querySelectorAll('#fundSubnav a[href^="#f-"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
-  var order = ['f-benefit','f-calc','f-steps','f-risk','f-faq'], map = {}, visible = {};
+  var order = ['f-calc','f-benefit','f-steps','f-risk','f-faq'], map = {}, visible = {};
   links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
   var obs = new IntersectionObserver(function(es){
     es.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });

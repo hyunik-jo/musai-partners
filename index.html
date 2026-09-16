@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://musaipartners.com/">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f2f0eb" id="metaTheme">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23201f1d'/%3E%3Cg%20fill='none'%20stroke='%23f2f0eb'%20stroke-opacity='.55'%20stroke-width='1.6'%3E%3Ccircle%20cx='32'%20cy='32'%20r='22'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='16'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='10'/%3E%3C/g%3E%3Ccircle%20cx='32'%20cy='32'%20r='4'%20fill='%23b68235'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#eef1f4" id="metaTheme">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%231d2b3a'/%3E%3Cg%20fill='none'%20stroke='%23eef1f4'%20stroke-opacity='.55'%20stroke-width='1.6'%3E%3Ccircle%20cx='32'%20cy='32'%20r='22'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='16'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='10'/%3E%3C/g%3E%3Ccircle%20cx='32'%20cy='32'%20r='4'%20fill='%23b68235'/%3E%3C/svg%3E">
 <title>뮤사이파트너스 — 음악 IP 투자 · 개인투자조합 소득공제 안내</title>
 <meta name="description" content="음악저작권·저작인접권에 투자하는 IP 전문기업 뮤사이파트너스. 개인투자조합 출자 소득공제(조세특례제한법 제16조) 제도 안내와 예상 절세액 계산기를 제공합니다.">
 <!-- Open Graph / link preview (company wordmark, not the KOMCA certificate) -->
@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="뮤사이파트너스">
 <meta property="og:title" content="뮤사이파트너스 — 개인투자조합 소득공제 안내 · 음악 IP 투자">
 <meta property="og:description" content="출자금 3,000만원까지 100% 소득공제. 제도 요약과 예상 절세액 계산기 — 음악 IP 투자기업 뮤사이파트너스.">
-<meta property="og:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
+<meta property="og:image" content="https://musaipartners.com/assets/og-cover.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="뮤사이파트너스 — 개인투자조합 소득공제 안내">
 <meta name="twitter:description" content="출자금 3,000만원까지 100% 소득공제 — 제도 안내와 예상 절세액 계산기.">
-<meta name="twitter:image" content="https://musaipartners.com/assets/og-cover.png?v=1">
+<meta name="twitter:image" content="https://musaipartners.com/assets/og-cover.png?v=2">
 <script>
 /* theme (default light) + js flag before first paint */
 (function(){
@@ -44,57 +44,57 @@
    ============================================================ */
 :root{
   color-scheme:light;
-  --bg:#f2f0eb;            /* warm paper */
-  --bg-alt:#faf8f4;        /* highlighted leaf */
-  --card:#fbfaf8;
-  --ink:#201f1d;
-  --ink-2:#5b564d;
-  --ink-3:#8a857b;
-  --line:#ddd9d1;
-  --line-soft:#e6e3dd;
-  --gold:#b68235;          /* single accent */
-  --gold-deep:#8a6226;
-  --on-ink:#f2f0eb;
-  --sk-pos:#5f7a99;        /* steel blue — 내게 남는 소득 */
-  --bar-tax:#8a4d43;       /* 세금 — 벽돌색 (종이·금색과 어울리는 저채도 적색) */
-  --bar-save:#9aae52;      /* 절세 — 올리브 연두 */
+  /* 브랜드 팔레트(명함 기준): 네이비 #2a3c50 + 은색. 라이트 = 은색 종이 위 네이비 잉크 */
+  --bg:#eef1f4;            /* 은색 종이 */
+  --bg-alt:#f5f7f9;
+  --card:#fafbfc;
+  --ink:#1d2b3a;           /* 네이비 잉크 */
+  --ink-2:#4c5d70;         /* 슬레이트 */
+  --ink-3:#7f8d9c;         /* 은회색 */
+  --line:#d3d9e0;          /* 은색 선 */
+  --line-soft:#e0e5ea;
+  --gold:#34506f;          /* 강조색 (변수명은 유지) — 라이트에선 네이비 */
+  --gold-deep:#24394f;
+  --on-ink:#eef1f4;
+  --sk-pos:#5f7a99;
+  --bar-tax:#8c4f4f;       /* 세금 — 벽돌색 */
+  --bar-save:#8fae5e;      /* 절세 — 올리브 연두 */
   --bar-inc:#3b5878;       /* 내 소득 — 스틸 블루 */
-  --bar-fund:#24384f;      /* 출자금 — 짙은 슬레이트 */
-  --bar-save-ink:#5b7220;  /* 절세 콜아웃 글자 */
+  --bar-fund:#24384f;      /* 출자금 — 명함 네이비 */
+  --bar-save-ink:#56731f;
   --hairline:color-mix(in srgb, var(--ink) 16%, transparent);
   --hairline-soft:color-mix(in srgb, var(--ink) 9%, transparent);
-  --hdr-bg:rgba(242,240,235,0.88);
-  --card-shadow:0 1px 3px rgba(32,31,29,.05);
+  --hdr-bg:rgba(238,241,244,0.88);
+  --card-shadow:0 1px 3px rgba(29,43,58,.06);
   --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
   --font:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --serif:"Marcellus",ui-serif,Georgia,serif;
   --num:"Pretendard",-apple-system,BlinkMacSystemFont,"Noto Sans KR",system-ui,sans-serif;
 }
-/* ---------- 다크모드: 별도 설계 — 어두운 열람실
-   웜 차콜 지면 · 아이보리 잉크 · 등불 같은 금색 ---------- */
+/* ---------- 다크모드: 명함 그대로 — 네이비 바탕 · 은색 글자 ---------- */
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#171512;
-  --bg-alt:#1d1a16;
-  --card:#1f1c18;
-  --ink:#e8e3d9;
-  --ink-2:#a59e91;
-  --ink-3:#7d7669;
-  --line:#3a362f;
-  --line-soft:#2b2823;
-  --gold:#c9954a;
-  --gold-deep:#c9954a;
-  --on-ink:#171512;
+  --bg:#24364a;            /* 명함 네이비보다 한 톤 어둡게(카드가 떠 보이도록) */
+  --bg-alt:#2a3d51;
+  --card:#2e4256;          /* 명함 네이비 */
+  --ink:#eef2f6;           /* 흰 은색 */
+  --ink-2:#b9c4cf;         /* 은색 */
+  --ink-3:#8d9bab;
+  --line:#46596d;
+  --line-soft:#3a4c5f;
+  --gold:#bfcad6;          /* 강조색 — 다크에선 은색 */
+  --gold-deep:#d9e1e9;
+  --on-ink:#24364a;
   --sk-pos:#7d97b8;
-  --bar-tax:#a15f55;
-  --bar-save:#a8bd63;
-  --bar-inc:#4f6d92;
-  --bar-fund:#35496a;
-  --bar-save-ink:#c9dc8f;
-  --hairline:color-mix(in srgb, #e8e3d9 22%, transparent);
-  --hairline-soft:color-mix(in srgb, #e8e3d9 11%, transparent);
-  --hdr-bg:rgba(23,21,18,0.88);
-  --card-shadow:0 6px 22px rgba(0,0,0,.4);
+  --bar-tax:#a86560;
+  --bar-save:#a8c06c;
+  --bar-inc:#7391b5;
+  --bar-fund:#506a8e;
+  --bar-save-ink:#cfe09a;
+  --hairline:color-mix(in srgb, #eef2f6 22%, transparent);
+  --hairline-soft:color-mix(in srgb, #eef2f6 11%, transparent);
+  --hdr-bg:rgba(36,54,74,0.88);
+  --card-shadow:0 6px 22px rgba(0,0,0,.35);
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -294,7 +294,7 @@ section.sec + section.sec{ border-top:1px solid var(--line-soft); }
   border:1px solid var(--hairline-soft); box-shadow:var(--card-shadow); }
 .plate::after{ content:""; position:absolute; inset:6px; pointer-events:none;
   border:1px solid var(--hairline); }
-.plate-img{ overflow:hidden; background:#fbfaf7; box-shadow:inset 0 0 0 1px rgba(32,31,29,.09); }
+.plate-img{ overflow:hidden; background:#fafbfc; box-shadow:inset 0 0 0 1px rgba(29,43,58,.09); }
 .plate-img picture{ display:block; }
 .plate-img img{ display:block; width:100%; height:auto; filter:saturate(.88) contrast(.99); }
 :root[data-theme="dark"] .plate-img{ background:#f2f0ea; }
@@ -340,9 +340,9 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 .btnf{ display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
   font-family:inherit; font-size:.98rem; font-weight:600; letter-spacing:-0.01em;
   color:var(--on-ink); background:var(--ink); border:none; border-radius:980px; padding:14px 28px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 3px 12px rgba(32,31,29,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 3px 12px rgba(29,43,58,.14);
   transition:transform .16s var(--ease-out), filter .2s var(--ease-out); }
-:root[data-theme="dark"] .btnf{ box-shadow:inset 0 1px 0 rgba(232,227,217,.14), 0 3px 12px rgba(0,0,0,.4); }
+:root[data-theme="dark"] .btnf{ box-shadow:inset 0 1px 0 rgba(238,242,246,.14), 0 3px 12px rgba(0,0,0,.4); }
 @media (hover:hover){ .btnf:hover{ filter:brightness(1.12); } .btnf:hover .arr{ transform:translateX(3px); } }
 .btnf:active{ transform:scale(0.97); }
 .btng{ display:inline-flex; align-items:center; gap:7px; cursor:pointer;
@@ -370,11 +370,11 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
   background:var(--line); background-clip:content-box; /* clip은 background 축약형 뒤에 */ }
 .ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
   width:22px; height:22px; border-radius:50%; background:var(--ink); border:none;
-  box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(32,31,29,.28);
+  box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(29,43,58,.28);
   cursor:grab; transition:transform .12s var(--ease-out); }
 .ci-range::-webkit-slider-thumb:active{ transform:scale(1.12); cursor:grabbing; }
 .ci-range::-moz-range-thumb{ width:22px; height:22px; border-radius:50%; background:var(--ink);
-  border:none; box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(32,31,29,.28); cursor:grab; }
+  border:none; box-shadow:0 0 0 3px var(--bg), 0 2px 8px rgba(29,43,58,.28); cursor:grab; }
 .ci-range:focus-visible{ outline:none; }
 .ci-range:focus-visible::-webkit-slider-thumb{
   box-shadow:0 0 0 3px var(--bg), 0 0 0 6px color-mix(in srgb, var(--gold) 45%, transparent); }
@@ -923,7 +923,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
   var meta = document.getElementById('metaTheme');
   function apply(t){
     document.documentElement.setAttribute('data-theme', t);
-    if (meta) meta.setAttribute('content', t === 'dark' ? '#171512' : '#f2f0eb');
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#24364a' : '#eef1f4');
   }
   apply(document.documentElement.getAttribute('data-theme') || 'light');
   tt.addEventListener('click', function(){

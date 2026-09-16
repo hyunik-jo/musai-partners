@@ -390,7 +390,14 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 .fill span{ font-size:.85rem; color:var(--ink-3); flex:none; }
 .form-field .fh{ display:block; margin-top:5px; font-size:.78rem; color:var(--ink-3); }
 /* 슬라이더 — 기입란과 양방향 연동. 트랙 6px, 투명 패딩으로 터치 박스 36px(패딩만큼 margin 상쇄) */
-.ci-range{ -webkit-appearance:none; appearance:none; display:block; width:100%; height:6px; margin:12px 0 -9px;
+.ci-slider{ position:relative; }
+/* 썸 위 말풍선 — 채움 정지점과 같은 식으로 썸 중심을 따라감. 양 끝은 clamp로 잘림 방지 */
+.ci-bubble{ position:absolute; top:2px; left:50%;   /* 래퍼 상단 = 슬라이더 박스 상단(마진은 밖으로 상쇄) → 트랙 중심(18px)보다 16px 위에 말풍선 바닥 */ transform:translate(-50%,-100%); white-space:nowrap; pointer-events:none;
+  font-family:var(--num); font-size:.72rem; font-weight:700; line-height:1; color:var(--on-ink);
+  background:var(--ink); padding:5px 8px; border-radius:6px; transition:left .12s linear; }
+.ci-bubble::after{ content:""; position:absolute; left:50%; bottom:-4px; width:8px; height:8px; background:var(--ink);
+  transform:translateX(-50%) rotate(45deg); border-radius:1px; }
+.ci-range{ -webkit-appearance:none; appearance:none; display:block; width:100%; height:6px; margin:34px 0 -9px;
   padding:15px 0; box-sizing:content-box; border:none; border-radius:980px; cursor:pointer;
   background:var(--line); background-clip:content-box; /* clip은 background 축약형 뒤에 */ }
 .ci-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
@@ -411,7 +418,7 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 .ci-tick i{ display:block; width:1px; height:7px; margin:0 auto 4px; background:color-mix(in srgb, var(--ink) 22%, transparent); }
 .ci-tick em{ display:block; font-style:normal; font-size:.66rem; color:var(--gold-deep); font-weight:600; margin-top:2px; }
 @media (max-width:560px){
-  .ci-range{ margin-top:8px; }
+  .ci-range{ margin-top:30px; }
   .ci-ticks{ height:34px; margin-top:8px; }
   .ci-ticks--tall{ height:34px; }          /* 폰에서는 5,000만·8,800만·5억 눈금 숨김 → 1단 */
   .ci-ticks .tick-m-hide{ display:none; }
@@ -740,18 +747,19 @@ html.js .reveal.in{ opacity:1; transform:none; }
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="kick">개인투자조합 소득공제 안내</span>
-        <h1>얼마 넣으면 얼마 아끼는지,<br>바로 보입니다</h1>
-        <p class="desc">슬라이더를 움직이거나 숫자를 직접 입력하면 산출표와 비교 막대가 함께 바뀝니다. 출자금 3,000만 원까지는 100% 소득공제입니다.</p>
+        <h1>얼마 아끼는지 바로 보입니다</h1>
+        <p class="desc">슬라이더를 움직이거나 숫자를 입력하세요.</p>
       </div>
 
       <div class="form-field reveal">
         <label class="fl" for="income">STEP 1 · 내 종합소득 과세표준</label>
         <div class="fill">
-          <input id="income" type="text" inputmode="numeric" value="95,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력">
+          <input id="income" type="text" inputmode="numeric" value="120,000,000" aria-describedby="calcnote" aria-label="종합소득 과세표준 직접 입력">
           <span>원</span>
         </div>
         <small class="fh">연말정산 원천징수영수증의 ‘종합소득 과세표준’ 란</small>
-        <input id="incomeRange" class="ci-range" type="range" min="0" max="500000000" step="5000000" value="95000000" aria-label="과세표준 조정 슬라이더">
+        <div class="ci-slider"><output class="ci-bubble" id="incomeBubble" aria-live="polite">세율 35%</output>
+        <input id="incomeRange" class="ci-range" type="range" min="0" max="500000000" step="5000000" value="120000000" aria-label="과세표준 조정 슬라이더"></div>
         <div class="ci-ticks ci-ticks--tall" aria-hidden="true">
           <span class="ci-tick tick-m-hide" style="left:10%"><i></i>5,000만<em>세율 24%</em></span>
           <span class="ci-tick ci-tick--lo tick-m-hide" style="left:17.6%"><i></i>8,800만<em>세율 35%</em></span>
@@ -767,7 +775,8 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <input id="invest" type="text" inputmode="numeric" value="30,000,000" aria-describedby="calcnote" aria-label="출자금 직접 입력">
           <span>원</span>
         </div>
-        <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더">
+        <div class="ci-slider"><output class="ci-bubble" id="investBubble" aria-live="polite">공제 100%</output>
+        <input id="investRange" class="ci-range" type="range" min="0" max="100000000" step="5000000" value="30000000" aria-label="출자금 조정 슬라이더"></div>
         <div class="ci-ticks" aria-hidden="true">
           <span class="ci-tick" style="left:30%"><i></i>3,000만<em>100% 공제</em></span>
           <span class="ci-tick" style="left:50%"><i></i>5,000만<em>70% 공제</em></span>
@@ -1158,7 +1167,7 @@ function calc(){
   setVal('rSave', fmt(save) + '원');
   setVal('rSaveL', fmt(Math.round(save * 1.1)) + '원');
   setVal('rRoi', inv > 0 ? (save / inv * 100).toFixed(1) + '%' : '–');
-  paintRange('incomeRange'); paintRange('investRange');
+  paintRange('incomeRange'); paintRange('investRange'); setBubbles(inc, inv);
   cmpUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
 /* 채움 그라데이션 — 22px 썸 중심에서 정확히 끝나도록(style.backgroundImage: 축약형은 background-clip을 초기화) */
@@ -1168,6 +1177,18 @@ function paintRange(id){
   var pct = (ir.value - ir.min) / (ir.max - ir.min) * 100;
   var stop = 'calc(' + pct + '% + ' + (11 - 0.22 * pct).toFixed(1) + 'px)';
   ir.style.backgroundImage = 'linear-gradient(90deg, var(--ink) ' + stop + ', var(--line) ' + stop + ')';
+  var bub = document.getElementById(id.replace('Range', 'Bubble'));
+  if (bub) bub.style.left = 'clamp(30px, ' + stop + ', calc(100% - 30px))';
+}
+/* 말풍선 문구: 과세표준 → 해당 구간 세율, 출자금 → 마지막 1원의 공제율 */
+function rateOf(base){
+  for (var i = 0; i < BR.length; i++){ if (base <= BR[i][0]) return BR[i][1]; }
+  return 0.45;
+}
+function setBubbles(inc, inv){
+  var b1 = document.getElementById('incomeBubble'), b2 = document.getElementById('investBubble');
+  if (b1) b1.textContent = '세율 ' + Math.round(rateOf(Math.max(inc, 1)) * 100) + '%';
+  if (b2) b2.textContent = '공제 ' + (inv <= 30000000 ? '100' : inv <= 50000000 ? '70' : '30') + '%';
 }
 /* 기입란 ↔ 슬라이더 양방향 동기화 (입력 중 천단위 콤마 유지, 확정 시 500만원 단위 스냅) */
 function bindPair(textId, rangeId){

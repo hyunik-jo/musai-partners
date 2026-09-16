@@ -222,7 +222,7 @@ html.js .page.active{ display:block; }
 .entry{ min-height:calc(100svh - 58px); display:flex; flex-direction:column; align-items:center;
   justify-content:center; text-align:center; gap:0;
   padding:clamp(48px,8vh,88px) 0 clamp(48px,7vh,72px); }
-.entry .eyebrow{ font-family:var(--num); font-size:.8rem; font-weight:600; letter-spacing:.12em;
+.entry .eyebrow{ font-family:var(--serif); font-size:.8rem; letter-spacing:.3em;
   color:var(--gold-deep); margin-bottom:22px; }
 .entry h1{ font-size:clamp(2.3rem, 5.4vw, 3.6rem); font-weight:700; line-height:1.14;
   letter-spacing:-0.04em; text-wrap:balance; }
@@ -423,39 +423,22 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
 .cmp-head{ display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
   font-size:.82rem; margin-bottom:4px; }
 .cmp-lb{ font-family:var(--num); font-weight:700; color:var(--ink); white-space:nowrap; }
-.cmp-val{ color:var(--ink-2); font-variant-numeric:tabular-nums; }
+.cmp-val{ color:var(--ink); font-variant-numeric:tabular-nums; }
 .cmp-strip{ position:relative; height:22px; }
 .cmp-callout{ position:absolute; bottom:0; transform:translateX(-50%); white-space:nowrap;
   font-family:var(--num); font-size:.8rem; font-weight:700; color:var(--bar-save-ink); line-height:1; }
 .cmp-callout::after{ content:""; display:block; width:2px; height:7px; margin:3px auto 0; background:var(--bar-save); }
 .cmp-bar{ display:flex; height:30px; border-radius:5px; overflow:hidden; background:var(--line-soft); }
 .cmp-bar i{ display:block; height:100%; flex:none; box-sizing:border-box;
-  --a:0; --b:0; width:calc(var(--a) * 1% + (var(--b) - var(--a)) * var(--p, 1) * 1%); }
+  width:calc(var(--w, 0) * 1%); transition:width .35s var(--ease-out); }
 .cmp-bar i + i{ box-shadow:inset 2px 0 0 var(--bg); }   /* 조각 사이 종이색 틈 (0폭이면 안 그려짐) */
-/* 핀 고정 장면: 긴 래퍼 안에 패널을 sticky로 붙이고, 스크롤 진행도(--p)로 아랫줄이 '출자 전 → 출자 후'로 변신 */
-@property --p{ syntax:'<number>'; inherits:true; initial-value:0; }
-.story{ --p:0; position:relative; }
-.story-pin{ position:sticky; top:var(--pin-top, 106px); transition:top .28s var(--ease-out); }
-html.hdr-hidden .story-pin{ top:calc(var(--pin-top, 106px) - var(--hdr-h, 53px)); }   /* 헤더가 숨으면 그만큼 위로 */
-.story .cmp-row--after .cmp-lb, .story .cmp-row--after .cmp-val{ opacity:calc(0.25 + 0.75 * var(--p)); }
-.story .cmp-callout{ opacity:var(--p); }
-.story-hint{ margin:12px 0 0; text-align:center; font-size:.76rem; color:var(--ink-3);
-  opacity:calc(1 - var(--p) * 1.6); }
-@media (prefers-reduced-motion: no-preference){
-  .story{ height:calc(100vh + 60vh); }              /* 60vh 만큼 스크롤하는 동안 고정 */
-  @supports (animation-timeline: view()){
-    .story{ animation:storyP linear both; animation-timeline:view(); animation-range:contain 0% contain 100%; }
-    @keyframes storyP{ from{ --p:0; } to{ --p:1; } }
-  }
-}
-@media (prefers-reduced-motion: reduce){ .story{ --p:1; } .story-hint{ display:none; } }
 .cb-tax{ background:var(--bar-tax); }
 .cb-save{ background:var(--bar-save); }
 .cb-inc{ background:var(--bar-inc); }
 .cb-fund{ background:var(--bar-fund); }
-.cmp-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px; font-size:.76rem; color:var(--ink-2); }
+.cmp-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px; font-size:.76rem; color:var(--ink); }
 .cmp-legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px; }
-.cmp-foot{ margin:10px 0 0; font-size:.72rem; color:var(--ink-3); line-height:1.5; }
+.cmp-foot{ margin:10px 0 0; font-size:.72rem; color:var(--ink-2); line-height:1.5; }
 @media (max-width:560px){
   .cmp{ padding:12px 10px 10px; }
   .cmp-head{ font-size:.76rem; }
@@ -598,7 +581,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
       <circle cx="50" cy="50" r="1.4" fill="var(--bg)" stroke="none"/>
     </svg>
     <div class="wrap entry">
-      <p class="eyebrow">음악 IP 투자 · 개인투자조합 운용</p>
+      <p class="eyebrow">MUSAI&nbsp;PARTNERS</p>
       <h1>잊혀진 음악의 가치를<br>다시 조명합니다.</h1>
       <p class="sub">뮤사이파트너스는 음악저작권·저작인접권에 투자하는 IP 전문기업입니다. 시간이 지나도 사랑받는 곡을 발굴하고, 음악 자산의 새로운 수명을 만들어 갑니다.</p>
       <div class="actions">
@@ -816,15 +799,13 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <div class="co-sub">지방소득세 포함 <b id="rSaveL">–</b> · 출자금 대비 <b id="rRoi">–</b> 절세</div>
       </div>
 
-      <div class="story" id="cmpStory">
-      <div class="story-pin">
       <div class="cmp reveal" id="cmpWrap" role="img" aria-label="출자 전후 세액 비교 막대">
         <p class="cmp-cap">출자 전후 비교</p>
         <div class="cmp-row">
           <div class="cmp-head"><span class="cmp-lb">출자 안 함</span><span class="cmp-val" id="cmpBeforeTxt">–</span></div>
           <div class="cmp-bar" id="cmpBefore"><i class="cb-tax"></i><i class="cb-inc"></i></div>
         </div>
-        <div class="cmp-row cmp-row--after">
+        <div class="cmp-row">
           <div class="cmp-head"><span class="cmp-lb" id="cmpAfterLb">출자 시</span><span class="cmp-val" id="cmpAfterTxt">–</span></div>
           <div class="cmp-strip"><span class="cmp-callout" id="cmpCallout">절세</span></div>
           <div class="cmp-bar" id="cmpAfter"><i class="cb-tax"></i><i class="cb-save"></i><i class="cb-inc"></i><i class="cb-fund"></i></div>
@@ -834,9 +815,6 @@ html.js .reveal.in{ opacity:1; transform:none; }
           <span><i class="cb-inc"></i>내 소득</span><span><i class="cb-fund"></i>출자금 (조합 지분 · 3년 보유)</span>
         </div>
         <p class="cmp-foot">두 줄의 길이는 같습니다 — 세금이 줄어든 만큼(연두) 내 쪽으로 넘어옵니다. 지방소득세(10%) 별도.</p>
-      </div>
-      <p class="story-hint" aria-hidden="true">스크롤하면 출자 후 모습으로 바뀝니다 ↓</p>
-      </div>
       </div>
 
       <div class="tax-note reveal" id="calcnote">
@@ -985,7 +963,6 @@ function applyRoute(view, id, moveFocus){
   document.getElementById('page-home').classList.toggle('active', view === 'home');
   document.getElementById('page-company').classList.toggle('active', view === 'company');
   document.getElementById('page-fund').classList.toggle('active', view === 'fund');
-  document.dispatchEvent(new CustomEvent('routed', { detail:{ view:view } }));   /* 페이지 전환 완료 알림(핀 오프셋 재계산 등) */
   /* 헤더 CTA: 조합 안내 페이지에서는 현재위치(●) */
   var cta = document.getElementById('taxCta');
   var st = cta.querySelector('.st');
@@ -1023,35 +1000,6 @@ function applyRoute(view, id, moveFocus){
     if (map[active]) map[active].classList.add('on');
   }, { rootMargin:'-30% 0px -60% 0px' });
   order.forEach(function(id){ var el = document.getElementById(id); if (el) obs.observe(el); });
-})();
-
-/* ---------- 핀 고정 장면: 상단 오프셋 계산 + 스크롤 타임라인 미지원 시 JS 폴백 ---------- */
-(function(){
-  var story = document.getElementById('cmpStory');
-  if (!story) return;
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function pinTop(){
-    var h = document.querySelector('header.doc'), sn = document.getElementById('fundSubnav');
-    var hh = h ? h.offsetHeight : 0, sh = sn ? sn.offsetHeight : 0;   /* 페이지가 숨겨져 있으면 0 → 라우팅 후 재계산 */
-    story.style.setProperty('--pin-top', (hh + sh + 12) + 'px');
-    story.style.setProperty('--hdr-h', hh + 'px');
-  }
-  pinTop(); window.addEventListener('resize', pinTop);
-  document.addEventListener('routed', pinTop);   /* View Transition 콜백은 비동기라 hashchange 직후엔 아직 이전 페이지 */
-  if (reduced) return;
-  var native = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
-  if (native) return;                      /* 브라우저가 스크롤로 --p를 직접 구동 */
-  var ticking = false;
-  function update(){
-    ticking = false;
-    var r = story.getBoundingClientRect();
-    var span = r.height - window.innerHeight;  /* 래퍼가 뷰포트를 덮고 있는 구간 길이 */
-    var p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 1;
-    story.style.setProperty('--p', p.toFixed(3));
-  }
-  window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive:true });
-  window.addEventListener('resize', update);
-  update();
 })();
 
 /* ---------- 모바일 헤더 숨김: 아래로 스크롤 시 숨기고 위로 올리면 표시 ---------- */
@@ -1126,7 +1074,7 @@ var cmpUpdate = (function(){
     }
     return man.toLocaleString('ko-KR') + '만';
   }
-  function setW(el, a, b){ el.style.setProperty('--a', a); el.style.setProperty('--b', b === undefined ? a : b); }
+  function setW(el, pct){ el.style.setProperty('--w', Math.max(0, pct)); }
   return function(d){
     var inc = Math.max(d.inc, 1);
     var before = d.after + d.save;            /* 공제 전 세액 (calc()는 after·save만 넘김) */
@@ -1135,8 +1083,8 @@ var cmpUpdate = (function(){
     var fund = Math.max(0, Math.min(d.inv, remain));   /* 내 소득 안에서 조합으로 간 돈 */
     /* 윗줄: 세금 | 내 소득 */
     setW(bT, pct(before)); setW(bI, pct(remain));
-    /* 아랫줄: 스크롤 진행도 0 = 윗줄과 동일(세금|내 소득), 1 = 세금↓ | 절세 | 내 소득 | 출자금. 어느 쪽이든 합은 100% */
-    setW(aT, pct(before), pct(d.after)); setW(aS, 0, pct(d.save)); setW(aI, pct(remain), pct(remain - fund)); setW(aF, 0, pct(fund));
+    /* 아랫줄: 세금 | 절세 | 내 소득 | 출자금 — 합은 윗줄과 같음 */
+    setW(aT, pct(d.after)); setW(aS, pct(d.save)); setW(aI, pct(remain - fund)); setW(aF, pct(fund));
     beforeTxt.textContent = '세금 ' + fmtMan(before) + ' · 내 소득 ' + fmtMan(remain);
     afterLb.textContent = '출자 ' + fmtMan(d.inv);
     afterTxt.textContent = '세금 ' + fmtMan(d.after) + ' · 내 소득 ' + fmtMan(inc - d.after)

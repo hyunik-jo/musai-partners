@@ -56,8 +56,11 @@
   --gold-deep:#8a6226;
   --on-ink:#f2f0eb;
   --sk-pos:#5f7a99;        /* steel blue — 내게 남는 소득 */
-  --sk-gain:#8a6226;       /* gold — 절세로 지킨 돈 */
-  --sk-loss:#a86a5b;       /* terracotta — 출자 안 했으면 낼 세금 */
+  --bar-tax:#7b4040;       /* 세금 — 어두운 적회색 */
+  --bar-save:#3d8ff0;      /* 절세 — 밝은 파랑 */
+  --bar-inc:#2a62ad;       /* 내 소득 — 조금 더 어두운 파랑 */
+  --bar-fund:#173f78;      /* 출자금 — 가장 어두운 파랑 */
+  --bar-save-ink:#1f5fb0;  /* 절세 콜아웃 글자 */
   --hairline:color-mix(in srgb, var(--ink) 16%, transparent);
   --hairline-soft:color-mix(in srgb, var(--ink) 9%, transparent);
   --hdr-bg:rgba(242,240,235,0.88);
@@ -83,8 +86,11 @@
   --gold-deep:#c9954a;
   --on-ink:#171512;
   --sk-pos:#7d97b8;
-  --sk-gain:#c9954a;
-  --sk-loss:#c08575;
+  --bar-tax:#9a5250;
+  --bar-save:#5aa5ff;
+  --bar-inc:#3a78c9;
+  --bar-fund:#22508f;
+  --bar-save-ink:#7db8ff;
   --hairline:color-mix(in srgb, #e8e3d9 22%, transparent);
   --hairline-soft:color-mix(in srgb, #e8e3d9 11%, transparent);
   --hdr-bg:rgba(23,21,18,0.88);
@@ -136,9 +142,7 @@ header.doc{
 .hdr-in{ max-width:760px; margin:0 auto; padding:0 24px; height:58px;
   display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .hdr-mark{ display:flex; align-items:baseline; gap:9px; line-height:1; }
-.hdr-mark .mark{ font-family:var(--serif); font-size:1.18rem; letter-spacing:.16em; color:var(--ink); }
-.hdr-mark small{ font-family:var(--num); font-size:.68rem; font-weight:600; letter-spacing:.1em;
-  color:var(--ink-3); }
+.hdr-mark .mark{ font-family:var(--serif); font-size:1.02rem; letter-spacing:.15em; color:var(--ink); white-space:nowrap; }
 .hdr-right{ display:flex; align-items:center; gap:8px; }
 .theme-toggle{
   width:34px; height:34px; flex:none; border:1px solid var(--hairline); border-radius:50%;
@@ -161,8 +165,7 @@ header.doc{
 :root[data-theme="dark"] .hdr-cta.here{ background:color-mix(in srgb, var(--gold) 14%, transparent); }
 @media (max-width:430px){
   .hdr-in{ padding:0 16px; height:52px; }
-  .hdr-mark .mark{ font-size:1.05rem; }
-  .hdr-mark small{ display:none; }
+  .hdr-mark .mark{ font-size:.88rem; letter-spacing:.11em; }
   .hdr-cta{ font-size:.76rem; padding:6px 10px; }
 }
 
@@ -211,23 +214,19 @@ html.js .page.active{ display:block; }
   font-size:clamp(1rem, 2.2vw, 1.16rem); line-height:1.6; letter-spacing:-0.014em; text-wrap:pretty; }
 .entry .actions{ margin-top:38px; display:flex; gap:14px; align-items:center;
   justify-content:center; flex-wrap:wrap; }
-.entry .private{ margin-top:46px; font-size:.78rem; color:var(--ink-3); }
 /* groove disc — 금색 음반 괘선 */
 .groove{ position:absolute; top:-44%; left:50%; transform:translateX(-50%);
   width:min(760px,140vw); aspect-ratio:1; pointer-events:none; z-index:-1;
-  color:var(--gold); opacity:.28;
+  color:var(--gold); opacity:.2;   /* 정적 텍스처 — 회전 없음 */
   -webkit-mask-image:radial-gradient(circle,#000 0 48%,transparent 70%);
   mask-image:radial-gradient(circle,#000 0 48%,transparent 70%); }
-:root[data-theme="dark"] .groove{ opacity:.2; }
+:root[data-theme="dark"] .groove{ opacity:.14; }
 @media (prefers-reduced-motion: no-preference){
-  @keyframes grooveTurn{ to{ transform:translateX(-50%) rotate(360deg); } }
-  .groove{ animation:grooveTurn 150s linear infinite; }
   @keyframes rise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
   .entry .eyebrow{ animation:rise .7s var(--ease-out) both; }
   .entry h1{ animation:rise .8s var(--ease-out) .06s both; }
   .entry .sub{ animation:rise .8s var(--ease-out) .14s both; }
   .entry .actions{ animation:rise .8s var(--ease-out) .22s both; }
-  .entry .private{ animation:rise .8s var(--ease-out) .3s both; }
 }
 
 /* ---------- 섹션 공통 ---------- */
@@ -398,62 +397,37 @@ table.rate td.hl{ color:var(--gold-deep); font-size:1.02rem; }
   .calc-out b.tick, .co-sub b.tick{ animation:tick .3s var(--ease-out); }
 }
 
-/* 도해 · 샌키 */
-.sankey-wrap{ margin-top:26px; padding:14px 10px 8px;
+/* 출자 전후 비교 — 같은 길이의 막대 두 줄 (총액 = 과세표준) */
+.cmp{ margin-top:26px; padding:14px 14px 12px;
   background:color-mix(in srgb, var(--bg-alt) 55%, transparent);
   border:1px solid var(--hairline-soft); }
-.sk-cap{ font-family:var(--num); font-size:.76rem; font-weight:600; letter-spacing:.06em;
-  color:var(--ink-3); padding:0 8px 8px; }
-.sk-foot{ margin-top:2px; font-size:.72rem; color:var(--ink-3); text-align:right; padding:0 8px; }
-#sankey{ display:block; width:100%; height:auto; }
-#sankey text{ font-family:var(--num); }
-.sk-name{ font-size:14.5px; fill:var(--ink-2); font-weight:600; letter-spacing:-0.01em; }
-.sk-val{ font-size:17px; fill:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
-.sk-val--save{ fill:var(--sk-gain); font-size:19px; }
-#sankey[data-o="v"] .sk-name{ font-size:12.5px; }
-#sankey[data-o="v"] .sk-val{ font-size:14px; }
-#sankey[data-o="v"] .sk-val--save{ font-size:16px; }
-/* colour semantics — 무채:통제불가(세금) · 파랑:내게 남음 · 금색:절세 · 붉은:냈을 세금 */
-.sk-node{ fill:color-mix(in srgb, var(--ink) 44%, transparent); }
-.nd-pos{ fill:var(--sk-pos); }
-.nd-save{ fill:var(--sk-gain); }
-.nd-deduct{ fill:color-mix(in srgb, var(--ink) 30%, transparent); }
-.nd-ghost{ fill:color-mix(in srgb, var(--sk-loss) 16%, transparent);
-  stroke:var(--sk-loss); stroke-opacity:.65; stroke-width:1; stroke-dasharray:3 3; }
-.sk-name--ghost{ fill:var(--sk-loss); }
-.sk-val--ghost{ fill:var(--sk-loss); font-size:11.5px; text-decoration:line-through; opacity:.92; }
-.sk-val--sum{ fill:var(--sk-gain); font-size:12px; font-weight:600; }
-.lk-deduct{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
-.lk-remain{ fill:color-mix(in srgb, var(--ink) 11%, transparent); }
-.lk-save{ fill:color-mix(in srgb, var(--sk-gain) 46%, transparent);
-  filter:drop-shadow(0 0 7px color-mix(in srgb, var(--sk-gain) 30%, transparent)); }
-.lk-back{ fill:color-mix(in srgb, var(--sk-pos) 28%, transparent); }
-.lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 38%, transparent); }
-.lk-tax{ fill:color-mix(in srgb, var(--ink) 22%, transparent); }
-.sk-leader{ stroke:var(--ink-3); stroke-width:1; }
-:root[data-theme="dark"] .lk-deduct,
-:root[data-theme="dark"] .lk-remain{ fill:rgba(232,227,217,.13); }
-:root[data-theme="dark"] .lk-tax{ fill:rgba(232,227,217,.26); }
-:root[data-theme="dark"] .lk-back{ fill:color-mix(in srgb, var(--sk-pos) 36%, transparent); }
-:root[data-theme="dark"] .lk-keep{ fill:color-mix(in srgb, var(--sk-pos) 46%, transparent); }
-:root[data-theme="dark"] .lk-save{ fill:color-mix(in srgb, var(--sk-gain) 55%, transparent); }
-:root[data-theme="dark"] .sk-node{ fill:rgba(232,227,217,.5); }
-.sk-flow{ fill:none; stroke-width:2; stroke-linecap:round; opacity:0; pointer-events:none; }
-.sankey-wrap.in .sk-flow{ opacity:.4; transition:opacity .8s var(--ease-out) .9s; }
-.fl-save{ stroke:var(--sk-gain); }
-.fl-deduct{ stroke:var(--ink-3); }
-.fl-remain{ stroke:var(--ink-3); }
-.fl-mute{ stroke:var(--ink-3); }
-@media (prefers-reduced-motion: no-preference){
-  .sk-flow{ stroke-dasharray:1 15; animation:skflow 1.3s linear infinite; }
-  @keyframes skflow{ to{ stroke-dashoffset:-16; } }
+.cmp-cap{ font-family:var(--num); font-size:.76rem; font-weight:600; letter-spacing:.06em;
+  color:var(--ink-3); margin:0 0 4px; }
+.cmp-row{ margin-top:12px; }
+.cmp-head{ display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+  font-size:.82rem; margin-bottom:4px; }
+.cmp-lb{ font-family:var(--num); font-weight:700; color:var(--ink); white-space:nowrap; }
+.cmp-val{ color:var(--ink-2); font-variant-numeric:tabular-nums; }
+.cmp-strip{ position:relative; height:22px; }
+.cmp-callout{ position:absolute; bottom:0; transform:translateX(-50%); white-space:nowrap;
+  font-family:var(--num); font-size:.8rem; font-weight:700; color:var(--bar-save-ink); line-height:1; }
+.cmp-callout::after{ content:""; display:block; width:2px; height:7px; margin:3px auto 0; background:var(--bar-save); }
+.cmp-bar{ display:flex; height:30px; border-radius:5px; overflow:hidden; background:var(--line-soft); }
+.cmp-bar i{ display:block; height:100%; flex:none; box-sizing:border-box;
+  transition:width .35s var(--ease-out); }
+.cmp-bar i + i{ border-left:2px solid var(--bg); }   /* 조각 사이 종이색 틈 */
+.cb-tax{ background:var(--bar-tax); }
+.cb-save{ background:var(--bar-save); }
+.cb-inc{ background:var(--bar-inc); }
+.cb-fund{ background:var(--bar-fund); }
+.cmp-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px; font-size:.76rem; color:var(--ink-2); }
+.cmp-legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px; }
+.cmp-foot{ margin:10px 0 0; font-size:.72rem; color:var(--ink-3); line-height:1.5; }
+@media (max-width:560px){
+  .cmp{ padding:12px 10px 10px; }
+  .cmp-head{ font-size:.76rem; }
+  .cmp-bar{ height:26px; }
 }
-@media (prefers-reduced-motion: reduce){ .sk-flow{ display:none; } }
-html.js .sk-l{ opacity:0; transition:opacity .6s var(--ease-out), transform .6s var(--ease-out);
-  transform-box:fill-box; }
-html.js #sankey[data-o="h"] .sk-l{ transform:translateX(-10px); }
-html.js #sankey[data-o="v"] .sk-l{ transform:translateY(-10px); }
-html.js .sankey-wrap.in .sk-l{ opacity:1; transform:none; }
 
 .tax-note{ margin-top:20px; padding:14px 16px; background:color-mix(in srgb, var(--bg-alt) 70%, transparent);
   border-left:2px solid var(--line);
@@ -543,7 +517,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
   .step{ grid-template-columns:36px 1fr; gap:10px; }
   .fill input{ font-size:1.25rem; }
   .co-row.total b{ font-size:1.4rem; }
-  .sankey-wrap{ border:none; background:transparent; padding:6px 0 0; }
+  .cmp{ border:none; background:transparent; padding:6px 0 0; }
 }
 
 /* ---------- print ---------- */
@@ -563,8 +537,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
 <header class="doc" id="hdr">
   <div class="hdr-in">
     <a class="hdr-mark" href="#home" data-nav aria-label="뮤사이파트너스 홈">
-      <span class="mark">MUSAI</span>
-      <small>뮤사이파트너스</small>
+      <span class="mark">MUSAI&nbsp;PARTNERS</span>
     </a>
     <div class="hdr-right">
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="라이트/다크 모드 전환">
@@ -599,7 +572,6 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <a class="btnf" href="#fund" data-nav>소득공제 혜택 알아보기 <span class="arr" aria-hidden="true">→</span></a>
         <a class="btng" href="#business" data-nav>사업영역 살펴보기 <span class="arr" aria-hidden="true">→</span></a>
       </div>
-      <p class="private">소개받으신 분을 위한 정보 제공 페이지입니다</p>
     </div>
   </div>
 </div>
@@ -811,10 +783,22 @@ html.js .reveal.in{ opacity:1; transform:none; }
         <div class="co-sub">지방소득세 포함 <b id="rSaveL">–</b> · 출자금 대비 <b id="rRoi">–</b> 절세</div>
       </div>
 
-      <div class="sankey-wrap reveal" id="sankeyWrap">
-        <p class="sk-cap">세액 흐름</p>
-        <svg id="sankey" role="img" aria-label="종합소득 과세표준이 소득공제와 절세액으로 나뉘는 흐름 다이어그램"></svg>
-        <p class="sk-foot">※ 점선 상자는 출자하지 않았을 경우의 세액(공제 전) · 지방소득세(10%) 별도</p>
+      <div class="cmp reveal" id="cmpWrap" role="img" aria-label="출자 전후 세액 비교 막대">
+        <p class="cmp-cap">출자 전후 비교</p>
+        <div class="cmp-row">
+          <div class="cmp-head"><span class="cmp-lb">출자 안 함</span><span class="cmp-val" id="cmpBeforeTxt">–</span></div>
+          <div class="cmp-bar" id="cmpBefore"><i class="cb-tax"></i><i class="cb-inc"></i></div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-head"><span class="cmp-lb" id="cmpAfterLb">출자 시</span><span class="cmp-val" id="cmpAfterTxt">–</span></div>
+          <div class="cmp-strip"><span class="cmp-callout" id="cmpCallout">절세</span></div>
+          <div class="cmp-bar" id="cmpAfter"><i class="cb-tax"></i><i class="cb-save"></i><i class="cb-inc"></i><i class="cb-fund"></i></div>
+        </div>
+        <div class="cmp-legend" aria-hidden="true">
+          <span><i class="cb-tax"></i>세금</span><span><i class="cb-save"></i>절세</span>
+          <span><i class="cb-inc"></i>내 소득</span><span><i class="cb-fund"></i>출자금 (조합 지분 · 3년 보유)</span>
+        </div>
+        <p class="cmp-foot">두 줄의 길이는 같습니다 — 세금이 줄어든 만큼(밝은 파랑) 내 쪽으로 넘어옵니다. 지방소득세(10%) 별도.</p>
       </div>
 
       <div class="tax-note reveal" id="calcnote">
@@ -1027,16 +1011,15 @@ function observeReveals(){
   });
 }
 
-/* ---------- sankey infographic (산출 실시간 연동) ---------- */
-var skUpdate = (function(){
-  var svg = document.getElementById('sankey');
-  var wrap = document.getElementById('sankeyWrap');
-  if (!svg || !wrap) return function(){};
-  var NS = 'http://www.w3.org/2000/svg';
-  var mqV = window.matchMedia('(max-width:719px)');
-  var disp = null, rafId = null;
-
-  function fmtM(v){
+/* ---------- 출자 전후 비교 막대 (산출 실시간 연동) ---------- */
+var cmpUpdate = (function(){
+  var wrap = document.getElementById('cmpWrap');
+  if (!wrap) return function(){};
+  var q = function(sel){ return wrap.querySelector(sel); };
+  var bT = q('#cmpBefore .cb-tax'), bI = q('#cmpBefore .cb-inc');
+  var aT = q('#cmpAfter .cb-tax'), aS = q('#cmpAfter .cb-save'), aI = q('#cmpAfter .cb-inc'), aF = q('#cmpAfter .cb-fund');
+  var beforeTxt = q('#cmpBeforeTxt'), afterLb = q('#cmpAfterLb'), afterTxt = q('#cmpAfterTxt'), callout = q('#cmpCallout');
+  function fmtMan(v){
     var man = Math.round(v / 10000);
     if (man >= 10000){
       var eok = Math.floor(man / 10000), rest = man % 10000;
@@ -1044,189 +1027,26 @@ var skUpdate = (function(){
     }
     return man.toLocaleString('ko-KR') + '만';
   }
-  function mk(tag, cls){ var e = document.createElementNS(NS, tag); if (cls) e.setAttribute('class', cls); return e; }
-  function txt(x, y, s, cls, anchor){
-    var t = mk('text', cls);
-    t.setAttribute('x', x.toFixed(1)); t.setAttribute('y', y.toFixed(1));
-    if (anchor) t.setAttribute('text-anchor', anchor);
-    t.textContent = s; return t;
-  }
-  function ribbonH(x0, y0, h0, x1, y1, h1){
-    var xm = ((x0 + x1) / 2).toFixed(1);
-    return 'M' + x0 + ',' + y0.toFixed(1) +
-      'C' + xm + ',' + y0.toFixed(1) + ' ' + xm + ',' + y1.toFixed(1) + ' ' + x1 + ',' + y1.toFixed(1) +
-      'L' + x1 + ',' + (y1 + h1).toFixed(1) +
-      'C' + xm + ',' + (y1 + h1).toFixed(1) + ' ' + xm + ',' + (y0 + h0).toFixed(1) + ' ' + x0 + ',' + (y0 + h0).toFixed(1) + 'Z';
-  }
-  function ribbonV(y0, x0, w0, y1, x1, w1){
-    var ym = ((y0 + y1) / 2).toFixed(1);
-    return 'M' + x0.toFixed(1) + ',' + y0 +
-      'C' + x0.toFixed(1) + ',' + ym + ' ' + x1.toFixed(1) + ',' + ym + ' ' + x1.toFixed(1) + ',' + y1 +
-      'L' + (x1 + w1).toFixed(1) + ',' + y1 +
-      'C' + (x1 + w1).toFixed(1) + ',' + ym + ' ' + (x0 + w0).toFixed(1) + ',' + ym + ' ' + (x0 + w0).toFixed(1) + ',' + y0 + 'Z';
-  }
-  function flowH(x0, yc0, x1, yc1){
-    var xm = ((x0 + x1) / 2).toFixed(1);
-    return 'M' + x0 + ',' + yc0.toFixed(1) + 'C' + xm + ',' + yc0.toFixed(1) + ' ' + xm + ',' + yc1.toFixed(1) + ' ' + x1 + ',' + yc1.toFixed(1);
-  }
-  function flowV(y0, xc0, y1, xc1){
-    var ym = ((y0 + y1) / 2).toFixed(1);
-    return 'M' + xc0.toFixed(1) + ',' + y0 + 'C' + xc0.toFixed(1) + ',' + ym + ' ' + xc1.toFixed(1) + ',' + ym + ' ' + xc1.toFixed(1) + ',' + y1;
-  }
-  function relax(cs, min, lo, hi){
-    var a = cs.slice(), i;
-    for (i = 1; i < a.length; i++) if (a[i] < a[i-1] + min) a[i] = a[i-1] + min;
-    if (a[a.length-1] > hi){
-      a[a.length-1] = hi;
-      for (i = a.length-2; i >= 0; i--) if (a[i] > a[i+1] - min) a[i] = a[i+1] - min;
-      if (a[0] < lo) a[0] = lo;
-    }
-    return a;
-  }
-
-  function build(v){
-    var vert = mqV.matches;
-    var inc = v.inc, capped = v.capped, save = v.save, after = v.after;
-    var inv = v.inv != null ? v.inv : capped;
-    var remain = inc - capped, rest = capped - save, keep = remain - after;
-    var back = rest + keep; /* 세후 소득(절세 제외) */
-    var W = vert ? 360 : 820, H = vert ? 470 : 460;
-    var t = 9, gM = 30, gR = 20;
-    var padT = vert ? 18 : 64, padB = vert ? 18 : 26;
-    var span = (vert ? W : H) - padT - padB;
-    var k = (span - gM - 2 * gR) / (inc + save);
-    function px(val){ return val > 0 ? Math.max(val * k, 2.5) : 0; }
-    var pB = px(capped), pC = px(remain);
-    var pD = px(save), pE = px(rest), pF = px(after), pG = px(keep);
-    var lenA = pB + pC, lenB = pD + pE, lenC = pF + pG, lenH = pE + pG;
-    var gs = pD;
-    var lenFgrp = gs + pF;
-    var lenMcol = lenB + lenC + (lenB && lenC ? gM : 0);
-    var parts = []; if (pD) parts.push(pD); if (lenH) parts.push(lenH); if (lenFgrp) parts.push(lenFgrp);
-    var lenRcol = parts.reduce(function(a,b){ return a+b; }, 0) + gR * Math.max(0, parts.length - 1);
-    var sA = padT + (span - lenA) / 2, sM = padT + (span - lenMcol) / 2, sR = padT + (span - lenRcol) / 2;
-    var A = sA, B = sM, C = sM + (lenB ? lenB + gM : 0);
-    var D = sR, Hn = sR + (pD ? pD + gR : 0), F = Hn + (lenH ? lenH + gR : 0);
-    var FZ = F + gs;
-    var cA = vert ? 50 : 116, cM = vert ? 240 : 400, cR = vert ? 408 : 676;
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    svg.setAttribute('data-o', vert ? 'v' : 'h');
-    while (svg.firstChild) svg.removeChild(svg.firstChild);
-    var gL = mk('g'), gF = mk('g'), gN = mk('g'), gT = mk('g');
-    var L = [];
-    if (pB) L.push([cA, A,      cM, B,  pB, lenB, 'lk-deduct', 'fl-deduct']);
-    if (pC) L.push([cA, A + pB, cM, C,  pC, lenC, 'lk-remain', 'fl-remain']);
-    if (pD) L.push([cM, B,      cR, D,  pD, pD,   'lk-save',   'fl-save']);
-    if (pE) L.push([cM, B + pD, cR, Hn, pE, pE,   'lk-back',   'fl-mute']);
-    if (pG) L.push([cM, C,      cR, Hn + pE, pG, pG, 'lk-keep', 'fl-mute']);
-    if (pF) L.push([cM, C + pG, cR, FZ, pF, pF,   'lk-tax',    'fl-mute']);
-    L.forEach(function(l, i){
-      var p = mk('path', 'sk-l ' + l[6]);
-      p.setAttribute('d', vert ? ribbonV(l[0] + t, l[1], l[4], l[2], l[3], l[5])
-                               : ribbonH(l[0] + t, l[1], l[4], l[2], l[3], l[5]));
-      p.style.transitionDelay = (i * 0.09) + 's';
-      gL.appendChild(p);
-      var f = mk('path', 'sk-flow ' + l[7]);
-      f.setAttribute('d', vert ? flowV(l[0] + t, l[1] + l[4] / 2, l[2], l[3] + l[5] / 2)
-                               : flowH(l[0] + t, l[1] + l[4] / 2, l[2], l[3] + l[5] / 2));
-      gF.appendChild(f);
-    });
-    var Ns = [];
-    if (lenA) Ns.push([cA, A, lenA, '']);
-    if (lenB) Ns.push([cM, B, lenB, ' nd-deduct']);
-    if (lenC) Ns.push([cM, C, lenC, '']);
-    if (pD)  Ns.push([cR, D, pD, ' nd-save']);
-    if (lenH) Ns.push([cR, Hn, lenH, ' nd-pos']);
-    if (gs)  Ns.push([cR, F, gs, ' nd-ghost']);
-    if (pF)  Ns.push([cR, FZ, pF, '']);
-    Ns.forEach(function(n){
-      var r = mk('rect', 'sk-node' + n[3]);
-      if (vert){ r.setAttribute('x', n[1].toFixed(1)); r.setAttribute('y', n[0]); r.setAttribute('width', n[2].toFixed(1)); r.setAttribute('height', t); }
-      else { r.setAttribute('x', n[0]); r.setAttribute('y', n[1].toFixed(1)); r.setAttribute('width', t); r.setAttribute('height', n[2].toFixed(1)); }
-      r.setAttribute('rx', 2.5);
-      gN.appendChild(r);
-    });
-    if (vert){
-      gT.appendChild(txt(W/2, cA - 32, '과세표준', 'sk-name', 'middle'));
-      gT.appendChild(txt(W/2, cA - 12, fmtM(inc), 'sk-val', 'middle'));
-      if (pB){
-        if (Math.abs(inv - capped) < 10000){
-          gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(capped) + ' 전액 공제', 'sk-val', 'start'));
-        } else {
-          gT.appendChild(txt(B, cM + 24, '출자금 ' + fmtM(inv), 'sk-name', 'start'));
-          gT.appendChild(txt(B, cM + 43, '소득공제 ' + fmtM(capped), 'sk-val', 'start'));
-        }
-      }
-      if (pC){ gT.appendChild(txt(C + lenC, cM + 24, '공제 후 과세표준', 'sk-name', 'end'));
-               gT.appendChild(txt(C + lenC, cM + 43, fmtM(remain), 'sk-val', 'end')); }
-      var xs = [], defs = [];
-      if (pD){ xs.push(D + pD/2); defs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0, 0]); }
-      if (lenH){ xs.push(Hn + lenH/2); defs.push(['내게 남는 소득', fmtM(back), '', 0, save > 0 ? back + save : 0]); }
-      if (lenFgrp){ xs.push(F + lenFgrp/2); defs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0, 0]); }
-      xs = relax(xs, 78, padT + 26, W - padB - 26);
-      defs.forEach(function(dd, i){
-        gT.appendChild(txt(xs[i], cR + 24, dd[0], 'sk-name', 'middle'));
-        gT.appendChild(txt(xs[i], cR + 43, dd[1], 'sk-val' + dd[2], 'middle'));
-        if (dd[3]) gT.appendChild(txt(xs[i], cR + 61, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'middle'));
-        if (dd[4]) gT.appendChild(txt(xs[i], cR + 61, '＋절세 = ' + fmtM(dd[4]), 'sk-val sk-val--sum', 'middle'));
-      });
-    } else {
-      gT.appendChild(txt(cA - 12, A + lenA/2 - 7, '과세표준', 'sk-name', 'end'));
-      gT.appendChild(txt(cA - 12, A + lenA/2 + 16, fmtM(inc), 'sk-val', 'end'));
-      if (pB){
-        var bcx = cM + t / 2;
-        if (Math.abs(inv - capped) < 10000){
-          gT.appendChild(txt(bcx, sM - 16, '출자금 ' + fmtM(capped) + ' 전액 공제', 'sk-val', 'middle'));
-        } else {
-          gT.appendChild(txt(bcx, sM - 36, '출자금 ' + fmtM(inv), 'sk-name', 'middle'));
-          gT.appendChild(txt(bcx, sM - 16, '소득공제 ' + fmtM(capped), 'sk-val', 'middle'));
-        }
-        var ld = mk('line', 'sk-leader');
-        ld.setAttribute('x1', bcx.toFixed(1)); ld.setAttribute('x2', bcx.toFixed(1));
-        ld.setAttribute('y1', (sM - 11).toFixed(1)); ld.setAttribute('y2', (sM - 3).toFixed(1));
-        gT.appendChild(ld);
-      }
-      if (pC){
-        gT.appendChild(txt(cM + t + 10, C + lenC/2 - 6, '공제 후 과세표준', 'sk-name', 'start'));
-        gT.appendChild(txt(cM + t + 10, C + lenC/2 + 16, fmtM(remain), 'sk-val', 'start'));
-      }
-      var rys = [], rdefs = [];
-      if (pD){ rys.push(D + pD/2); rdefs.push(['절세액', '+' + fmtM(save), ' sk-val--save', 0, 0]); }
-      if (lenH){ rys.push(Hn + lenH/2); rdefs.push(['내게 남는 소득', fmtM(back), '', 0, save > 0 ? back + save : 0]); }
-      if (lenFgrp){ rys.push(F + lenFgrp/2); rdefs.push(['납부 세액', fmtM(after), '', gs ? after + save : 0, 0]); }
-      rys = relax(rys, 58, padT + 10, H - padB - 10);
-      rdefs.forEach(function(dd, i){
-        gT.appendChild(txt(cR + t + 10, rys[i] - 6, dd[0], 'sk-name', 'start'));
-        gT.appendChild(txt(cR + t + 10, rys[i] + 16, dd[1], 'sk-val' + dd[2], 'start'));
-        if (dd[3]) gT.appendChild(txt(cR + t + 10, rys[i] + 33, '공제 전 ' + fmtM(dd[3]), 'sk-val sk-val--ghost', 'start'));
-        if (dd[4]) gT.appendChild(txt(cR + t + 10, rys[i] + 33, '＋절세 = ' + fmtM(dd[4]), 'sk-val sk-val--sum', 'start'));
-      });
-    }
-    svg.appendChild(gL); svg.appendChild(gF); svg.appendChild(gN); svg.appendChild(gT);
-  }
-
-  function lerp(a, b, t){ return a + (b - a) * t; }
-  function update(vals){
-    if (!vals || vals.inc <= 0){ wrap.style.display = 'none'; disp = null; return; }
-    wrap.style.display = '';
-    if (!disp || reduced){ disp = vals; build(vals); return; }
-    var from = disp, to = vals, t0 = null, DUR = 220;
-    if (rafId) cancelAnimationFrame(rafId);
-    function step(ts){
-      if (!t0) t0 = ts;
-      var p = Math.min(1, (ts - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
-      disp = { inc: lerp(from.inc, to.inc, e), capped: lerp(from.capped, to.capped, e),
-               save: lerp(from.save, to.save, e), after: lerp(from.after, to.after, e),
-               inv: lerp(from.inv != null ? from.inv : from.capped, to.inv != null ? to.inv : to.capped, e) };
-      build(disp);
-      if (p < 1) rafId = requestAnimationFrame(step);
-      else { disp = to; rafId = null; }
-    }
-    rafId = requestAnimationFrame(step);
-  }
-  var onMq = function(){ if (disp) build(disp); };
-  if (mqV.addEventListener) mqV.addEventListener('change', onMq); else mqV.addListener(onMq);
-  return update;
+  function setW(el, pct){ el.style.display = pct > 0 ? '' : 'none'; el.style.width = pct + '%'; }
+  return function(d){
+    var inc = Math.max(d.inc, 1);
+    var before = d.after + d.save;            /* 공제 전 세액 (calc()는 after·save만 넘김) */
+    var pct = function(v){ return Math.max(0, v / inc * 100); };
+    var remain = inc - before;                /* 출자 안 했을 때 내 소득 */
+    var fund = Math.max(0, Math.min(d.inv, remain));   /* 내 소득 안에서 조합으로 간 돈 */
+    /* 윗줄: 세금 | 내 소득 */
+    setW(bT, pct(before)); setW(bI, pct(remain));
+    /* 아랫줄: 세금 | 절세 | 내 소득 | 출자금 — 합은 윗줄과 같음 */
+    setW(aT, pct(d.after)); setW(aS, pct(d.save)); setW(aI, pct(remain - fund)); setW(aF, pct(fund));
+    beforeTxt.textContent = '세금 ' + fmtMan(before) + ' · 내 소득 ' + fmtMan(remain);
+    afterLb.textContent = '출자 ' + fmtMan(d.inv);
+    afterTxt.textContent = '세금 ' + fmtMan(d.after) + ' · 내 소득 ' + fmtMan(inc - d.after)
+      + (fund > 0 ? ' (출자금 ' + fmtMan(fund) + ' 포함)' : '');
+    callout.textContent = '절세 +' + fmtMan(d.save);
+    var left = pct(d.after) + pct(d.save) / 2;
+    callout.style.left = Math.min(90, Math.max(10, left)) + '%';
+    callout.style.visibility = d.save > 0 ? 'visible' : 'hidden';
+  };
 })();
 
 /* ---------- calculator (identical logic — verified vs. source sheet) ---------- */
@@ -1269,7 +1089,7 @@ function calc(){
   setVal('rSaveL', fmt(Math.round(save * 1.1)) + '원');
   setVal('rRoi', inv > 0 ? (save / inv * 100).toFixed(1) + '%' : '–');
   paintRange('incomeRange'); paintRange('investRange');
-  skUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
+  cmpUpdate({ inc: inc, capped: capped, save: save, after: after, inv: inv });
 }
 /* 채움 그라데이션 — 22px 썸 중심에서 정확히 끝나도록(style.backgroundImage: 축약형은 background-clip을 초기화) */
 function paintRange(id){
